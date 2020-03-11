@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hofff\Contao\Consent\Bridge;
 
 use Contao\ContentModel;
+use Contao\Model;
 
 interface ConsentTool
 {
@@ -16,7 +17,13 @@ interface ConsentTool
 
     public function supportedTemplates(): void;
 
-    public function renderContentElement(ContentModel $contentModel, string $buffer) : string;
+    public function determineConsentIdFromModel(Model $model) : ?ConsentId;
 
-    public function renderFrontendModule(\Contao\ModuleModel $moduleModel, string $buffer) : string;
+    public function requiresConsent(ConsentId $consentId) : bool;
+
+    public function renderHtml(string $buffer, ConsentId $consentId) : string;
+
+    public function renderScript(string $buffer, ConsentId $consentId) : string;
+
+    public function renderStyle(string $buffer, ConsentId $consentId) : string;
 }
