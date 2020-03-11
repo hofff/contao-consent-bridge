@@ -1,0 +1,45 @@
+{
+    "name": "hofff/contao-consent-bridge",
+    "type": "contao-bundle",
+    "description": "Consent manager for Contao",
+    "keywords": ["GDPDR", "Cookies", "Consent"],
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "David Molineus",
+            "email": "david@hofff.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "beberlei/assert": "^3.2",
+        "contao-community-alliance/meta-palettes": "^2.0",
+        "contao/core-bundle": "~4.4",
+        "doctrine/dbal": "^2.5",
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "menatwork/contao-multicolumnwizard-bundle": "^3.4",
+        "netzmacht/contao-toolkit": "^3.3",
+        "php": "^7.1",
+        "symfony/config": "^3.4 || ^4.0",
+        "symfony/dependency-injection": "^3.4 || ^4.0",
+        "symfony/http-kernel": "^3.4 || ^4.0",
+        "phpspec/phpspec": "^6.1",
+        "vimeo/psalm": "^3.9"
+    },
+    "require-dev": {
+        "contao/manager-plugin": "^2.1",
+        "doctrine/coding-standard": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hofff\\Contao\\Consent\\Bridge\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        },
+        "contao-manager-plugin": "Hofff\\Contao\\Consent\\Bridge\\ContaoManager\\Plugin"
+    }
+}
