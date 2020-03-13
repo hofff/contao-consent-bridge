@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
-use Hofff\Contao\Consent\Bridge\ConsentId;
+use Contao\Model;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
@@ -32,14 +32,30 @@ abstract class ConsentListener
         return $this->consentToolManager->activeConsentTool();
     }
 
-    protected function render(string $buffer, ?ConsentId $consentId) : string
+    protected function renderForModel(string $buffer, Model $model) : string
     {
+        $consentTool = $this->consentTool();
+        if ($consentTool === null) {
+            return $buffer;
+        }
+
+        $consentId = $consentTool->determineConsentIdFromModel($model);
         if ($consentId === null) {
             return $buffer;
         }
 
+        return $consentTool->renderHtml($buffer, $consentId);
+    }
+
+    protected function renderForTemplate(string $buffer, string $templateName) : string
+    {
         $consentTool = $this->consentTool();
         if ($consentTool === null) {
+            return $buffer;
+        }
+
+        $consentId = $consentTool->determineConsentIdByName($templateName);
+        if ($consentId === null) {
             return $buffer;
         }
 

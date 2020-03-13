@@ -5,5 +5,7 @@
         https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults autowire="false" autoconfigure="false" public="false"/>
+
+        <service id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
     </services>
 </container>

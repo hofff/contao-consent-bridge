@@ -4,18 +4,14 @@ declare(strict_types=1);
 
 namespace Hofff\Contao\Consent\Bridge;
 
-use Contao\ContentModel;
 use Contao\Model;
+use Netzmacht\Html\Attributes;
 
 interface ConsentTool
 {
     public function name() : string;
 
-    public function supportedContentElements() : array;
-
-    public function supportedFrontendModules() : array;
-
-    public function supportedTemplates(): void;
+    public function determineConsentIdByName(string $serviceOrTemplateName) : ?ConsentId;
 
     public function determineConsentIdFromModel(Model $model) : ?ConsentId;
 
@@ -23,7 +19,7 @@ interface ConsentTool
 
     public function renderHtml(string $buffer, ConsentId $consentId) : string;
 
-    public function renderScript(string $buffer, ConsentId $consentId) : string;
+    public function renderScript(Attributes $attributes, ConsentId $consentId) : string;
 
-    public function renderStyle(string $buffer, ConsentId $consentId) : string;
+    public function renderStyle(Attributes $attributes, ConsentId $consentId) : string;
 }

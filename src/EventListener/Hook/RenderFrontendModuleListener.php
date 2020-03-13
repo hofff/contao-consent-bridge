@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
-use Contao\ModuleModel;
+use Contao\ContentModel;
 
 final class RenderFrontendModuleListener extends ConsentListener
 {
-    public function onGetFrontendModule(ModuleModel $moduleModel, string $buffer) : string
+    public function onGetContentElement(ContentModel $contentModel, string $buffer) : string
     {
-        $consentTool = $this->consentTool();
-        if ($consentTool === null) {
-            return $buffer;
-        }
-
-        return $consentTool->renderFrontendModule($moduleModel, $buffer);
+        return $this->renderForModel($buffer, $contentModel);
     }
 }

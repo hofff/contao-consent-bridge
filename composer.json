@@ -25,7 +25,8 @@
         "symfony/dependency-injection": "^3.4 || ^4.0",
         "symfony/http-kernel": "^3.4 || ^4.0",
         "phpspec/phpspec": "^6.1",
-        "vimeo/psalm": "^3.9"
+        "vimeo/psalm": "^3.9",
+        "netzmacht/html": "^2.0"
     },
     "require-dev": {
         "contao/manager-plugin": "^2.1",

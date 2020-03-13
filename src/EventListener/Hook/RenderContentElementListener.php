@@ -10,12 +10,6 @@ final class RenderContentElementListener extends ConsentListener
 {
     public function onGetContentElement(ContentModel $contentModel, string $buffer) : string
     {
-        $consentTool = $this->consentTool();
-
-        if ($consentTool === null) {
-            return $buffer;
-        }
-
-        return $consentTool->renderContentElement($contentModel, $buffer);
+        return $this->renderForModel($buffer, $contentModel);
     }
 }
