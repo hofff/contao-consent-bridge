@@ -6,6 +6,9 @@
     <services>
         <defaults autowire="false" autoconfigure="false" public="false"/>
 
-        <service id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
+        <service id="Hofff\Contao\Consent\Bridge\ConsentToolManager">
+            <argument>%hofff_contao_consent_bridge.frontend_modules%</argument>
+            <argument>%hofff_contao_consent_bridge.content_elements%</argument>
+        </service>
     </services>
 </container>
