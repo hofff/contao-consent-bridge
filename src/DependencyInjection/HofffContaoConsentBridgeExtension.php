@@ -11,7 +11,10 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 class HofffContaoConsentBridgeExtension extends Extension
 {
-    public function load(array $configs, ContainerBuilder $container)
+    /**
+     * @param mixed[] $configs
+     */
+    public function load(array $configs, ContainerBuilder $container) : void
     {
         $loader = new XmlFileLoader(
             $container,

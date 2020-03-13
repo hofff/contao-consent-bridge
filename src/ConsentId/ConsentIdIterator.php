@@ -20,6 +20,7 @@ final class ConsentIdIterator implements Iterator
     public function __construct(ConsentIds $consentIds)
     {
         $this->consentIds = $consentIds->toArray();
+        $this->position   = 0;
     }
 
     public function count() : int
