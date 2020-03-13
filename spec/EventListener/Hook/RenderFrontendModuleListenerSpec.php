@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace spec\Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
+use Contao\ModuleModel;
 use Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
-use Hofff\Contao\Consent\Bridge\EventListener\Hook\ParseFrontendTemplateListener;
+use Hofff\Contao\Consent\Bridge\EventListener\Hook\RenderFrontendModuleListener;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
+final class RenderFrontendModuleListenerSpec extends ObjectBehavior
 {
     /** @var ConsentToolManager */
     private $consentToolManager;
@@ -26,17 +27,18 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
 
     public function it_is_initializable() : void
     {
-        $this->shouldHaveType(ParseFrontendTemplateListener::class);
+        $this->shouldHaveType(RenderFrontendModuleListener::class);
     }
 
-    public function it_renders_supported_template(
+    public function it_renders_supported_frontend_module(
         ConsentTool $consentTool,
         ConsentId $consentId,
-        RequestScopeMatcher $scopeMatcher
+        RequestScopeMatcher $scopeMatcher,
+        ModuleModel $model
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $consentTool->determineConsentIdByName('template_name')
+        $consentTool->determineConsentIdFromModel($model)
             ->willReturn($consentId);
 
         $consentTool->renderHtml(Argument::type('string'), $consentId)
@@ -45,25 +47,25 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
 
         $this->consentToolManager->activate($consentTool->getWrappedObject());
 
-        $this->onParseFrontendTemplate('<html></html>', 'template_name')->shouldReturn('wrapped');
+        $this->onGetFrontendModule($model, '<html></html>')->shouldReturn('wrapped');
     }
 
-    public function it_bypass_unsupported_template(
+    public function it_bypass_unsupported_frontend_module(
         ConsentTool $consentTool,
         ConsentId $consentId,
-        RequestScopeMatcher $scopeMatcher
+        RequestScopeMatcher $scopeMatcher,
+        ModuleModel $model
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $consentTool->determineConsentIdByName('template_name')
+        $consentTool->determineConsentIdFromModel($model)
             ->willReturn(null);
 
         $consentTool->renderHtml(Argument::type('string'), $consentId)
-            ->shouldNotBeCalled()
-            ->willReturn('<html></html>');
+            ->shouldNotBeCalled();
 
         $this->consentToolManager->activate($consentTool->getWrappedObject());
 
-        $this->onParseFrontendTemplate('<html></html>', 'template_name')->shouldReturn('<html></html>');
+        $this->onGetFrontendModule($model, '<html></html>')->shouldReturn('<html></html>');
     }
 }

@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace spec\Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
+use Contao\LayoutModel;
+use Contao\PageModel;
 use Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
-use Hofff\Contao\Consent\Bridge\EventListener\Hook\ParseFrontendTemplateListener;
+use Hofff\Contao\Consent\Bridge\EventListener\Hook\GoogleWebfontsListener;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
+use Netzmacht\Html\Attributes;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
+final class GoogleWebfontsListenerSpec extends ObjectBehavior
 {
     /** @var ConsentToolManager */
     private $consentToolManager;
@@ -26,44 +29,48 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
 
     public function it_is_initializable() : void
     {
-        $this->shouldHaveType(ParseFrontendTemplateListener::class);
+        $this->shouldHaveType(GoogleWebfontsListener::class);
     }
 
     public function it_renders_supported_template(
         ConsentTool $consentTool,
         ConsentId $consentId,
-        RequestScopeMatcher $scopeMatcher
+        RequestScopeMatcher $scopeMatcher,
+        PageModel $pageModel,
+        LayoutModel $layoutModel
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $consentTool->determineConsentIdByName('template_name')
+        $consentTool->determineConsentIdByName('google_webfonts')
             ->willReturn($consentId);
 
-        $consentTool->renderHtml(Argument::type('string'), $consentId)
+        $consentTool->renderStyle(Argument::type(Attributes::class), $consentId)
             ->shouldBeCalled()
             ->willReturn('wrapped');
 
         $this->consentToolManager->activate($consentTool->getWrappedObject());
 
-        $this->onParseFrontendTemplate('<html></html>', 'template_name')->shouldReturn('wrapped');
+        $this->onGeneratePage($pageModel, $layoutModel);
     }
 
     public function it_bypass_unsupported_template(
         ConsentTool $consentTool,
         ConsentId $consentId,
-        RequestScopeMatcher $scopeMatcher
+        RequestScopeMatcher $scopeMatcher,
+        PageModel $pageModel,
+        LayoutModel $layoutModel
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $consentTool->determineConsentIdByName('template_name')
+        $consentTool->determineConsentIdByName('google_webfonts')
             ->willReturn(null);
 
-        $consentTool->renderHtml(Argument::type('string'), $consentId)
+        $consentTool->renderStyle(Argument::type(Attributes::class), $consentId)
             ->shouldNotBeCalled()
             ->willReturn('<html></html>');
 
         $this->consentToolManager->activate($consentTool->getWrappedObject());
 
-        $this->onParseFrontendTemplate('<html></html>', 'template_name')->shouldReturn('<html></html>');
+        $this->onGeneratePage($pageModel, $layoutModel);
     }
 }
