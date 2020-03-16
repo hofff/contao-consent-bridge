@@ -6,38 +6,28 @@ namespace Hofff\Contao\Consent\Bridge;
 
 final class ConsentToolManager
 {
-    /** @var string[] */
-    private $frontendModules;
-
-    /** @var string[] */
-    private $contentElements;
-
     /** @var ConsentTool|null */
     private $activeConsentTool;
 
-    /**
-     * @param string[] $frontendModules
-     * @param string[] $contentElements
-     */
-    public function __construct(array $frontendModules, array $contentElements)
+    /** @var ConsentTool[] */
+    private $consentTools = [];
+
+    /** @return ConsentTool[] */
+    public function consentTools() : array
     {
-        $this->frontendModules = $frontendModules;
-        $this->contentElements = $contentElements;
+        return $this->consentTools;
     }
 
-    public function supportedContentElements() : array
+    public function register(ConsentTool $consentTool) : void
     {
-        return $this->contentElements;
+        $this->consentTools[$consentTool->name()] = $consentTool;
     }
 
-    public function supportedFrontendModules() : array
+    public function activate(string $name) : void
     {
-        return $this->frontendModules;
-    }
-
-    public function activate(ConsentTool $consentTool) : void
-    {
-        $this->activeConsentTool = $consentTool;
+        if (!isset($this->consentTools[$name])) {
+            throw new \InvalidArgumentException(sprintf('Consent tool "%s" is not known', $name));
+        }
     }
 
     public function hasActiveConsentTool() : bool

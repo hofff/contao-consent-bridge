@@ -11,7 +11,17 @@
         <directory name="src" />
         <ignoreFiles>
             <directory name="vendor" />
+            <directory name="src/Resources/contao/dca"/>
             <file name="src/DependencyInjection/Configuration.php"/>
         </ignoreFiles>
     </projectFiles>
+
+    <issueHandlers>
+        <UndefinedMagicPropertyFetch>
+            <errorLevel type="suppress">
+                <referencedProperty name="Contao\ContentModel::$hofff_consent_bridge_tag"/>
+                <referencedProperty name="Contao\ModuleModel::$hofff_consent_bridge_tag"/>
+            </errorLevel>
+        </UndefinedMagicPropertyFetch>
+    </issueHandlers>
 </psalm>

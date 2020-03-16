@@ -7,6 +7,7 @@
     <services>
         <defaults autowire="false" autoconfigure="false" public="false"/>
 
+        <!-- Hook listeners -->
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Hook\GoogleWebfontsListener" public="true">
             <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
             <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher" />
@@ -29,6 +30,23 @@
             <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
             <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher" />
             <tag name="contao.hook" hook="getFrontendModule" />
+        </service>
+
+        <!-- Data container listener -->
+        <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\ConsentIdOptions" public="true">
+            <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
+        </service>
+
+        <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\ContentDcaListener" public="true">
+            <argument>%hofff_contao_consent_bridge.content_elements%</argument>
+        </service>
+
+        <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\ModuleDcaListener" public="true">
+            <argument>%hofff_contao_consent_bridge.frontend_modules%</argument>
+        </service>
+
+        <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\PageDcaListener" public="true">
+            <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager"/>
         </service>
     </services>
 </container>

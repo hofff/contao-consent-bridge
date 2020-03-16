@@ -32,14 +32,14 @@ abstract class ConsentListener
         return $this->consentToolManager->activeConsentTool();
     }
 
-    protected function renderForModel(string $buffer, Model $model) : string
+    protected function render(string $buffer, string $consentIdAsString) : string
     {
         $consentTool = $this->consentTool();
         if ($consentTool === null) {
             return $buffer;
         }
 
-        $consentId = $consentTool->determineConsentIdFromModel($model);
+        $consentId = $consentTool->createConsentId($consentIdAsString);
         if ($consentId === null) {
             return $buffer;
         }

@@ -2,8 +2,11 @@
 
 namespace spec\Hofff\Contao\Consent\Bridge;
 
+use Hofff\Contao\Consent\Bridge\DependencyInjection\Compiler\RegisterConsentToolPass;
 use Hofff\Contao\Consent\Bridge\HofffContaoConsentBridgeBundle;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
@@ -18,5 +21,12 @@ final class HofffContaoConsentBridgeBundleSpec extends ObjectBehavior
     {
         $this->shouldImplement(BundleInterface::class);
         $this->shouldBeAnInstanceOf(Bundle::class);
+    }
+
+    public function it_registers_compiler_passes(ContainerBuilder $builder) : void
+    {
+        $builder->addCompilerPass(Argument::type(RegisterConsentToolPass::class));
+
+        $this->build($builder);
     }
 }
