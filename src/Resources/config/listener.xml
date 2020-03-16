@@ -8,6 +8,11 @@
         <defaults autowire="false" autoconfigure="false" public="false"/>
 
         <!-- Hook listeners -->
+        <service id="Hofff\Contao\Consent\Bridge\EventListener\Hook\ActivateConsentToolListener" public="true">
+            <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
+            <tag name="contao.hook" hook="getPageLayout" />
+        </service>
+
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Hook\GoogleWebfontsListener" public="true">
             <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
             <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher" />
@@ -23,12 +28,14 @@
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Hook\RenderContentElementListener" public="true">
             <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
             <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher" />
+            <argument>%hofff_contao_consent_bridge.content_elements%</argument>
             <tag name="contao.hook" hook="getContentElement" />
         </service>
 
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Hook\RenderFrontendModuleListener" public="true">
             <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
             <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher" />
+            <argument>%hofff_contao_consent_bridge.frontend_modules%</argument>
             <tag name="contao.hook" hook="getFrontendModule" />
         </service>
 

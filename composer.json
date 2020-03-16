@@ -34,7 +34,8 @@
     },
     "require-dev": {
         "contao/manager-plugin": "^2.1",
-        "doctrine/coding-standard": "^7.0"
+        "doctrine/coding-standard": "^7.0",
+        "bossa/phpspec2-expect": "^3.1"
     },
     "extra": {
         "branch-alias": {
