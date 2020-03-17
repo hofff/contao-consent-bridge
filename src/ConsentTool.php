@@ -13,7 +13,7 @@ interface ConsentTool
 {
     public function name() : string;
 
-    public function configure(PageModel $pageModel, LayoutModel $layoutModel) : void;
+    public function configure(PageModel $rootPageModel, PageModel $pageModel, LayoutModel $layoutModel) : void;
 
     /**
      * Get consent id options by name and consent ids

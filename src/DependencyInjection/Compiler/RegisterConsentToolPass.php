@@ -20,7 +20,7 @@ final class RegisterConsentToolPass implements CompilerPassInterface
         }
 
         $definition = $container->getDefinition(ConsentToolManager::class);
-        $services   = $this->findAndSortTaggedServices('hofff_contao_consent_bridge.consent_tool');
+        $services   = $this->findAndSortTaggedServices('hofff_contao_consent_bridge.consent_tool', $container);
 
         foreach ($services as $service) {
             $definition->addMethodCall('register', [$service]);

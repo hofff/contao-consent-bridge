@@ -7,8 +7,6 @@ namespace Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentId;
 use InvalidArgumentException;
-use function assert;
-use function is_a;
 
 final class ConsentIdParser
 {
@@ -23,8 +21,6 @@ final class ConsentIdParser
     public function parse(string $string) : ConsentId
     {
         foreach ($this->bridge->providedConsentIds() as $class) {
-            assert(is_a($class, ConsentId::class));
-
             if ($class::supports($string)) {
                 return $class::fromString($string);
             }

@@ -41,13 +41,13 @@ final class ConsentToolManager
         return $this->consentTools[$name];
     }
 
-    public function activate(string $name, PageModel $pageModel, LayoutModel $layoutModel) : void
+    public function activate(string $name, PageModel $rootPageModel, PageModel $pageModel, LayoutModel $layoutModel) : void
     {
         if (!isset($this->consentTools[$name])) {
             throw new \InvalidArgumentException(sprintf('Consent tool "%s" is not known', $name));
         }
 
-        $this->consentTools[$name]->configure($pageModel, $layoutModel);
+        $this->consentTools[$name]->configure($rootPageModel, $pageModel, $layoutModel);
         $this->activeConsentTool = $this->consentTools[$name];
     }
 

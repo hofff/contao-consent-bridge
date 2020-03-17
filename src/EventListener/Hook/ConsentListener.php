@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
+use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
+use InvalidArgumentException;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 
 abstract class ConsentListener
@@ -16,10 +18,14 @@ abstract class ConsentListener
     /** @var RequestScopeMatcher */
     private $scopeMatcher;
 
-    public function __construct(ConsentToolManager $consentToolManager, RequestScopeMatcher $scopeMatcher)
+    /** @var ConsentIdParser */
+    private $consentIdParser;
+
+    public function __construct(ConsentToolManager $consentToolManager, RequestScopeMatcher $scopeMatcher, ConsentIdParser $consentIdParser)
     {
         $this->consentToolManager = $consentToolManager;
         $this->scopeMatcher       = $scopeMatcher;
+        $this->consentIdParser    = $consentIdParser;
     }
 
     protected function consentTool() : ?ConsentTool
@@ -38,8 +44,9 @@ abstract class ConsentListener
             return $buffer;
         }
 
-        $consentId = $consentTool->createConsentId($consentIdAsString);
-        if ($consentId === null) {
+        try {
+            $consentId = $this->consentIdParser->parse($consentIdAsString);
+        } catch (InvalidArgumentException $exception) {
             return $buffer;
         }
 

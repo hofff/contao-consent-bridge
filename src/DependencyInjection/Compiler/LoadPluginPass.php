@@ -20,7 +20,7 @@ final class LoadPluginPass implements CompilerPassInterface
         }
 
         $definition = $container->getDefinition(Bridge::class);
-        $plugins    = $this->findAndSortTaggedServices('hofff_contao_consent_bridge.plugin');
+        $plugins    = $this->findAndSortTaggedServices('hofff_contao_consent_bridge.plugin', $container);
 
         foreach ($plugins as $plugin) {
             $definition->addMethodCall('load', [$plugin]);
