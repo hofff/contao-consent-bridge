@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
-use Contao\Model;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;

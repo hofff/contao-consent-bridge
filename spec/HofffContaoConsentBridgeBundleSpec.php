@@ -2,6 +2,7 @@
 
 namespace spec\Hofff\Contao\Consent\Bridge;
 
+use Hofff\Contao\Consent\Bridge\DependencyInjection\Compiler\LoadPluginPass;
 use Hofff\Contao\Consent\Bridge\DependencyInjection\Compiler\RegisterConsentToolPass;
 use Hofff\Contao\Consent\Bridge\HofffContaoConsentBridgeBundle;
 use PhpSpec\ObjectBehavior;
@@ -25,7 +26,8 @@ final class HofffContaoConsentBridgeBundleSpec extends ObjectBehavior
 
     public function it_registers_compiler_passes(ContainerBuilder $builder) : void
     {
-        $builder->addCompilerPass(Argument::type(RegisterConsentToolPass::class));
+        $builder->addCompilerPass(Argument::type(RegisterConsentToolPass::class))->shouldBeCalled();
+        $builder->addCompilerPass(Argument::type(LoadPluginPass::class))->shouldBeCalled();
 
         $this->build($builder);
     }

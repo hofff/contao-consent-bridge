@@ -5,29 +5,29 @@ declare(strict_types=1);
 namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
 use Contao\ModuleModel;
+use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 use function in_array;
 
 final class RenderFrontendModuleListener extends ConsentListener
 {
-    /** @var string[] */
-    private $modules;
+    /** @var Bridge */
+    private $bridge;
 
-    /** @param string[] $modules */
     public function __construct(
         ConsentToolManager $consentToolManager,
         RequestScopeMatcher $scopeMatcher,
-        array $modules
+        Bridge $bridge
     ) {
         parent::__construct($consentToolManager, $scopeMatcher);
 
-        $this->modules = $modules;
+        $this->bridge = $bridge;
     }
 
     public function onGetFrontendModule(ModuleModel $moduleModel, string $buffer) : string
     {
-        if (!in_array($moduleModel->type, $this->modules, true)) {
+        if (!in_array($moduleModel->type, $this->bridge->supportedFrontendModules(), true)) {
             return $buffer;
         }
 

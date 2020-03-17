@@ -23,10 +23,5 @@ class HofffContaoConsentBridgeExtension extends Extension
 
         $loader->load('services.xml');
         $loader->load('listener.xml');
-
-        $config = $this->processConfiguration(new Configuration(), $configs);
-
-        $container->setParameter('hofff_contao_consent_bridge.content_elements', $config['content_elements']);
-        $container->setParameter('hofff_contao_consent_bridge.frontend_modules', $config['frontend_modules']);
     }
 }

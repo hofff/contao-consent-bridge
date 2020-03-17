@@ -24,11 +24,9 @@ interface ConsentTool
      */
     public function consentIdOptions($context = null) : array;
 
-    public function determineConsentIdByName(string $serviceOrTemplateName) : ?ConsentId;
-
-    public function createConsentId(string $name) : ?ConsentId;
-
     public function requiresConsent(ConsentId $consentId) : bool;
+
+    public function determineConsentIdByName(string $serviceOrTemplateName) : ?ConsentId;
 
     public function renderHtml(string $buffer, ConsentId $consentId) : string;
 

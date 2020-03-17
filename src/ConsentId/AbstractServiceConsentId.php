@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Hofff\Contao\Consent\Bridge\ConsentId;
 
 use Hofff\Contao\Consent\Bridge\ConsentId;
+use InvalidArgumentException;
+use function count;
+use function explode;
+use function sprintf;
 
 abstract class AbstractServiceConsentId implements ConsentId
 {
@@ -17,6 +21,22 @@ abstract class AbstractServiceConsentId implements ConsentId
     public function __construct(string $serviceName)
     {
         $this->service = $serviceName;
+    }
+
+    public static function supports(string $string) : bool
+    {
+        try {
+            self::extractServiceName($string);
+        } catch (InvalidArgumentException $e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function fromString(string $string) : \Hofff\Contao\Consent\Bridge\ConsentId
+    {
+        return new static(self::extractServiceName($string));
     }
 
     public function equals(ConsentId $other) : bool
@@ -41,5 +61,18 @@ abstract class AbstractServiceConsentId implements ConsentId
     public function __toString() : string
     {
         return $this->toString();
+    }
+
+    private static function extractServiceName(string $string) : string
+    {
+        $parts = explode(':', $string, 2);
+
+        if (count($parts) !== 2 || $parts[0] !== static::$category) {
+            throw new InvalidArgumentException(
+                sprintf('Given string "%s" is not a valid service consent tag', $string)
+            );
+        }
+
+        return $parts[1];
     }
 }

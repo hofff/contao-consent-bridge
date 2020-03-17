@@ -6,6 +6,10 @@ namespace Hofff\Contao\Consent\Bridge;
 
 interface ConsentId
 {
+    public static function supports(string $string) : bool;
+
+    public static function fromString(string $string) : self;
+
     /**
      * Compare it with another consent id.
      *

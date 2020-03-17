@@ -51,15 +51,6 @@ final class ConsentToolManager
         $this->activeConsentTool = $this->consentTools[$name];
     }
 
-    public function hasActiveConsentTool() : bool
-    {
-        if ($this->activeConsentTool === null) {
-            return false;
-        }
-
-        return true;
-    }
-
     public function activeConsentTool() :? ConsentTool
     {
         return $this->activeConsentTool;
