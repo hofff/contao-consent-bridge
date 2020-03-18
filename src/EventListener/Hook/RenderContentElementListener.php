@@ -34,6 +34,6 @@ final class RenderContentElementListener extends ConsentListener
             return $buffer;
         }
 
-        return $this->render($buffer, (string) $contentModel->hofff_consent_bridge_tag);
+        return $this->renderContent($buffer, (string) $contentModel->hofff_consent_bridge_tag, $contentModel);
     }
 }

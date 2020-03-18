@@ -50,11 +50,11 @@
         </service>
 
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\ContentDcaListener" public="true">
-            <argument>%hofff_contao_consent_bridge.content_elements%</argument>
+            <argument type="service" id="Hofff\Contao\Consent\Bridge\Bridge" />
         </service>
 
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\ModuleDcaListener" public="true">
-            <argument>%hofff_contao_consent_bridge.frontend_modules%</argument>
+            <argument type="service" id="Hofff\Contao\Consent\Bridge\Bridge" />
         </service>
 
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\PageDcaListener" public="true">

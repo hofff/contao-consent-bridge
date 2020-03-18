@@ -21,8 +21,16 @@ final class PageDcaListener
     public function initializePalettes() : void
     {
         $manipulator = PaletteManipulator::create()
-            ->addLegend('hofff_consent_bridge_legend', 'publish_legend', PaletteManipulator::POSITION_BEFORE)
-            ->addField('hofff_consent_bridge_consent_tool', 'hofff_consent_bridge_legend', PaletteManipulator::POSITION_APPEND);
+            ->addLegend(
+                'hofff_consent_bridge_legend',
+                'publish_legend',
+                PaletteManipulator::POSITION_BEFORE
+            )
+            ->addField(
+                'hofff_consent_bridge_consent_tool',
+                'hofff_consent_bridge_legend',
+                PaletteManipulator::POSITION_APPEND
+            );
 
         foreach (['root', 'rootfallback'] as $palette) {
             try {

@@ -17,17 +17,23 @@ final class Bridge implements Plugin
      */
     private $consentIds = [];
 
-    /** @psalm-var list<string> */
+    /**
+     * @psalm-var list<string>
+     * @var string[]
+     */
     private $elements = [];
 
-    /** @psalm-var list<string> */
+    /**
+     * @psalm-var list<string>
+     * @var string[]
+     */
     private $modules = [];
 
     public function load(Plugin $plugin) : void
     {
-        $this->consentIds = array_values(array_unique(array_merge($this->consentIds, $plugin->providedConsentIds())));
-        $this->elements   = array_values(array_unique(array_merge($this->elements, $plugin->supportedContentElements())));
-        $this->modules    = array_values(array_unique(array_merge($this->modules, $plugin->supportedFrontendModules())));
+        $this->consentIds = $this->merge($this->consentIds, $plugin->providedConsentIds());
+        $this->elements   = $this->merge($this->elements, $plugin->supportedContentElements());
+        $this->modules    = $this->merge($this->modules, $plugin->supportedFrontendModules());
     }
 
     /**
@@ -49,5 +55,16 @@ final class Bridge implements Plugin
     public function supportedFrontendModules() : array
     {
         return $this->modules;
+    }
+
+    /**
+     * @param mixed[][] $arrays
+     * @psalm-template T
+     * @psalm-param list<list<T>> $arrays
+     * @psalm-return list<T>
+     */
+    private function merge(array ... $arrays) : array
+    {
+        return array_values(array_unique(array_merge(... $arrays)));
     }
 }

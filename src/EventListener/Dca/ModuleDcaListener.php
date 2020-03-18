@@ -6,16 +6,18 @@ namespace Hofff\Contao\Consent\Bridge\EventListener\Dca;
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\DataContainer;
+use Hofff\Contao\Consent\Bridge\Bridge;
 
 final class ModuleDcaListener
 {
-    /** @var string[] */
-    private $modules;
+    /**
+     * @var Bridge
+     */
+    private $bridge;
 
-    /** @param string[] $modules */
-    public function __construct(array $modules)
+    public function __construct(Bridge $bridge)
     {
-        $this->modules = $modules;
+        $this->bridge = $bridge;
     }
 
     public function initializePalettes(DataContainer $dataContainer) : void
@@ -24,7 +26,7 @@ final class ModuleDcaListener
             ->addLegend('hofff_consent_bridge_legend', 'expert_legend')
             ->addField('hofff_consent_bridge_tag', 'hofff_consent_bridge_legend', PaletteManipulator::POSITION_APPEND);
 
-        foreach ($this->modules as $module) {
+        foreach ($this->bridge->supportedFrontendModules() as $module) {
             $paletteManipulator->applyToPalette($module, 'tl_module');
         }
     }

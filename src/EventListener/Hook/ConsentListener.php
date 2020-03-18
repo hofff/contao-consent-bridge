@@ -22,8 +22,11 @@ abstract class ConsentListener
     /** @var ConsentIdParser */
     private $consentIdParser;
 
-    public function __construct(ConsentToolManager $consentToolManager, RequestScopeMatcher $scopeMatcher, ConsentIdParser $consentIdParser)
-    {
+    public function __construct(
+        ConsentToolManager $consentToolManager,
+        RequestScopeMatcher $scopeMatcher,
+        ConsentIdParser $consentIdParser
+    ) {
         $this->consentToolManager = $consentToolManager;
         $this->scopeMatcher       = $scopeMatcher;
         $this->consentIdParser    = $consentIdParser;
@@ -82,6 +85,6 @@ abstract class ConsentListener
             return $buffer;
         }
 
-        return $consentTool->renderHtml($buffer, $consentId);
+        return $consentTool->renderRaw($buffer, $consentId);
     }
 }
