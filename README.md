@@ -22,33 +22,32 @@ Integration
 ### As extension developer
 
 If you provide an extension with custom content elements or frontend modules which might require consent to be rendered
-you can register you custom modules using the bundle configuration of this bundle:
+you can register a plugin which provides extra information. You need to tag it as `hofff_contao_consent_bridge.plugin`.
 
 ```php
 
 namespace Your\Bundle;
 
-use Contao\ManagerPlugin\Config\ContainerBuilder;use Contao\ManagerPlugin\Config\ExtensionPluginInterface
+use Your\Bundle\ConsentId\DataProcessingServiceId;
 
-class Plugin implements ExtensionPluginInterface
+class Plugin implements \Hofff\Contao\Consent\Bridge\Plugin
 {
-    public function getExtensionConfig($extensionName,array $extensionConfigs,ContainerBuilder $container) : array
+    public function providedConsentIds() : array
     {
-        if ($extensionName === 'hofff_contao_consent_bridge') {
-            $extensionConfigs[] = [
-                'content_elements' => ['your_custom_element_a', 'your_custom_element_b'],
-                'frontend_modules' => ['your_custom_module_a', 'your_custom_module_b']
-            ];
-        }
-
-        return  $extensionConfigs;
+        return [DataProcessingServiceId::class];
+    }
+    public function supportedContentElements() : array
+    {
+        return ['your_content_element_type_a', 'your_content_element_type_b'];
+    }
+    public function supportedFrontendModules() : array{
+        return ['your_frontend_module_a', 'your_frontend_module_b'];
     }
 }
 ```
 
 Then there will be a new legend where you can assign a consent id to your configuration and the rendering of the 
 html output will automatically adjusted depending the requirements of the consent tool.
-
 
 ### As consent tool developer
 
