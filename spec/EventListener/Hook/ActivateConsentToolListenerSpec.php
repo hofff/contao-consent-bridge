@@ -34,7 +34,7 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
         $pageModel->getWrappedObject()->hofff_consent_bridge_consent_tool = 'example';
 
         $consentTool->name()->willReturn('example');
-        $consentTool->configure($pageModel, $layoutModel)->shouldBeCalled();
+        $consentTool->activate($pageModel, $layoutModel)->shouldBeCalled();
 
         $this->consentToolManager->register($consentTool->getWrappedObject());
 
@@ -48,7 +48,7 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
         $pageModel->getWrappedObject()->hofff_consent_bridge_consent_tool = 'unknown';
 
         $consentTool->name()->willReturn('example');
-        $consentTool->configure($pageModel, $layoutModel)->shouldNotBeCalled();
+        $consentTool->activate($pageModel, $layoutModel)->shouldNotBeCalled();
 
         $this->consentToolManager->register($consentTool->getWrappedObject());
 

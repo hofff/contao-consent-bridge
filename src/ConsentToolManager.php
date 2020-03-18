@@ -47,7 +47,7 @@ final class ConsentToolManager
             throw new \InvalidArgumentException(sprintf('Consent tool "%s" is not known', $name));
         }
 
-        $this->consentTools[$name]->configure($rootPageModel, $pageModel, $layoutModel);
+        $this->consentTools[$name]->activate($rootPageModel, $pageModel, $layoutModel);
         $this->activeConsentTool = $this->consentTools[$name];
     }
 

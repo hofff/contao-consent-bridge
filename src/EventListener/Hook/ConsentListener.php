@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
+use Contao\Model;
 use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
@@ -37,7 +38,7 @@ abstract class ConsentListener
         return $this->consentToolManager->activeConsentTool();
     }
 
-    protected function render(string $buffer, string $consentIdAsString) : string
+    protected function renderRaw(string $buffer, string $consentIdAsString, Model $model = null) : string
     {
         $consentTool = $this->consentTool();
         if ($consentTool === null) {
@@ -50,7 +51,23 @@ abstract class ConsentListener
             return $buffer;
         }
 
-        return $consentTool->renderHtml($buffer, $consentId);
+        return $consentTool->renderRaw($buffer, $consentId, $model);
+    }
+
+    protected function renderContent(string $buffer, string $consentIdAsString, Model $model = null) : string
+    {
+        $consentTool = $this->consentTool();
+        if ($consentTool === null) {
+            return $buffer;
+        }
+
+        try {
+            $consentId = $this->consentIdParser->parse($consentIdAsString);
+        } catch (InvalidArgumentException $exception) {
+            return $buffer;
+        }
+
+        return $consentTool->renderContent($buffer, $consentId, $model);
     }
 
     protected function renderForTemplate(string $buffer, string $templateName) : string
