@@ -9,6 +9,8 @@ use Contao\PageModel;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Hofff\Contao\Consent\Bridge\EventListener\Hook\ActivateConsentToolListener;
+use Netzmacht\Contao\Toolkit\Data\Model\Repository;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use PhpSpec\ObjectBehavior;
 use function expect;
 
@@ -17,11 +19,14 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
     /** @var ConsentToolManager */
     private $consentToolManager;
 
-    public function let() : void
+    public function let(RepositoryManager $repositoryManager, Repository $pageRepository) : void
     {
         $this->consentToolManager = new ConsentToolManager();
 
-        $this->beConstructedWith($this->consentToolManager);
+        $repositoryManager->getRepository(PageModel::class)
+            ->willReturn($pageRepository);
+
+        $this->beConstructedWith($this->consentToolManager, $repositoryManager);
     }
 
     public function it_is_initializable() : void
@@ -30,15 +35,23 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
     }
 
     public function it_activates_consent_tool(
+        Repository $pageRepository,
         ConsentTool $consentTool,
+        PageModel $rootPageModel,
         PageModel $pageModel,
-        LayoutModel
-        $layoutModel
+        LayoutModel $layoutModel
     ) : void {
-        $pageModel->getWrappedObject()->hofff_consent_bridge_consent_tool = 'example';
+        $pageModel->getWrappedObject()->rootId = 1;
+        $rootPageModel->getWrappedObject()->hofff_consent_bridge_consent_tool = 'example';
+
+        $pageRepository->find(1)
+            ->shouldBeCalled()
+            ->willReturn($rootPageModel);
 
         $consentTool->name()->willReturn('example');
-        $consentTool->activate($pageModel, $layoutModel)->shouldBeCalled();
+        $consentTool->activate($rootPageModel, $pageModel, $layoutModel)
+            ->shouldBeCalled()
+            ->willReturn(true);
 
         $this->consentToolManager->register($consentTool->getWrappedObject());
 
