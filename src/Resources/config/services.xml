@@ -11,7 +11,7 @@
         <service id="Hofff\Contao\Consent\Bridge\Bridge" />
 
         <service id="Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser">
-            <argument type="expression">service('Hofff\Contao\Consent\Bridge\Bridge')</argument>
+            <argument type="service" id="Hofff\Contao\Consent\Bridge\Bridge" />
         </service>
     </services>
 </container>
