@@ -24,6 +24,10 @@ final class PageDcaListener
             return;
         }
 
+        if (count($this->consentToolManager->consentTools()) === 0) {
+            return;
+        }
+
         $manipulator = PaletteManipulator::create()
             ->addLegend(
                 'hofff_consent_bridge_legend',
