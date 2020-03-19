@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.1">
+    <file datatype="php" original="src/Resources/contao/languages/en/tl_module.php" source-language="en">
+        <body>
+            <trans-unit id="tl_module.hofff_consent_bridge_legend">
+                <source>Consent forms (Consent banner)</source>
+                <target>Einverständniserklärungen (Consent Banner)</target>
+            </trans-unit>
+            <trans-unit id="tl_module.hofff_consent_bridge_tag.0">
+                <source>Data processing service</source>
+                <target>Datenverarbeitungsservice</target>
+            </trans-unit>
+            <trans-unit id="tl_module.hofff_consent_bridge_tag.1">
+                <source>Please assign a data processing service which requires consent to display the frontend module.</source>
+                <target>Bitte weisen Sie einen Datenverarbeitungsservice zu, für den die Einwillung erteilt werden muss, bevor das Frontendmodul ausgegeben wird.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

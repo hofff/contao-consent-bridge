@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.1">
+    <file datatype="php" original="src/Resources/contao/languages/en/tl_page.php" source-language="en">
+        <body>
+            <trans-unit id="tl_page.hofff_consent_bridge_legend">
+                <source>Consent forms (Consent banner)</source>
+                <target>Einverständniserklärungen (Consent Banner)</target>
+            </trans-unit>
+            <trans-unit id="tl_page.hofff_consent_bridge_consent_tool.0">
+                <source>Consent tool</source>
+                <target>Einverständniserklärungen-Tool</target>
+            </trans-unit>
+            <trans-unit id="tl_page.hofff_consent_bridge_consent_tool.1">
+                <source>Choose an consent tool which should be used on this website.</source>
+                <target>Wählen Sie den Anbieter der Einverständniserklärungen aus, der auf der Website genutzt weren soll.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
