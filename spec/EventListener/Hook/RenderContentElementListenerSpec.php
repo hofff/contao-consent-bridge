@@ -8,7 +8,7 @@ use Contao\ContentModel;
 use Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
-use Hofff\Contao\Consent\Bridge\EventListener\Hook\RenderContentElementListener;
+use Hofff\Contao\Consent\Bridge\EventListener\Hook\RenderComponentsListener;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -27,7 +27,7 @@ final class RenderContentElementListenerSpec extends ObjectBehavior
 
     public function it_is_initializable() : void
     {
-        $this->shouldHaveType(RenderContentElementListener::class);
+        $this->shouldHaveType(RenderComponentsListener::class);
     }
 
     public function it_renders_supported_content_element(

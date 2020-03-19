@@ -28,19 +28,12 @@
             <tag name="contao.hook" hook="parseFrontendTemplate" />
         </service>
 
-        <service id="Hofff\Contao\Consent\Bridge\EventListener\Hook\RenderContentElementListener" public="true">
+        <service id="Hofff\Contao\Consent\Bridge\EventListener\Hook\RenderComponentsListener" public="true">
             <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
             <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher" />
             <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser" />
             <argument type="service" id="Hofff\Contao\Consent\Bridge\Bridge" />
             <tag name="contao.hook" hook="getContentElement" />
-        </service>
-
-        <service id="Hofff\Contao\Consent\Bridge\EventListener\Hook\RenderFrontendModuleListener" public="true">
-            <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
-            <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher" />
-            <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser" />
-            <argument type="service" id="Hofff\Contao\Consent\Bridge\Bridge" />
             <tag name="contao.hook" hook="getFrontendModule" />
         </service>
 
