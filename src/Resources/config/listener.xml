@@ -44,10 +44,12 @@
 
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\ContentDcaListener" public="true">
             <argument type="service" id="Hofff\Contao\Consent\Bridge\Bridge" />
+            <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
         </service>
 
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\ModuleDcaListener" public="true">
             <argument type="service" id="Hofff\Contao\Consent\Bridge\Bridge" />
+            <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
         </service>
 
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\PageDcaListener" public="true">
