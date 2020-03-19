@@ -18,8 +18,12 @@ final class PageDcaListener
         $this->consentToolManager = $consentToolManager;
     }
 
-    public function initializePalettes() : void
+    public function onLoadDataContainer(string $name) : void
     {
+        if ($name !== 'tl_page') {
+            return;
+        }
+
         $manipulator = PaletteManipulator::create()
             ->addLegend(
                 'hofff_consent_bridge_legend',

@@ -59,6 +59,7 @@
 
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\PageDcaListener" public="true">
             <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager"/>
+            <tag name="contao.hook" hook="loadDataContainer" priority="255" />
         </service>
     </services>
 </container>
