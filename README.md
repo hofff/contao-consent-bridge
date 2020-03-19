@@ -1,8 +1,10 @@
 Generic Bridge for consent tools
 --------------------------------
 
-This extension provides a bridge for integrating consent tools into Contao. It abstracts the u of 
+This extension provides a bridge for integrating consent tools into Contao.
 
+It's designed for consent tools which handles consent management on the client side but may require modified html
+output.
 
 Requirements
 ------------
@@ -15,6 +17,20 @@ Installation
 ------------
 
 You can install `hofff/contao-consent-bridge` using Composer/Contao Manager.
+
+
+Features
+--------
+
+ - Provides activation for consent tools in root page
+ - Assign required consent ids for content elements and adjust output to fullfill requirements of consent tool 
+ - Assign required consent ids for frontend modules and adjust output to fullfill requirements of consent tool
+ - Provides interface so that rendering for specific frontend templates can be adjusted to fullfill requirements of 
+   consent tools  
+ - Built in support to google webfonts defined in the page layout
+ - Provides plugin infrastructure for extensions so that they are supported
+ - Provides interface for consent tools 
+
 
 Integration
 ------------

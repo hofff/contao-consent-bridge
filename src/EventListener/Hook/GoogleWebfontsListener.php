@@ -7,6 +7,7 @@ namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 use Contao\LayoutModel;
 use Contao\PageModel;
 use Netzmacht\Html\Attributes;
+use function str_replace;
 
 final class GoogleWebfontsListener extends ConsentListener
 {
@@ -26,16 +27,14 @@ final class GoogleWebfontsListener extends ConsentListener
             return;
         }
 
-        $content = 'https://fonts.googleapis.com/css?family=' . str_replace('|', '%7C', $layoutModel->webfonts);
-
         // Delete web fonts settings. Detach model to prevent accidentally overwrites.
         $layoutModel->detach();
         $layoutModel->webfonts = '';
 
         $attributes = new Attributes(
             [
-                'rel' => 'stylehseet',
-                'href' => $content
+                'rel'  => 'stylehseet',
+                'href' => 'https://fonts.googleapis.com/css?family=' . str_replace('|', '%7C', $layoutModel->webfonts),
             ]
         );
 
