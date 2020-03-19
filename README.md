@@ -14,7 +14,7 @@ Requirements
 Installation
 ------------
 
-You can `hofff/contao-consent-bridge`
+You can install `hofff/contao-consent-bridge` using Composer/Contao Manager.
 
 Integration
 ------------
