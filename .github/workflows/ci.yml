@@ -1,0 +1,26 @@
+name: Continues Integration
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+        env:
+          COMPOSER_ROOT_VERSION: dev-master
+
+      - name: Run phpcs
+        run: vendor/bin/phpcs
+
+      - name: Run Psalm
+        run: vendor/bin/psalm --threads=2 --output-format=github --shepherd
+
+      - name: Run phpspec
+        run: vendor/bin/phpspec
+
+
