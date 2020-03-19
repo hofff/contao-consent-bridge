@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hofff\Contao\Consent\Bridge;
 
-use Hofff\Contao\Consent\Bridge\ConsentId;
 use function array_merge;
 use function array_unique;
 use function array_values;
