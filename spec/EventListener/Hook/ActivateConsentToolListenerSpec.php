@@ -6,19 +6,20 @@ namespace spec\Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
 use Contao\LayoutModel;
 use Contao\PageModel;
-use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Hofff\Contao\Consent\Bridge\EventListener\Hook\ActivateConsentToolListener;
 use Netzmacht\Contao\Toolkit\Data\Model\Repository;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use function expect;
 
 final class ActivateConsentToolListenerSpec extends ObjectBehavior
 {
-    public function let(RepositoryManager $repositoryManager, Repository $pageRepository, ConsentToolManager $consentToolManager) : void
-    {
+    public function let(
+        RepositoryManager $repositoryManager,
+        Repository $pageRepository,
+        ConsentToolManager $consentToolManager
+    ) : void {
         $repositoryManager->getRepository(PageModel::class)
             ->willReturn($pageRepository);
 

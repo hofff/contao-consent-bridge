@@ -6,7 +6,6 @@ namespace spec\Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
 use Contao\LayoutModel;
 use Contao\PageModel;
-use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
@@ -19,18 +18,12 @@ use Prophecy\Argument;
 
 final class GoogleWebfontsListenerSpec extends ObjectBehavior
 {
-    /** @var Bridge */
-    private $bridge;
-
-    /** @var ConsentIdParser */
-    private $consentIdParser;
-
-    public function let(RequestScopeMatcher $scopeMatcher, ConsentToolManager $consentToolManager) : void
-    {
-        $this->bridge             = new Bridge();
-        $this->consentIdParser    = new ConsentIdParser($this->bridge);
-
-        $this->beConstructedWith($consentToolManager, $scopeMatcher, $this->consentIdParser);
+    public function let(
+        RequestScopeMatcher $scopeMatcher,
+        ConsentToolManager $consentToolManager,
+        ConsentIdParser $consentIdParser
+    ) : void {
+        $this->beConstructedWith($consentToolManager, $scopeMatcher, $consentIdParser);
     }
 
     public function it_is_initializable() : void

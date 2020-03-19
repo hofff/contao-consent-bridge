@@ -7,6 +7,7 @@ namespace spec\Hofff\Contao\Consent\Bridge\EventListener\Hook;
 use Contao\PageModel;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentId;
+use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Hofff\Contao\Consent\Bridge\EventListener\Hook\ParseFrontendTemplateListener;
@@ -19,15 +20,14 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
     /** @var Bridge */
     private $bridge;
 
-    /** @var ConsentId\ConsentIdParser */
-    private $consentIdParser;
+    public function let(
+        RequestScopeMatcher $scopeMatcher,
+        ConsentToolManager $consentToolManager,
+        ConsentIdParser $consentIdParser
+    ) : void {
+        $this->bridge = new Bridge();
 
-    public function let(RequestScopeMatcher $scopeMatcher, ConsentToolManager $consentToolManager) : void
-    {
-        $this->bridge             = new Bridge();
-        $this->consentIdParser    = new ConsentId\ConsentIdParser($this->bridge);
-
-        $this->beConstructedWith($consentToolManager, $scopeMatcher, $this->consentIdParser);
+        $this->beConstructedWith($consentToolManager, $scopeMatcher, $consentIdParser);
     }
 
     public function it_is_initializable() : void
@@ -54,7 +54,8 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
 
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
 
-        $this->onParseFrontendTemplate('<html></html>', 'template_name')->shouldReturn('wrapped');
+        $this->onParseFrontendTemplate('<html></html>', 'template_name')
+            ->shouldReturn('wrapped');
     }
 
     public function it_bypass_unsupported_template(
@@ -74,6 +75,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
 
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
 
-        $this->onParseFrontendTemplate('<html></html>', 'template_name')->shouldReturn('<html></html>');
+        $this->onParseFrontendTemplate('<html></html>', 'template_name')
+            ->shouldReturn('<html></html>');
     }
 }

@@ -11,7 +11,8 @@
 
         <service id="Hofff\Contao\Consent\Bridge\Bridge" />
 
-        <service id="Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser">
+        <service id="Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser"
+                 class="Hofff\Contao\Consent\Bridge\ConsentId\BridgeConfiguredConsentIdParser">
             <argument type="service" id="Hofff\Contao\Consent\Bridge\Bridge" />
         </service>
     </services>

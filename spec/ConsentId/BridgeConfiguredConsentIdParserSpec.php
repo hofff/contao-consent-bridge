@@ -11,7 +11,7 @@ use Hofff\Contao\Consent\Bridge\Plugin\BasePlugin;
 use InvalidArgumentException;
 use PhpSpec\ObjectBehavior;
 
-final class ConsentIdParserSpec extends ObjectBehavior
+final class BridgeConfiguredConsentIdParserSpec extends ObjectBehavior
 {
     public function let() : void
     {

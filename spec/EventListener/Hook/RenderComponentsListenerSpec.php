@@ -9,6 +9,7 @@ use Contao\ModuleModel;
 use Contao\PageModel;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentId;
+use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Hofff\Contao\Consent\Bridge\EventListener\Hook\RenderComponentsListener;
@@ -20,23 +21,20 @@ use Prophecy\Argument;
 
 final class RenderComponentsListenerSpec extends ObjectBehavior
 {
-    /** @var ConsentToolManager */
-    private $consentToolManager;
-
     /** @var Bridge */
     private $bridge;
 
-    /** @var ConsentId\ConsentIdParser */
-    private $consentIdParser;
-
-    public function let(RequestScopeMatcher $scopeMatcher, ConsentToolManager $consentToolManager, ConsentTool $consentTool) : void
-    {
-        $this->bridge          = new Bridge();
-        $this->consentIdParser = new ConsentId\ConsentIdParser($this->bridge);
+    public function let(
+        RequestScopeMatcher $scopeMatcher,
+        ConsentToolManager $consentToolManager,
+        ConsentIdParser $consentIdParser,
+        ConsentTool $consentTool
+    ) : void {
+        $this->bridge = new Bridge();
 
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
 
-        $this->beConstructedWith($consentToolManager, $scopeMatcher, $this->consentIdParser, $this->bridge);
+        $this->beConstructedWith($consentToolManager, $scopeMatcher, $consentIdParser, $this->bridge);
     }
 
     public function it_is_initializable() : void
@@ -45,11 +43,11 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     }
 
     public function it_renders_supported_content_element(
-        ConsentToolManager $consentToolManager,
+        ConsentIdParser $consentIdParser,
         ConsentTool $consentTool,
+        ConsentId $consentId,
         RequestScopeMatcher $scopeMatcher,
-        ContentModel $model,
-        PageModel $pageModel
+        ContentModel $model
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
@@ -60,13 +58,10 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
             ->shouldBeCalled()
             ->willReturn('wrapped');
 
+        $consentIdParser->parse(Argument::type('string'))->willReturn($consentId);
+
         $this->bridge->load(
             new class extends BasePlugin {
-                public function providedConsentIds() : array
-                {
-                    return [ConsentIdMock::class];
-                }
-
                 public function supportedContentElements() : array
                 {
                     return ['foo'];
@@ -81,12 +76,15 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
         ContentModel $model,
-        PageModel $pageModel
+        ConsentIdParser $consentIdParser,
+        ConsentId $consentId
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $model->getWrappedObject()->type                     = 'foo';
         $model->getWrappedObject()->hofff_consent_bridge_tag = 'consent_id';
+
+        $consentIdParser->parse(Argument::type('string'))->willReturn($consentId);
 
         $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model)
             ->shouldBeCalled()
@@ -94,11 +92,6 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
 
         $this->bridge->load(
             new class extends BasePlugin {
-                public function providedConsentIds() : array
-                {
-                    return [ConsentIdMock::class];
-                }
-
                 public function supportedContentElements() : array
                 {
                     return ['foo'];
@@ -112,13 +105,16 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     public function it_renders_supported_frontend_module(
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
-        PageModel $pageModel,
-        ModuleModel $model
+        ModuleModel $model,
+        ConsentIdParser $consentIdParser,
+        ConsentId $consentId
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $model->getWrappedObject()->type                     = 'foo';
         $model->getWrappedObject()->hofff_consent_bridge_tag = 'consent_id';
+
+        $consentIdParser->parse(Argument::type('string'))->willReturn($consentId);
 
         $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model)
             ->shouldBeCalled()
@@ -126,11 +122,6 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
 
         $this->bridge->load(
             new class extends BasePlugin {
-                public function providedConsentIds() : array
-                {
-                    return [ConsentIdMock::class];
-                }
-
                 public function supportedFrontendModules() : array
                 {
                     return ['foo'];
@@ -144,13 +135,16 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     public function it_bypass_unsupported_frontend_module(
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
-        PageModel $pageModel,
-        ModuleModel $model
+        ModuleModel $model,
+        ConsentIdParser $consentIdParser,
+        ConsentId $consentId
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $model->getWrappedObject()->type                     = 'foo';
         $model->getWrappedObject()->hofff_consent_bridge_tag = 'consent_id';
+
+        $consentIdParser->parse(Argument::type('string'))->willReturn($consentId);
 
         $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model)
             ->shouldBeCalled()
@@ -158,11 +152,6 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
 
         $this->bridge->load(
             new class extends BasePlugin {
-                public function providedConsentIds() : array
-                {
-                    return [ConsentIdMock::class];
-                }
-
                 public function supportedFrontendModules() : array
                 {
                     return ['foo'];
@@ -171,33 +160,5 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         );
 
         $this->onGetFrontendModule($model, '<html></html>')->shouldReturn('wrapped');
-    }
-}
-
-final class ConsentIdMock implements ConsentId
-{
-    public static function supports(string $string) : bool
-    {
-        return $string === 'consent_id';
-    }
-
-    public static function fromString(string $string) : ConsentId
-    {
-        return new self();
-    }
-
-    public function equals(ConsentId $other) : bool
-    {
-        return $other instanceof self;
-    }
-
-    public function toString() : string
-    {
-        return 'consent_id';
-    }
-
-    public function __toString() : string
-    {
-        return $this->toString();
     }
 }
