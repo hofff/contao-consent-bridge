@@ -6,62 +6,26 @@ namespace Hofff\Contao\Consent\Bridge;
 
 use Contao\LayoutModel;
 use Contao\PageModel;
-use function sprintf;
+use Hofff\Contao\Consent\Bridge\Exception\InvalidArgumentException;
 
-final class ConsentToolManager
+interface ConsentToolManager
 {
-    /** @var ConsentTool|null */
-    private $activeConsentTool;
-
-    /** @var ConsentTool[] */
-    private $consentTools = [];
-
     /** @return ConsentTool[] */
-    public function consentTools() : array
-    {
-        return $this->consentTools;
-    }
+    public function consentTools() : array;
 
-    public function register(ConsentTool $consentTool) : void
-    {
-        $this->consentTools[$consentTool->name()] = $consentTool;
-    }
+    public function register(ConsentTool $consentTool) : void;
 
-    public function has(string $name) : bool
-    {
-        return isset($this->consentTools[$name]);
-    }
+    public function has(string $name) : bool;
 
-    public function get(string $name) : ConsentTool
-    {
-        if (!$this->has($name)) {
-            throw new \InvalidArgumentException(sprintf('Consent tool "%s" is not known', $name));
-        }
-
-        return $this->consentTools[$name];
-    }
+    /** @throws InvalidArgumentException When no tool is found */
+    public function get(string $name) : ConsentTool;
 
     public function activate(
         string $name,
         PageModel $rootPageModel,
         ?PageModel $pageModel = null,
         ?LayoutModel $layoutModel = null
-    ) : bool {
-        if (!isset($this->consentTools[$name])) {
-            throw new \InvalidArgumentException(sprintf('Consent tool "%s" is not known', $name));
-        }
+    ) : bool;
 
-        if ($this->consentTools[$name]->activate($rootPageModel, $pageModel, $layoutModel)) {
-            $this->activeConsentTool = $this->consentTools[$name];
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public function activeConsentTool() :? ConsentTool
-    {
-        return $this->activeConsentTool;
-    }
+    public function activeConsentTool() :? ConsentTool;
 }

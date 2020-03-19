@@ -12,21 +12,17 @@ use Hofff\Contao\Consent\Bridge\EventListener\Hook\ActivateConsentToolListener;
 use Netzmacht\Contao\Toolkit\Data\Model\Repository;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 use function expect;
 
 final class ActivateConsentToolListenerSpec extends ObjectBehavior
 {
-    /** @var ConsentToolManager */
-    private $consentToolManager;
-
-    public function let(RepositoryManager $repositoryManager, Repository $pageRepository) : void
+    public function let(RepositoryManager $repositoryManager, Repository $pageRepository, ConsentToolManager $consentToolManager) : void
     {
-        $this->consentToolManager = new ConsentToolManager();
-
         $repositoryManager->getRepository(PageModel::class)
             ->willReturn($pageRepository);
 
-        $this->beConstructedWith($this->consentToolManager, $repositoryManager);
+        $this->beConstructedWith($consentToolManager, $repositoryManager);
     }
 
     public function it_is_initializable() : void
@@ -35,8 +31,8 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
     }
 
     public function it_activates_consent_tool(
+        ConsentToolManager $consentToolManager,
         Repository $pageRepository,
-        ConsentTool $consentTool,
         PageModel $rootPageModel,
         PageModel $pageModel,
         LayoutModel $layoutModel
@@ -48,32 +44,36 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
             ->shouldBeCalled()
             ->willReturn($rootPageModel);
 
-        $consentTool->name()->willReturn('example');
-        $consentTool->activate($rootPageModel, $pageModel, $layoutModel)
-            ->shouldBeCalled()
+        $consentToolManager->has(Argument::type('string'))->willReturn(true);
+        $consentToolManager->activate('example', $rootPageModel, $pageModel, $layoutModel)
             ->willReturn(true);
-
-        $this->consentToolManager->register($consentTool->getWrappedObject());
 
         $this->onGetPageLayout($pageModel, $layoutModel);
 
-        expect($this->consentToolManager->activeConsentTool())->shouldReturn($consentTool);
+        $consentToolManager->activeConsentTool();
     }
 
     public function it_does_not_activate_unknown_consent_tool(
-        ConsentTool $consentTool,
+        ConsentToolManager $consentToolManager,
+        Repository $pageRepository,
+        PageModel $rootPageModel,
         PageModel $pageModel,
         LayoutModel $layoutModel
     ) : void {
-        $pageModel->getWrappedObject()->hofff_consent_bridge_consent_tool = 'unknown';
+        $pageModel->getWrappedObject()->rootId = 1;
+        $rootPageModel->getWrappedObject()->hofff_consent_bridge_consent_tool = 'example';
 
-        $consentTool->name()->willReturn('example');
-        $consentTool->activate($pageModel, $layoutModel)->shouldNotBeCalled();
+        $pageRepository->find(1)
+            ->shouldBeCalled()
+            ->willReturn($rootPageModel);
 
-        $this->consentToolManager->register($consentTool->getWrappedObject());
+        $consentToolManager->has(Argument::type('string'))->willReturn(false);
+        $consentToolManager->activate('example', $rootPageModel, $pageModel, $layoutModel)
+            ->shouldNotBeCalled()
+            ->willReturn(true);
 
         $this->onGetPageLayout($pageModel, $layoutModel);
 
-        expect($this->consentToolManager->activeConsentTool())->shouldReturn(null);
+        $consentToolManager->activeConsentTool();
     }
 }

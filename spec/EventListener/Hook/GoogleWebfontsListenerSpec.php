@@ -19,22 +19,18 @@ use Prophecy\Argument;
 
 final class GoogleWebfontsListenerSpec extends ObjectBehavior
 {
-    /** @var ConsentToolManager */
-    private $consentToolManager;
-
     /** @var Bridge */
     private $bridge;
 
     /** @var ConsentIdParser */
     private $consentIdParser;
 
-    public function let(RequestScopeMatcher $scopeMatcher) : void
+    public function let(RequestScopeMatcher $scopeMatcher, ConsentToolManager $consentToolManager) : void
     {
-        $this->consentToolManager = new ConsentToolManager();
         $this->bridge             = new Bridge();
         $this->consentIdParser    = new ConsentIdParser($this->bridge);
 
-        $this->beConstructedWith($this->consentToolManager, $scopeMatcher, $this->consentIdParser);
+        $this->beConstructedWith($consentToolManager, $scopeMatcher, $this->consentIdParser);
     }
 
     public function it_is_initializable() : void
@@ -43,16 +39,14 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
     }
 
     public function it_renders_supported_template(
+        ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         ConsentId $consentId,
         RequestScopeMatcher $scopeMatcher,
-        PageModel $rootPageModel,
         PageModel $pageModel,
         LayoutModel $layoutModel
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
-
-        $consentTool->name()->willReturn('example');
 
         $consentTool->determineConsentIdByName('google_webfonts')
             ->willReturn($consentId);
@@ -61,36 +55,20 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
             ->shouldBeCalled()
             ->willReturn('wrapped');
 
-        $consentTool->activate(
-            $rootPageModel->getWrappedObject(),
-            $pageModel->getWrappedObject(),
-            $layoutModel->getWrappedObject()
-        )
-            ->shouldBeCalled()
-            ->willReturn(true);
-
-        $this->consentToolManager->register($consentTool->getWrappedObject());
-        $this->consentToolManager->activate(
-            'example',
-            $rootPageModel->getWrappedObject(),
-            $pageModel->getWrappedObject(),
-            $layoutModel->getWrappedObject()
-        );
+        $consentToolManager->activeConsentTool()->willReturn($consentTool);
 
         $this->onGeneratePage($pageModel, $layoutModel);
     }
 
     public function it_bypass_unsupported_template(
+        ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         ConsentId $consentId,
         RequestScopeMatcher $scopeMatcher,
-        PageModel $rootPageModel,
         PageModel $pageModel,
         LayoutModel $layoutModel
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
-
-        $consentTool->name()->willReturn('example');
 
         $consentTool->determineConsentIdByName('google_webfonts')
             ->willReturn(null);
@@ -99,21 +77,7 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
             ->shouldNotBeCalled()
             ->willReturn('wrapped');
 
-        $consentTool->activate(
-            $rootPageModel->getWrappedObject(),
-            $pageModel->getWrappedObject(),
-            $layoutModel->getWrappedObject()
-        )
-            ->shouldBeCalled()
-            ->willReturn(true);
-
-        $this->consentToolManager->register($consentTool->getWrappedObject());
-        $this->consentToolManager->activate(
-            'example',
-            $rootPageModel->getWrappedObject(),
-            $pageModel->getWrappedObject(),
-            $layoutModel->getWrappedObject()
-        );
+        $consentToolManager->activeConsentTool()->willReturn($consentTool);
 
         $this->onGeneratePage($pageModel, $layoutModel);
     }

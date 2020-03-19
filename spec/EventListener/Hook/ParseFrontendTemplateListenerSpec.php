@@ -16,22 +16,18 @@ use Prophecy\Argument;
 
 final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
 {
-    /** @var ConsentToolManager */
-    private $consentToolManager;
-
     /** @var Bridge */
     private $bridge;
 
     /** @var ConsentId\ConsentIdParser */
     private $consentIdParser;
 
-    public function let(RequestScopeMatcher $scopeMatcher) : void
+    public function let(RequestScopeMatcher $scopeMatcher, ConsentToolManager $consentToolManager) : void
     {
-        $this->consentToolManager = new ConsentToolManager();
         $this->bridge             = new Bridge();
         $this->consentIdParser    = new ConsentId\ConsentIdParser($this->bridge);
 
-        $this->beConstructedWith($this->consentToolManager, $scopeMatcher, $this->consentIdParser);
+        $this->beConstructedWith($consentToolManager, $scopeMatcher, $this->consentIdParser);
     }
 
     public function it_is_initializable() : void
@@ -40,9 +36,9 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
     }
 
     public function it_renders_supported_template(
+        ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         ConsentId $consentId,
-        PageModel $pageModel,
         RequestScopeMatcher $scopeMatcher
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
@@ -56,20 +52,14 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
             ->shouldBeCalled()
             ->willReturn('wrapped');
 
-        $consentTool->activate($pageModel, null, null)
-            ->shouldBeCalled()
-            ->willReturn(true);
-
-        $this->consentToolManager->register($consentTool->getWrappedObject());
-        $this->consentToolManager->activate('example', $pageModel->getWrappedObject());
+        $consentToolManager->activeConsentTool()->willReturn($consentTool);
 
         $this->onParseFrontendTemplate('<html></html>', 'template_name')->shouldReturn('wrapped');
     }
 
     public function it_bypass_unsupported_template(
+        ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
-        ConsentId $consentId,
-        PageModel $pageModel,
         RequestScopeMatcher $scopeMatcher
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
@@ -79,16 +69,10 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         $consentTool->determineConsentIdByName('template_name')
             ->willReturn(null);
 
-        $consentTool->renderRaw(Argument::type('string'), $consentId)
-            ->shouldNotBeCalled()
-            ->willReturn('wrapped');
+        $consentTool->renderRaw(Argument::type('string'), Argument::type(ConsentId::class))
+            ->shouldNotBeCalled();
 
-        $consentTool->activate($pageModel, null, null)
-            ->shouldBeCalled()
-            ->willReturn(true);
-
-        $this->consentToolManager->register($consentTool->getWrappedObject());
-        $this->consentToolManager->activate('example', $pageModel->getWrappedObject());
+        $consentToolManager->activeConsentTool()->willReturn($consentTool);
 
         $this->onParseFrontendTemplate('<html></html>', 'template_name')->shouldReturn('<html></html>');
     }

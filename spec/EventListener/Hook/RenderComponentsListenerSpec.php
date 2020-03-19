@@ -29,13 +29,14 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     /** @var ConsentId\ConsentIdParser */
     private $consentIdParser;
 
-    public function let(RequestScopeMatcher $scopeMatcher) : void
+    public function let(RequestScopeMatcher $scopeMatcher, ConsentToolManager $consentToolManager, ConsentTool $consentTool) : void
     {
-        $this->consentToolManager = new ConsentToolManager();
-        $this->bridge             = new Bridge();
-        $this->consentIdParser    = new ConsentId\ConsentIdParser($this->bridge);
+        $this->bridge          = new Bridge();
+        $this->consentIdParser = new ConsentId\ConsentIdParser($this->bridge);
 
-        $this->beConstructedWith($this->consentToolManager, $scopeMatcher, $this->consentIdParser, $this->bridge);
+        $consentToolManager->activeConsentTool()->willReturn($consentTool);
+
+        $this->beConstructedWith($consentToolManager, $scopeMatcher, $this->consentIdParser, $this->bridge);
     }
 
     public function it_is_initializable() : void
@@ -44,6 +45,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     }
 
     public function it_renders_supported_content_element(
+        ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
         ContentModel $model,
@@ -51,20 +53,12 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $model->getWrappedObject()->type = 'foo';
+        $model->getWrappedObject()->type                     = 'foo';
         $model->getWrappedObject()->hofff_consent_bridge_tag = 'consent_id';
-
-        $consentTool->name()
-            ->shouldBeCalled()
-            ->willReturn('test');
 
         $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model)
             ->shouldBeCalled()
             ->willReturn('wrapped');
-
-        $consentTool->activate($pageModel, null, null)
-            ->shouldBeCalled()
-            ->willReturn(true);
 
         $this->bridge->load(
             new class extends BasePlugin {
@@ -79,9 +73,6 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
                 }
             }
         );
-
-        $this->consentToolManager->register($consentTool->getWrappedObject());
-        $this->consentToolManager->activate('test', $pageModel->getWrappedObject());
 
         $this->onGetContentElement($model, '<html></html>')->shouldReturn('wrapped');
     }
@@ -94,20 +85,12 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $model->getWrappedObject()->type = 'foo';
+        $model->getWrappedObject()->type                     = 'foo';
         $model->getWrappedObject()->hofff_consent_bridge_tag = 'consent_id';
-
-        $consentTool->name()
-            ->shouldBeCalled()
-            ->willReturn('test');
 
         $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model)
             ->shouldBeCalled()
             ->willReturn('wrapped');
-
-        $consentTool->activate($pageModel, null, null)
-            ->shouldBeCalled()
-            ->willReturn(true);
 
         $this->bridge->load(
             new class extends BasePlugin {
@@ -123,9 +106,6 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
             }
         );
 
-        $this->consentToolManager->register($consentTool->getWrappedObject());
-        $this->consentToolManager->activate('test', $pageModel->getWrappedObject());
-
         $this->onGetContentElement($model, '<html></html>')->shouldReturn('wrapped');
     }
 
@@ -137,20 +117,12 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $model->getWrappedObject()->type = 'foo';
+        $model->getWrappedObject()->type                     = 'foo';
         $model->getWrappedObject()->hofff_consent_bridge_tag = 'consent_id';
-
-        $consentTool->name()
-            ->shouldBeCalled()
-            ->willReturn('test');
 
         $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model)
             ->shouldBeCalled()
             ->willReturn('wrapped');
-
-        $consentTool->activate($pageModel, null, null)
-            ->shouldBeCalled()
-            ->willReturn(true);
 
         $this->bridge->load(
             new class extends BasePlugin {
@@ -165,9 +137,6 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
                 }
             }
         );
-
-        $this->consentToolManager->register($consentTool->getWrappedObject());
-        $this->consentToolManager->activate('test', $pageModel->getWrappedObject());
 
         $this->onGetFrontendModule($model, '<html></html>')->shouldReturn('wrapped');
     }
@@ -180,20 +149,12 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     ) : void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $model->getWrappedObject()->type = 'foo';
+        $model->getWrappedObject()->type                     = 'foo';
         $model->getWrappedObject()->hofff_consent_bridge_tag = 'consent_id';
-
-        $consentTool->name()
-            ->shouldBeCalled()
-            ->willReturn('test');
 
         $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model)
             ->shouldBeCalled()
             ->willReturn('wrapped');
-
-        $consentTool->activate($pageModel, null, null)
-            ->shouldBeCalled()
-            ->willReturn(true);
 
         $this->bridge->load(
             new class extends BasePlugin {
@@ -208,9 +169,6 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
                 }
             }
         );
-
-        $this->consentToolManager->register($consentTool->getWrappedObject());
-        $this->consentToolManager->activate('test', $pageModel->getWrappedObject());
 
         $this->onGetFrontendModule($model, '<html></html>')->shouldReturn('wrapped');
     }
