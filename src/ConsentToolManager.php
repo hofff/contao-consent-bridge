@@ -44,8 +44,8 @@ final class ConsentToolManager
     public function activate(
         string $name,
         PageModel $rootPageModel,
-        PageModel $pageModel,
-        LayoutModel $layoutModel
+        ?PageModel $pageModel = null,
+        ?LayoutModel $layoutModel = null
     ) : bool {
         if (!isset($this->consentTools[$name])) {
             throw new \InvalidArgumentException(sprintf('Consent tool "%s" is not known', $name));

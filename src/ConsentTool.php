@@ -27,7 +27,11 @@ interface ConsentTool
      * This method is used to activate the consent tool for a given page. To apply the configuration the root page
      * model, the current page model and the layout model is passed.
      */
-    public function activate(PageModel $rootPageModel, PageModel $pageModel, LayoutModel $layoutModel) : bool;
+    public function activate(
+        PageModel $rootPageModel,
+        ?PageModel $pageModel = null,
+        ?LayoutModel $layoutModel = null
+    ) : bool;
 
     /**
      * Get consent id options by name and consent ids.
