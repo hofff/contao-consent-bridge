@@ -8,7 +8,8 @@ use Contao\Model;
 use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
-use InvalidArgumentException;
+use Hofff\Contao\Consent\Bridge\Exception\InvalidArgumentException;
+use Hofff\Contao\Consent\Bridge\Render\RenderInformation;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 
 abstract class ConsentListener
@@ -41,8 +42,16 @@ abstract class ConsentListener
         return $this->consentToolManager->activeConsentTool();
     }
 
-    protected function renderRaw(string $buffer, string $consentIdAsString, Model $model = null) : string
-    {
+    protected function renderContent(
+        string $buffer,
+        string $consentIdAsString,
+        RenderInformation $renderInformation,
+        Model $model = null
+    ) : string {
+        if (! $renderInformation->isAutoRenderMode()) {
+            return $buffer;
+        }
+
         $consentTool = $this->consentTool();
         if ($consentTool === null) {
             return $buffer;
@@ -54,23 +63,11 @@ abstract class ConsentListener
             return $buffer;
         }
 
-        return $consentTool->renderRaw($buffer, $consentId, $model);
-    }
-
-    protected function renderContent(string $buffer, string $consentIdAsString, Model $model = null) : string
-    {
-        $consentTool = $this->consentTool();
-        if ($consentTool === null) {
+        if (! $consentTool->requiresConsent($consentId)) {
             return $buffer;
         }
 
-        try {
-            $consentId = $this->consentIdParser->parse($consentIdAsString);
-        } catch (InvalidArgumentException $exception) {
-            return $buffer;
-        }
-
-        return $consentTool->renderContent($buffer, $consentId, $model);
+        return $consentTool->renderContent($buffer, $consentId, $model, $renderInformation->placeholderTemplate());
     }
 
     protected function renderForTemplate(string $buffer, string $templateName) : string
@@ -81,7 +78,7 @@ abstract class ConsentListener
         }
 
         $consentId = $consentTool->determineConsentIdByName($templateName);
-        if ($consentId === null) {
+        if ($consentId === null || ! $consentTool->requiresConsent($consentId)) {
             return $buffer;
         }
 

@@ -44,6 +44,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $consentTool->name()->willReturn('example');
+        $consentTool->requiresConsent($consentId)->willReturn(true);
 
         $consentTool->determineConsentIdByName('template_name')
             ->willReturn($consentId);

@@ -94,6 +94,11 @@ final class Bridge
         return array_keys($this->modules);
     }
 
+    public function supportsContentElement(string $type) : bool
+    {
+        return isset($this->elements[$type]);
+    }
+
     public function contentElementRenderInformation(string $type) : RenderInformation
     {
         if (!isset($this->elements[$type])) {
@@ -101,6 +106,11 @@ final class Bridge
         }
 
         return $this->elements[$type];
+    }
+
+    public function supportsFrontendModule(string $type) : bool
+    {
+        return isset($this->modules[$type]);
     }
 
     public function frontendModuleRenderInformation(string $type) : RenderInformation

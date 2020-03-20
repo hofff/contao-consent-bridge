@@ -62,7 +62,12 @@ interface ConsentTool
      *
      * This method might add a placeholder content as it's used for content elements and frontend modules.
      */
-    public function renderContent(string $buffer, ConsentId $consentId, Model $model = null) : string;
+    public function renderContent(
+        string $buffer,
+        ConsentId $consentId,
+        Model $model = null,
+        ?string $placeholderTemplate = null
+    ) : string;
 
     /**
      * Apply consent for given html output.

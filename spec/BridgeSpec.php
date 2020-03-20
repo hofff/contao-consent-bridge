@@ -51,6 +51,10 @@ final class BridgeSpec extends ObjectBehavior
         $this->supportContentElement('a', $renderInformationA);
         $this->supportContentElement('b', $renderInformationB);
 
+        $this->supportsContentElement('a')->shouldReturn(true);
+        $this->supportsContentElement('b')->shouldReturn(true);
+        $this->supportsContentElement('c')->shouldReturn(false);
+
         $this->supportedContentElements()->shouldReturn(['a', 'b']);
         $this->contentElementRenderInformation('a')->shouldReturn($renderInformationA);
         $this->contentElementRenderInformation('b')->shouldReturn($renderInformationB);
@@ -65,6 +69,10 @@ final class BridgeSpec extends ObjectBehavior
 
         $this->supportFrontendModule('a', $renderInformationA);
         $this->supportFrontendModule('b', $renderInformationB);
+
+        $this->supportsFrontendModule('a')->shouldReturn(true);
+        $this->supportsFrontendModule('b')->shouldReturn(true);
+        $this->supportsFrontendModule('c')->shouldReturn(false);
 
         $this->supportedFrontendModules()->shouldReturn(['a', 'b']);
         $this->frontendModuleRenderInformation('a')->shouldReturn($renderInformationA);

@@ -55,9 +55,11 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         $model->getWrappedObject()->type                     = 'foo';
         $model->getWrappedObject()->hofff_consent_bridge_tag = 'consent_id';
 
-        $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model)
+        $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model, null)
             ->shouldBeCalled()
             ->willReturn('wrapped');
+
+        $consentTool->requiresConsent($consentId)->willReturn(true);
 
         $consentIdParser->parse(Argument::type('string'))->willReturn($consentId);
 
@@ -80,9 +82,11 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
 
         $consentIdParser->parse(Argument::type('string'))->willReturn($consentId);
 
-        $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model)
+        $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model, null)
             ->shouldBeCalled()
             ->willReturn('wrapped');
+
+        $consentTool->requiresConsent($consentId)->willReturn(true);
 
         $this->bridge->supportContentElement('foo', RenderInformation::autoRenderWithoutPlaceholder());
 
@@ -103,9 +107,11 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
 
         $consentIdParser->parse(Argument::type('string'))->willReturn($consentId);
 
-        $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model)
+        $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model, null)
             ->shouldBeCalled()
             ->willReturn('wrapped');
+
+        $consentTool->requiresConsent($consentId)->willReturn(true);
 
         $this->bridge->supportFrontendModule('foo', RenderInformation::autoRenderWithoutPlaceholder());
 
@@ -126,9 +132,11 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
 
         $consentIdParser->parse(Argument::type('string'))->willReturn($consentId);
 
-        $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model)
+        $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model, null)
             ->shouldBeCalled()
             ->willReturn('wrapped');
+
+        $consentTool->requiresConsent($consentId)->willReturn(true);
 
         $this->bridge->supportFrontendModule('foo', RenderInformation::autoRenderWithoutPlaceholder());
 

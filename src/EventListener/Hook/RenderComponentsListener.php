@@ -31,7 +31,8 @@ final class RenderComponentsListener extends ConsentListener
 
     public function onGetContentElement(ContentModel $contentModel, string $buffer) : string
     {
-        if (!in_array($contentModel->type, $this->bridge->supportedContentElements(), true)) {
+        $consentTool = $this->consentTool();
+        if ($consentTool === null) {
             return $buffer;
         }
 
@@ -45,15 +46,38 @@ final class RenderComponentsListener extends ConsentListener
             return $buffer;
         }
 
-        return $this->renderContent($buffer, (string) $contentModel->hofff_consent_bridge_tag, $contentModel);
+        if (! $this->bridge->supportsContentElement($contentModel->type)) {
+            return $buffer;
+        }
+
+        $renderInformation = $this->bridge->contentElementRenderInformation($contentModel->type);
+
+        return $this->renderContent(
+            $buffer,
+            (string) $contentModel->hofff_consent_bridge_tag,
+            $renderInformation,
+            $contentModel
+        );
     }
 
     public function onGetFrontendModule(ModuleModel $moduleModel, string $buffer) : string
     {
-        if (!in_array($moduleModel->type, $this->bridge->supportedFrontendModules(), true)) {
+        $consentTool = $this->consentTool();
+        if ($consentTool === null) {
             return $buffer;
         }
 
-        return $this->renderContent($buffer, (string) $moduleModel->hofff_consent_bridge_tag, $moduleModel);
+        if (! $this->bridge->supportsFrontendModule($moduleModel->type)) {
+            return $buffer;
+        }
+
+        $renderInformation = $this->bridge->frontendModuleRenderInformation($moduleModel->type);
+
+        return $this->renderContent(
+            $buffer,
+            (string) $moduleModel->hofff_consent_bridge_tag,
+            $renderInformation,
+            $moduleModel
+        );
     }
 }
