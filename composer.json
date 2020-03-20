@@ -25,14 +25,11 @@
     "php": "^7.1",
     "ext-json": "*",
     "ext-pdo": "*",
-    "beberlei/assert": "^3.2",
     "contao-community-alliance/meta-palettes": "^2.0",
     "contao/core-bundle": "~4.4",
     "doctrine/dbal": "^2.5",
-    "menatwork/contao-multicolumnwizard-bundle": "^3.4",
     "netzmacht/contao-toolkit": "^3.3",
     "netzmacht/html": "^2.0",
-    "phpspec/phpspec": "^6.1",
     "symfony/config": "^3.4 || ^4.0",
     "symfony/dependency-injection": "^3.4 || ^4.0",
     "symfony/http-kernel": "^3.4 || ^4.0"
@@ -40,6 +37,7 @@
   "require-dev": {
     "contao/manager-plugin": "^2.1",
     "doctrine/coding-standard": "^7.0",
+    "phpspec/phpspec": "^6.1",
     "vimeo/psalm": "^3.9"
   },
   "extra": {
