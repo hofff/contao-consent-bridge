@@ -11,9 +11,7 @@ use function array_keys;
 
 final class Bridge
 {
-    /**
-     * @var array<string, ConsentTool>
-     */
+    /** @var array<string, ConsentTool> */
     private $consentTools = [];
 
     /**
@@ -22,14 +20,10 @@ final class Bridge
      */
     private $consentIds = [];
 
-    /**
-     * @var array<string, RenderInformation>
-     */
+    /** @var array<string, RenderInformation> */
     private $elements = [];
 
-    /**
-     * @var array<string, RenderInformation>
-     */
+    /** @var array<string, RenderInformation> */
     private $modules = [];
 
     public function registerConsentTool(ConsentTool $consentTool) : self
@@ -74,21 +68,30 @@ final class Bridge
     }
 
     /**
+     * @return string[]
+     *
      * @psalm-return list<class-string<ConsentId>>
-     * @var string[]
      */
     public function providedConsentIds() : array
     {
         return $this->consentIds;
     }
 
-    /** @psalm-return list<string> */
+    /**
+     * @return string[]
+     *
+     * @psalm-return list<string>
+     */
     public function supportedContentElements() : array
     {
         return array_keys($this->elements);
     }
 
-    /** @psalm-return list<string> */
+    /**
+     * @return string[]
+     *
+     * @psalm-return list<string>
+     */
     public function supportedFrontendModules() : array
     {
         return array_keys($this->modules);
@@ -101,7 +104,7 @@ final class Bridge
 
     public function contentElementRenderInformation(string $type) : RenderInformation
     {
-        if (!isset($this->elements[$type])) {
+        if (! isset($this->elements[$type])) {
             throw UnsupportedContentElement::ofType($type);
         }
 
@@ -115,7 +118,7 @@ final class Bridge
 
     public function frontendModuleRenderInformation(string $type) : RenderInformation
     {
-        if (!isset($this->modules[$type])) {
+        if (! isset($this->modules[$type])) {
             throw UnsupportedFrontendModule::ofType($type);
         }
 

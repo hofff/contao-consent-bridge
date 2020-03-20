@@ -14,8 +14,6 @@ interface ConsentTool
 {
     /**
      * Get the name of the consent tool.
-     *
-     * @return string
      */
     public function name() : string;
 
@@ -65,7 +63,7 @@ interface ConsentTool
     public function renderContent(
         string $buffer,
         ConsentId $consentId,
-        Model $model = null,
+        ?Model $model = null,
         ?string $placeholderTemplate = null
     ) : string;
 
@@ -74,7 +72,7 @@ interface ConsentTool
      *
      * Do not add placeholder content here as it might be header code or hidden javascript.
      */
-    public function renderRaw(string $buffer, ConsentId $consentId, Model $model = null) : string;
+    public function renderRaw(string $buffer, ConsentId $consentId, ?Model $model = null) : string;
 
     /**
      * Create a script tag with given attributes which applies restrictions for the consent id.

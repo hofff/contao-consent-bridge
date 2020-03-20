@@ -14,6 +14,10 @@
     <file>spec</file>
 
     <!-- Include full Doctrine Coding Standard -->
+    <rule ref="Doctrine">
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming.SuperfluousSuffix"/>
+    </rule>
+
     <rule ref="Generic.Files.LineLength">
         <properties>
             <property name="lineLimit" value="120"/>
@@ -31,5 +35,9 @@
         <properties>
             <property name="enableNativeTypeHint" value="false" />
         </properties>
+    </rule>
+
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>spec/*</exclude-pattern>
     </rule>
 </ruleset>

@@ -20,7 +20,7 @@ final class ActivateConsentToolListener
     public function __construct(ConsentToolManager $consentToolManager, RepositoryManager $repositoryManager)
     {
         $this->consentToolManager = $consentToolManager;
-        $this->repositoryManager = $repositoryManager;
+        $this->repositoryManager  = $repositoryManager;
     }
 
     public function onGetPageLayout(PageModel $pageModel, LayoutModel $layoutModel) : void
@@ -32,7 +32,9 @@ final class ActivateConsentToolListener
             return;
         }
 
+        // phpcs:disable
         $name = (string) $rootPageModel->hofff_consent_bridge_consent_tool;
+        // phpcs:enable
         if (! $this->consentToolManager->has($name)) {
             return;
         }

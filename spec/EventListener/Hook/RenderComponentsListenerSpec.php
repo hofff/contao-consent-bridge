@@ -6,15 +6,12 @@ namespace spec\Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
 use Contao\ContentModel;
 use Contao\ModuleModel;
-use Contao\PageModel;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Hofff\Contao\Consent\Bridge\EventListener\Hook\RenderComponentsListener;
-use Hofff\Contao\Consent\Bridge\Exception\InvalidArgumentException;
-use Hofff\Contao\Consent\Bridge\Plugin\BasePlugin;
 use Hofff\Contao\Consent\Bridge\Render\RenderInformation;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 use PhpSpec\ObjectBehavior;

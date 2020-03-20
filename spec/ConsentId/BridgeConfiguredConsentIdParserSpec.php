@@ -30,7 +30,7 @@ final class BridgeConfiguredConsentIdParserSpec extends ObjectBehavior
         $this->parse('analytics:google')->shouldBeAnInstanceOf(AnalyticsConsentId::class);
     }
 
-    public function it_throws_on_unsupported_consent_id(): void
+    public function it_throws_on_unsupported_consent_id() : void
     {
         $this->shouldThrow(InvalidArgumentException::class)->during('parse', ['test:foo']);
     }

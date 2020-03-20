@@ -10,7 +10,6 @@ use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
-use function in_array;
 
 final class RenderComponentsListener extends ConsentListener
 {
@@ -54,7 +53,9 @@ final class RenderComponentsListener extends ConsentListener
 
         return $this->renderContent(
             $buffer,
+            // phpcs:disable
             (string) $contentModel->hofff_consent_bridge_tag,
+            // phpcs:enable
             $renderInformation,
             $contentModel
         );
@@ -75,7 +76,9 @@ final class RenderComponentsListener extends ConsentListener
 
         return $this->renderContent(
             $buffer,
+            // phpcs:disable
             (string) $moduleModel->hofff_consent_bridge_tag,
+            // phpcs:enable
             $renderInformation,
             $moduleModel
         );

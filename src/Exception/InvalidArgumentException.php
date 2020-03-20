@@ -6,5 +6,4 @@ namespace Hofff\Contao\Consent\Bridge\Exception;
 
 class InvalidArgumentException extends Exception
 {
-
 }

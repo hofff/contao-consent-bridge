@@ -20,8 +20,6 @@ final class RenderInformation
     private $placeholderTemplate;
 
     /**
-     * RenderInformation constructor.
-     *
      * @psalm-param self::MODE_CUSTOM | self::MODE_AUTO $mode
      */
     private function __construct(string $mode, ?string $placeholderTemplate = null)

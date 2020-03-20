@@ -7,6 +7,7 @@ namespace Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentId;
 use InvalidArgumentException;
+use function sprintf;
 
 final class BridgeConfiguredConsentIdParser implements ConsentIdParser
 {

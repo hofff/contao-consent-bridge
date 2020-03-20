@@ -12,7 +12,6 @@ use Hofff\Contao\Consent\Bridge\Exception\UnsupportedContentElement;
 use Hofff\Contao\Consent\Bridge\Exception\UnsupportedFrontendModule;
 use Hofff\Contao\Consent\Bridge\Render\RenderInformation;
 use PhpSpec\ObjectBehavior;
-use function var_dump;
 
 final class BridgeSpec extends ObjectBehavior
 {
@@ -32,7 +31,7 @@ final class BridgeSpec extends ObjectBehavior
         $this->consentTools()->shouldReturn(
             [
                 'a' => $consentToolA,
-                'b' => $consentToolB
+                'b' => $consentToolB,
             ]
         );
     }

@@ -7,6 +7,7 @@ namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 use Contao\LayoutModel;
 use Contao\PageModel;
 use Netzmacht\Html\Attributes;
+use function is_array;
 use function str_replace;
 
 final class GoogleWebfontsListener extends ConsentListener
@@ -38,7 +39,7 @@ final class GoogleWebfontsListener extends ConsentListener
             ]
         );
 
-        if (!isset($GLOBALS['TL_HEAD']) || !is_array($GLOBALS['TL_HEAD'])) {
+        if (! isset($GLOBALS['TL_HEAD']) || ! is_array($GLOBALS['TL_HEAD'])) {
             $GLOBALS['TL_HEAD'] = [];
         }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hofff\Contao\Consent\Bridge\ConsentId;
 
-final class AnalyticsConsentId extends AbstractServiceConsentId
+final class AnalyticsConsentId extends ServiceConsentId
 {
     /** @var string */
     protected static $category = 'analytics';

@@ -15,7 +15,9 @@ interface ConsentToolManager
 
     public function has(string $name) : bool;
 
-    /** @throws InvalidArgumentException When no tool is found */
+    /**
+     * @throws InvalidArgumentException When no tool is found.
+     */
     public function get(string $name) : ConsentTool;
 
     public function activate(
@@ -25,5 +27,5 @@ interface ConsentToolManager
         ?LayoutModel $layoutModel = null
     ) : bool;
 
-    public function activeConsentTool() :? ConsentTool;
+    public function activeConsentTool() : ?ConsentTool;
 }

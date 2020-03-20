@@ -14,11 +14,10 @@ use Hofff\Contao\Consent\Bridge\HofffContaoConsentBridgeBundle;
 final class Plugin implements BundlePluginInterface
 {
     /** @return ConfigInterface[] */
-    public function getBundles(ParserInterface $parser): array
+    public function getBundles(ParserInterface $parser) : array
     {
-        return [
-            BundleConfig::create(HofffContaoConsentBridgeBundle::class)
-                ->setLoadAfter([ContaoCoreBundle::class])
+        return [BundleConfig::create(HofffContaoConsentBridgeBundle::class)
+                ->setLoadAfter([ContaoCoreBundle::class]),
         ];
     }
 }

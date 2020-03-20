@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace spec\Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
-use Contao\PageModel;
-use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
@@ -17,16 +15,11 @@ use Prophecy\Argument;
 
 final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
 {
-    /** @var Bridge */
-    private $bridge;
-
     public function let(
         RequestScopeMatcher $scopeMatcher,
         ConsentToolManager $consentToolManager,
         ConsentIdParser $consentIdParser
     ) : void {
-        $this->bridge = new Bridge();
-
         $this->beConstructedWith($consentToolManager, $scopeMatcher, $consentIdParser);
     }
 

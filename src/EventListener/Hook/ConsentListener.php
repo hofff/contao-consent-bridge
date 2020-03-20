@@ -46,7 +46,7 @@ abstract class ConsentListener
         string $buffer,
         string $consentIdAsString,
         RenderInformation $renderInformation,
-        Model $model = null
+        ?Model $model = null
     ) : string {
         if (! $renderInformation->isAutoRenderMode()) {
             return $buffer;

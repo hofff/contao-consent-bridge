@@ -10,7 +10,7 @@ use function count;
 use function explode;
 use function sprintf;
 
-abstract class AbstractServiceConsentId implements ConsentId
+abstract class ServiceConsentId implements ConsentId
 {
     /** @var string */
     protected static $category;
@@ -34,7 +34,7 @@ abstract class AbstractServiceConsentId implements ConsentId
         return true;
     }
 
-    public static function fromString(string $string) : \Hofff\Contao\Consent\Bridge\ConsentId
+    public static function fromString(string $string) : ConsentId
     {
         return new static(self::extractServiceName($string));
     }

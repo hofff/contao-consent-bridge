@@ -38,8 +38,13 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
         PageModel $pageModel,
         LayoutModel $layoutModel
     ) : void {
-        $pageModel->getWrappedObject()->rootId = 1;
-        $rootPageModel->getWrappedObject()->hofff_consent_bridge_consent_tool = 'example';
+        $pageModel
+            ->getWrappedObject()
+            ->rootId = 1;
+
+        $rootPageModel
+            ->getWrappedObject()
+            ->hofff_consent_bridge_consent_tool = 'example';
 
         $pageRepository->find(1)
             ->shouldBeCalled()
@@ -61,8 +66,13 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
         PageModel $pageModel,
         LayoutModel $layoutModel
     ) : void {
-        $pageModel->getWrappedObject()->rootId = 1;
-        $rootPageModel->getWrappedObject()->hofff_consent_bridge_consent_tool = 'example';
+        $pageModel
+            ->getWrappedObject()
+            ->rootId = 1;
+
+        $rootPageModel
+            ->getWrappedObject()
+            ->hofff_consent_bridge_consent_tool = 'example';
 
         $pageRepository->find(1)
             ->shouldBeCalled()

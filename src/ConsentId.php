@@ -16,7 +16,7 @@ interface ConsentId
     /**
      * Create a consent id from string representation.
      *
-     * @throws InvalidArgumentException When Consent id could not be recreated
+     * @throws InvalidArgumentException When Consent id could not be recreated.
      */
     public static function fromString(string $string) : self;
 
@@ -34,8 +34,6 @@ interface ConsentId
 
     /**
      * Get string representation of the consent id.
-     *
-     * @return string
      */
     public function __toString() : string;
 }

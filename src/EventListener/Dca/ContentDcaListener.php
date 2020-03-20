@@ -8,12 +8,11 @@ use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\DataContainer;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
+use function count;
 
 final class ContentDcaListener
 {
-    /**
-     * @var Bridge
-     */
+    /** @var Bridge */
     private $bridge;
 
     /** @var ConsentToolManager  */

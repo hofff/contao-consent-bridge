@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Hofff\Contao\Consent\Bridge;
 
 use Hofff\Contao\Consent\Bridge\DependencyInjection\Compiler\LoadPluginPass;
