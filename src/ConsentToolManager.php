@@ -13,8 +13,6 @@ interface ConsentToolManager
     /** @return ConsentTool[] */
     public function consentTools() : array;
 
-    public function register(ConsentTool $consentTool) : void;
-
     public function has(string $name) : bool;
 
     /** @throws InvalidArgumentException When no tool is found */

@@ -7,7 +7,9 @@
         <defaults autowire="false" autoconfigure="false" public="false"/>
 
         <service id="Hofff\Contao\Consent\Bridge\ConsentToolManager"
-                 class="Hofff\Contao\Consent\Bridge\Manager\BridgeConsentToolManager" />
+                 class="Hofff\Contao\Consent\Bridge\Manager\BridgeConsentToolManager">
+            <argument type="service" id="Hofff\Contao\Consent\Bridge\Bridge" />
+        </service>
 
         <service id="Hofff\Contao\Consent\Bridge\Bridge" />
 

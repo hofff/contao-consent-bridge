@@ -65,8 +65,9 @@ interface ConsentTool
     public function renderContent(string $buffer, ConsentId $consentId, Model $model = null) : string;
 
     /**
-     * Apply consent for given html output. Do not add placeholder content here as it might be header code or
-     * hidden javascript.
+     * Apply consent for given html output.
+     *
+     * Do not add placeholder content here as it might be header code or hidden javascript.
      */
     public function renderRaw(string $buffer, ConsentId $consentId, Model $model = null) : string;
 

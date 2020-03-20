@@ -8,6 +8,7 @@ use Hofff\Contao\Consent\Bridge\Bridge;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 final class LoadPluginPass implements CompilerPassInterface
 {
@@ -19,11 +20,12 @@ final class LoadPluginPass implements CompilerPassInterface
             return;
         }
 
-        $definition = $container->getDefinition(Bridge::class);
-        $plugins    = $this->findAndSortTaggedServices('hofff_contao_consent_bridge.plugin', $container);
+        $reference = new Reference(Bridge::class);
+        $plugins   = $this->findAndSortTaggedServices('hofff_contao_consent_bridge.plugin', $container);
 
         foreach ($plugins as $plugin) {
-            $definition->addMethodCall('load', [$plugin]);
+            $definition = $container->getDefinition((string) $plugin);
+            $definition->addMethodCall('load', [$reference]);
         }
     }
 }

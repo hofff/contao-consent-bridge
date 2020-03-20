@@ -15,6 +15,7 @@ use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Hofff\Contao\Consent\Bridge\EventListener\Hook\RenderComponentsListener;
 use Hofff\Contao\Consent\Bridge\Exception\InvalidArgumentException;
 use Hofff\Contao\Consent\Bridge\Plugin\BasePlugin;
+use Hofff\Contao\Consent\Bridge\Render\RenderInformation;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -60,14 +61,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
 
         $consentIdParser->parse(Argument::type('string'))->willReturn($consentId);
 
-        $this->bridge->load(
-            new class extends BasePlugin {
-                public function supportedContentElements() : array
-                {
-                    return ['foo'];
-                }
-            }
-        );
+        $this->bridge->supportContentElement('foo', RenderInformation::autoRenderWithoutPlaceholder());
 
         $this->onGetContentElement($model, '<html></html>')->shouldReturn('wrapped');
     }
@@ -90,14 +84,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
             ->shouldBeCalled()
             ->willReturn('wrapped');
 
-        $this->bridge->load(
-            new class extends BasePlugin {
-                public function supportedContentElements() : array
-                {
-                    return ['foo'];
-                }
-            }
-        );
+        $this->bridge->supportContentElement('foo', RenderInformation::autoRenderWithoutPlaceholder());
 
         $this->onGetContentElement($model, '<html></html>')->shouldReturn('wrapped');
     }
@@ -120,14 +107,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
             ->shouldBeCalled()
             ->willReturn('wrapped');
 
-        $this->bridge->load(
-            new class extends BasePlugin {
-                public function supportedFrontendModules() : array
-                {
-                    return ['foo'];
-                }
-            }
-        );
+        $this->bridge->supportFrontendModule('foo', RenderInformation::autoRenderWithoutPlaceholder());
 
         $this->onGetFrontendModule($model, '<html></html>')->shouldReturn('wrapped');
     }
@@ -150,14 +130,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
             ->shouldBeCalled()
             ->willReturn('wrapped');
 
-        $this->bridge->load(
-            new class extends BasePlugin {
-                public function supportedFrontendModules() : array
-                {
-                    return ['foo'];
-                }
-            }
-        );
+        $this->bridge->supportFrontendModule('foo', RenderInformation::autoRenderWithoutPlaceholder());
 
         $this->onGetFrontendModule($model, '<html></html>')->shouldReturn('wrapped');
     }

@@ -6,41 +6,42 @@ namespace Hofff\Contao\Consent\Bridge\Manager;
 
 use Contao\LayoutModel;
 use Contao\PageModel;
+use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use function sprintf;
 
 final class BridgeConsentToolManager implements ConsentToolManager
 {
+    /** @var Bridge */
+    private $bridge;
+
     /** @var ConsentTool|null */
     private $activeConsentTool;
 
-    /** @var ConsentTool[] */
-    private $consentTools = [];
+    public function __construct(Bridge $bridge)
+    {
+        $this->bridge = $bridge;
+    }
 
     /** @return ConsentTool[] */
     public function consentTools() : array
     {
-        return $this->consentTools;
-    }
-
-    public function register(ConsentTool $consentTool) : void
-    {
-        $this->consentTools[$consentTool->name()] = $consentTool;
+        return $this->bridge->consentTools();
     }
 
     public function has(string $name) : bool
     {
-        return isset($this->consentTools[$name]);
+        return isset($this->consentTools()[$name]);
     }
 
     public function get(string $name) : ConsentTool
     {
-        if (!$this->has($name)) {
+        if (! $this->has($name)) {
             throw new \InvalidArgumentException(sprintf('Consent tool "%s" is not known', $name));
         }
 
-        return $this->consentTools[$name];
+        return $this->consentTools()[$name];
     }
 
     public function activate(
@@ -49,12 +50,10 @@ final class BridgeConsentToolManager implements ConsentToolManager
         ?PageModel $pageModel = null,
         ?LayoutModel $layoutModel = null
     ) : bool {
-        if (!isset($this->consentTools[$name])) {
-            throw new \InvalidArgumentException(sprintf('Consent tool "%s" is not known', $name));
-        }
+        $consentTool = $this->get($name);
 
-        if ($this->consentTools[$name]->activate($rootPageModel, $pageModel, $layoutModel)) {
-            $this->activeConsentTool = $this->consentTools[$name];
+        if ($consentTool->activate($rootPageModel, $pageModel, $layoutModel)) {
+            $this->activeConsentTool = $consentTool;
 
             return true;
         }

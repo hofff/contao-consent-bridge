@@ -7,7 +7,6 @@ namespace spec\Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentId\AnalyticsConsentId;
 use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
-use Hofff\Contao\Consent\Bridge\Plugin\BasePlugin;
 use InvalidArgumentException;
 use PhpSpec\ObjectBehavior;
 
@@ -16,14 +15,7 @@ final class BridgeConfiguredConsentIdParserSpec extends ObjectBehavior
     public function let() : void
     {
         $bridge = new Bridge();
-        $bridge->load(
-            new class extends BasePlugin {
-                public function providedConsentIds() : array
-                {
-                    return [AnalyticsConsentId::class];
-                }
-            }
-        );
+        $bridge->registerConsentId(AnalyticsConsentId::class);
 
         $this->beConstructedWith($bridge);
     }

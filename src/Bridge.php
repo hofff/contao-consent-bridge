@@ -4,12 +4,18 @@ declare(strict_types=1);
 
 namespace Hofff\Contao\Consent\Bridge;
 
-use function array_merge;
-use function array_unique;
-use function array_values;
+use Hofff\Contao\Consent\Bridge\Exception\UnsupportedContentElement;
+use Hofff\Contao\Consent\Bridge\Exception\UnsupportedFrontendModule;
+use Hofff\Contao\Consent\Bridge\Render\RenderInformation;
+use function array_keys;
 
-final class Bridge implements Plugin
+final class Bridge
 {
+    /**
+     * @var array<string, ConsentTool>
+     */
+    private $consentTools = [];
+
     /**
      * @psalm-var list<class-string<ConsentId>>
      * @var string[]
@@ -17,22 +23,54 @@ final class Bridge implements Plugin
     private $consentIds = [];
 
     /**
-     * @psalm-var list<string>
-     * @var string[]
+     * @var array<string, RenderInformation>
      */
     private $elements = [];
 
     /**
-     * @psalm-var list<string>
-     * @var string[]
+     * @var array<string, RenderInformation>
      */
     private $modules = [];
 
-    public function load(Plugin $plugin) : void
+    public function registerConsentTool(ConsentTool $consentTool) : self
     {
-        $this->consentIds = $this->merge($this->consentIds, $plugin->providedConsentIds());
-        $this->elements   = $this->merge($this->elements, $plugin->supportedContentElements());
-        $this->modules    = $this->merge($this->modules, $plugin->supportedFrontendModules());
+        $this->consentTools[$consentTool->name()] = $consentTool;
+
+        return $this;
+    }
+
+    /**
+     * @psalm-param class-string<ConsentId> $consentIdClasses
+     */
+    public function registerConsentId(string ...$consentIdClasses) : self
+    {
+        foreach ($consentIdClasses as $consentIdClass) {
+            $this->consentIds[] = $consentIdClass;
+        }
+
+        return $this;
+    }
+
+    public function supportContentElement(string $type, RenderInformation $renderInformation) : self
+    {
+        $this->elements[$type] = $renderInformation;
+
+        return $this;
+    }
+
+    public function supportFrontendModule(string $type, RenderInformation $renderInformation) : self
+    {
+        $this->modules[$type] = $renderInformation;
+
+        return $this;
+    }
+
+    /**
+     * @return array<string, ConsentTool>
+     */
+    public function consentTools() : array
+    {
+        return $this->consentTools;
     }
 
     /**
@@ -47,23 +85,30 @@ final class Bridge implements Plugin
     /** @psalm-return list<string> */
     public function supportedContentElements() : array
     {
-        return $this->elements;
+        return array_keys($this->elements);
     }
 
     /** @psalm-return list<string> */
     public function supportedFrontendModules() : array
     {
-        return $this->modules;
+        return array_keys($this->modules);
     }
 
-    /**
-     * @param mixed[][] $arrays
-     * @psalm-template T
-     * @psalm-param list<list<T>> $arrays
-     * @psalm-return list<T>
-     */
-    private function merge(array ... $arrays) : array
+    public function contentElementRenderInformation(string $type) : RenderInformation
     {
-        return array_values(array_unique(array_merge(... $arrays)));
+        if (!isset($this->elements[$type])) {
+            throw UnsupportedContentElement::ofType($type);
+        }
+
+        return $this->elements[$type];
+    }
+
+    public function frontendModuleRenderInformation(string $type) : RenderInformation
+    {
+        if (!isset($this->modules[$type])) {
+            throw UnsupportedFrontendModule::ofType($type);
+        }
+
+        return $this->modules[$type];
     }
 }
