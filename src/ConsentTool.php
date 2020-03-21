@@ -75,6 +75,14 @@ interface ConsentTool
     public function renderRaw(string $buffer, ConsentId $consentId, ?Model $model = null) : string;
 
     /**
+     * Render a specific placeholder.
+     *
+     * This method is designed to wrap content which is used as placeholder with the markup required by the consent
+     * tool.
+     */
+    public function renderPlaceholder(string $buffer, ConsentId $consentId) : string;
+
+    /**
      * Create a script tag with given attributes which applies restrictions for the consent id.
      */
     public function renderScript(Attributes $attributes, ConsentId $consentId) : string;
