@@ -14,7 +14,7 @@ final class BridgeConfiguredConsentIdParserSpec extends ObjectBehavior
 {
     public function let() : void
     {
-        $bridge = new Bridge();
+        $bridge = new Bridge([]);
         $bridge->registerConsentId(AnalyticsConsentId::class);
 
         $this->beConstructedWith($bridge);

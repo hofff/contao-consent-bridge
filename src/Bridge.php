@@ -26,6 +26,14 @@ final class Bridge
     /** @var array<string, RenderInformation> */
     private $modules = [];
 
+    /** @param Plugin[] $plugins */
+    public function __construct(iterable $plugins)
+    {
+        foreach ($plugins as $plugin) {
+            $plugin->load($this);
+        }
+    }
+
     public function registerConsentTool(ConsentTool $consentTool) : self
     {
         $this->consentTools[$consentTool->name()] = $consentTool;

@@ -10,14 +10,30 @@ use Hofff\Contao\Consent\Bridge\ConsentId\AnalyticsConsentId;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\Exception\UnsupportedContentElement;
 use Hofff\Contao\Consent\Bridge\Exception\UnsupportedFrontendModule;
+use Hofff\Contao\Consent\Bridge\Plugin;
 use Hofff\Contao\Consent\Bridge\Render\RenderInformation;
 use PhpSpec\ObjectBehavior;
 
 final class BridgeSpec extends ObjectBehavior
 {
+    public function let(Plugin $pluginA, Plugin $pluginB) : void
+    {
+        $this->beConstructedWith([$pluginA, $pluginB]);
+    }
+
     public function it_is_initializable() : void
     {
         $this->shouldHaveType(Bridge::class);
+    }
+
+    public function it_loads_plugins(Plugin $pluginA, Plugin $pluginB) : void
+    {
+        $pluginA->load($this)->shouldBeCalled();
+        $pluginB->load($this)->shouldBeCalled();
+
+        $this->getWrappedObject()->__construct(
+            [$pluginA->getWrappedObject(), $pluginB->getWrappedObject()]
+        );
     }
 
     public function it_registers_consent_tools(ConsentTool $consentToolA, ConsentTool $consentToolB) : void

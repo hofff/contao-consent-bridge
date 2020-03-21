@@ -28,7 +28,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         ConsentIdParser $consentIdParser,
         ConsentTool $consentTool
     ) : void {
-        $this->bridge = new Bridge();
+        $this->bridge = new Bridge([]);
 
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
 
