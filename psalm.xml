@@ -23,5 +23,10 @@
                 <referencedProperty name="Contao\ModuleModel::$hofff_consent_bridge_tag"/>
             </errorLevel>
         </UndefinedMagicPropertyFetch>
+        <UndefinedMagicPropertyAssignment>
+            <errorLevel type="suppress">
+                <referencedProperty name="Contao\FrontendTemplate::$activeConsentTool"/>
+            </errorLevel>
+        </UndefinedMagicPropertyAssignment>
     </issueHandlers>
 </psalm>
