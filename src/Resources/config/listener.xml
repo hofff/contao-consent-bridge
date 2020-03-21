@@ -25,6 +25,7 @@
             <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
             <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher" />
             <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser" />
+            <tag name="contao.hook" hook="activeConsentTool" />
             <tag name="contao.hook" hook="parseFrontendTemplate" />
         </service>
 
