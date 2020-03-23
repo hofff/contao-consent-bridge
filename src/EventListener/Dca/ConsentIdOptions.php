@@ -31,7 +31,7 @@ final class ConsentIdOptions
             $options[$consentTool->name()] = [];
 
             foreach ($toolOptions as $label => $consentId) {
-                $options[$consentTool->name()][$consentId->toString()] = is_numeric($label)
+                $options[$consentTool->name()][$consentId->serialize()] = is_numeric($label)
                     ? $consentId->toString()
                     : $label;
             }
