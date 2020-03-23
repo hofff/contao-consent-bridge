@@ -26,6 +26,16 @@ final class TemplateHelper
         $this->consentToolManager = $consentToolManager;
     }
 
+    public function renderConsentId(ConsentId $consentId) : ?string
+    {
+        $consentTool = $this->consentToolManager->activeConsentTool();
+        if ($consentTool === null) {
+            return null;
+        }
+
+        return $consentTool->renderConsentId($consentId);
+    }
+
     public function requiresConsent(ConsentId $consentId) : bool
     {
         $consentTool = $this->consentToolManager->activeConsentTool();
