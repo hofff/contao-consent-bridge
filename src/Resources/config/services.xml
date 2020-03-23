@@ -19,5 +19,9 @@
                  class="Hofff\Contao\Consent\Bridge\ConsentId\BridgeConfiguredConsentIdParser">
             <argument type="service" id="Hofff\Contao\Consent\Bridge\Bridge" />
         </service>
+
+        <service id="Hofff\Contao\Consent\Bridge\Render\TemplateHelper" public="true">
+            <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
+        </service>
     </services>
 </container>
