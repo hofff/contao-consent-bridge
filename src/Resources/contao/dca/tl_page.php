@@ -13,6 +13,7 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['hofff_consent_bridge_consent_tool'] = [
         'includeBlankOption' => true,
         'chosen'             => true,
         'submitOnChange'     => true,
+        'helpwizard'         => true,
         'tl_class'           => 'w50',
     ],
     'sql'              => [
