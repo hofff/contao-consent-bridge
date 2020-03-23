@@ -8,6 +8,7 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['hofff_consent_bridge_consent_tool'] = [
     'label'            => &$GLOBALS['TL_LANG']['tl_page']['hofff_consent_bridge_consent_tool'],
     'inputType'        => 'select',
     'options_callback' => [PageDcaListener::class, 'consentToolOptions'],
+    'reference'        => &$GLOBALS['TL_LANG']['tl_page']['hofff_consent_bridge_consent_tools'],
     'eval'             => [
         'includeBlankOption' => true,
         'chosen'             => true,
