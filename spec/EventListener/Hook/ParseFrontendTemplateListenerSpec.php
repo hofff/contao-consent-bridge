@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace spec\Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
-use Contao\BackendTemplate;
 use Contao\FrontendTemplate;
 use Contao\Template;
 use Hofff\Contao\Consent\Bridge\ConsentId;

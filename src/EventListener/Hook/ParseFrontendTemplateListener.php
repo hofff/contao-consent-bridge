@@ -6,7 +6,6 @@ namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
 use Contao\FrontendTemplate;
 use Contao\Template;
-use function var_dump;
 
 final class ParseFrontendTemplateListener extends ConsentListener
 {
