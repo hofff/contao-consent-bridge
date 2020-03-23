@@ -6,8 +6,10 @@ namespace Hofff\Contao\Consent\Bridge\Render;
 
 use Contao\Model;
 use Hofff\Contao\Consent\Bridge\ConsentId;
+use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Hofff\Contao\Consent\Bridge\Exception\RuntimeException;
+use function assert;
 use function ob_end_flush;
 use function ob_start;
 
@@ -41,6 +43,7 @@ final class TemplateHelper
         }
 
         $consentTool = $this->consentToolManager->activeConsentTool();
+        assert($consentTool instanceof ConsentTool);
 
         $this->block(
             static function (string $buffer) use ($consentId, $consentTool, $model) {
@@ -56,6 +59,7 @@ final class TemplateHelper
         }
 
         $consentTool = $this->consentToolManager->activeConsentTool();
+        assert($consentTool instanceof ConsentTool);
 
         $this->block(
             static function (string $buffer) use ($consentId, $consentTool) {
