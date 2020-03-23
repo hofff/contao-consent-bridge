@@ -24,6 +24,39 @@ final class TemplateHelperSpec extends ObjectBehavior
         $this->shouldHaveType(TemplateHelper::class);
     }
 
+    public function it_proxis_requires_consent(
+        ConsentToolManager $consentToolManager,
+        ConsentTool $consentTool,
+        ConsentId $consentId,
+        ConsentId $consentIdB
+    ) : void {
+        $consentToolManager->activeConsentTool()->willReturn($consentTool);
+
+        $consentTool->requiresConsent($consentId)
+            ->shouldBeCalled()
+            ->willReturn(true);
+
+        $consentTool->requiresConsent($consentIdB)
+            ->shouldBeCalled()
+            ->willReturn(false);
+
+        $this->requiresConsent($consentId)
+            ->shouldReturn(true);
+
+        $this->requiresConsent($consentIdB)
+            ->shouldReturn(false);
+    }
+
+    public function it_does_not_require_consent_if_no_active_consent_tool_exists(
+        ConsentToolManager $consentToolManager,
+        ConsentId $consentId
+    ) : void {
+        $consentToolManager->activeConsentTool()->willReturn(null);
+
+        $this->requiresConsent($consentId)
+            ->shouldReturn(false);
+    }
+
     public function it_renders_content_block(
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,

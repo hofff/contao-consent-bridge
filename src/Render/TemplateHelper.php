@@ -24,12 +24,23 @@ final class TemplateHelper
         $this->consentToolManager = $consentToolManager;
     }
 
-    public function contentBlock(ConsentId $consentId, ?Model $model = null) : void
+    public function requiresConsent(ConsentId $consentId) : bool
     {
         $consentTool = $this->consentToolManager->activeConsentTool();
-        if ($consentTool === null || ! $consentTool->requiresConsent($consentId)) {
+        if ($consentTool === null) {
+            return false;
+        }
+
+        return $consentTool->requiresConsent($consentId);
+    }
+
+    public function contentBlock(ConsentId $consentId, ?Model $model = null) : void
+    {
+        if (! $this->requiresConsent($consentId)) {
             return;
         }
+
+        $consentTool = $this->consentToolManager->activeConsentTool();
 
         $this->block(
             static function (string $buffer) use ($consentId, $consentTool, $model) {
@@ -40,10 +51,11 @@ final class TemplateHelper
 
     public function placeholderBlock(ConsentId $consentId) : void
     {
-        $consentTool = $this->consentToolManager->activeConsentTool();
-        if ($consentTool === null || ! $consentTool->requiresConsent($consentId)) {
+        if (! $this->requiresConsent($consentId)) {
             return;
         }
+
+        $consentTool = $this->consentToolManager->activeConsentTool();
 
         $this->block(
             static function (string $buffer) use ($consentId, $consentTool) {
