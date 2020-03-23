@@ -157,29 +157,4 @@ final class TemplateHelperSpec extends ObjectBehavior
         $this->shouldThrow(RuntimeException::class)->during('placeholderBlock', [$consentId]);
         $this->shouldThrow(RuntimeException::class)->during('contentBlock', [$consentId]);
     }
-
-    public function it_proxies_render_consent_id(
-        ConsentToolManager $consentToolManager,
-        ConsentTool $consentTool,
-        ConsentId $consentId
-    ) : void {
-        $consentToolManager->activeConsentTool()
-            ->shouldBeCalled()
-            ->willReturn($consentTool);
-
-        $consentTool->renderConsentId($consentId)->shouldBeCalled();
-
-        $this->renderConsentId($consentId);
-    }
-
-    public function it_returns_null_if_non_consent_id_given(
-        ConsentToolManager $consentToolManager,
-        ConsentId $consentId
-    ) : void {
-        $consentToolManager->activeConsentTool()
-            ->shouldBeCalled()
-            ->willReturn(null);
-
-        $this->renderConsentId($consentId)->shouldReturn(null);
-    }
 }

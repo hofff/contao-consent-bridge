@@ -23,7 +23,7 @@ final class BridgeConfiguredConsentIdParser implements ConsentIdParser
     {
         foreach ($this->bridge->providedConsentIds() as $class) {
             if ($class::supports($string)) {
-                return $class::fromString($string);
+                return $class::fromSerialized($string);
             }
         }
 

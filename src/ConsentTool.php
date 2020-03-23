@@ -56,11 +56,6 @@ interface ConsentTool
     public function determineConsentIdByName(string $serviceOrTemplateName) : ?ConsentId;
 
     /**
-     * Render a consent id fullfilling requirements of the consent tool.
-     */
-    public function renderConsentId(ConsentId $consentId) : string;
-
-    /**
      * Render content so that consent tool requirements for given consent id is applied.
      *
      * This method might add a placeholder content as it's used for content elements and frontend modules.

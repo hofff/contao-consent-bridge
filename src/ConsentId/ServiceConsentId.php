@@ -34,7 +34,7 @@ abstract class ServiceConsentId implements ConsentId
         return true;
     }
 
-    public static function fromString(string $string) : ConsentId
+    public static function fromSerialized(string $string) : ConsentId
     {
         return new static(self::extractServiceName($string));
     }
@@ -53,7 +53,7 @@ abstract class ServiceConsentId implements ConsentId
         return static::$category . ':' . $this->service;
     }
 
-    public function jsonSerialize() : string
+    public function serialize() : string
     {
         return $this->toString();
     }
