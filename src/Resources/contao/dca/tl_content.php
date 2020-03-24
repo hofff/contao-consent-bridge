@@ -12,6 +12,11 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['hofff_consent_bridge_tag'] = [
     'exclude'          => true,
     'inputType'        => 'select',
     'options_callback' => [ConsentIdOptions::class, '__invoke'],
-    'eval'             => ['tl_class' => 'clr w50', 'includeBlankOption' => true, 'chosen' => true, 'multiple' => false],
+    'eval'             => [
+        'tl_class'           => 'clr w50',
+        'includeBlankOption' => true,
+        'chosen'             => true,
+        'multiple'           => false,
+    ],
     'sql'              => ['type' => 'string', 'default' => null, 'notnull' => false],
 ];
