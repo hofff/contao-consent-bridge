@@ -7,7 +7,7 @@ namespace spec\Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentId\AnalyticsConsentId;
 use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
-use InvalidArgumentException;
+use Hofff\Contao\Consent\Bridge\Exception\InvalidArgumentException;
 use PhpSpec\ObjectBehavior;
 
 final class BridgeConfiguredConsentIdParserSpec extends ObjectBehavior
