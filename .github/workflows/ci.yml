@@ -23,4 +23,8 @@ jobs:
       - name: Run phpspec
         run: vendor/bin/phpspec run --no-code-generation
 
+      - name: Run composer-require-checker
+        uses: docker://phpga/composer-require-checker-ga
+        with:
+          args: check --config-file ./.composer-require-checker.json
 

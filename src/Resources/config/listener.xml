@@ -46,11 +46,19 @@
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\ContentDcaListener" public="true">
             <argument type="service" id="Hofff\Contao\Consent\Bridge\Bridge" />
             <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
+            <argument type="service" id="database_connection" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="netzmacht.contao_toolkit.contao.backend_user" />
+            <argument type="service" id="netzmacht.contao_toolkit.contao.message_adapter" />
         </service>
 
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\ModuleDcaListener" public="true">
             <argument type="service" id="Hofff\Contao\Consent\Bridge\Bridge" />
             <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
+            <argument type="service" id="database_connection" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="netzmacht.contao_toolkit.contao.backend_user" />
+            <argument type="service" id="netzmacht.contao_toolkit.contao.message_adapter" />
         </service>
 
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\PageDcaListener" public="true">
