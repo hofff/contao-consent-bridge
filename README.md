@@ -18,6 +18,10 @@ Installation
 
 You can install `hofff/contao-consent-bridge` using Composer/Contao Manager.
 
+Changelog
+---------
+
+See [changelog](CHANGELOG.md)
 
 Features
 --------

@@ -22,5 +22,3 @@ jobs:
 
       - name: Run phpspec
         run: vendor/bin/phpspec run --no-code-generation
-
-
