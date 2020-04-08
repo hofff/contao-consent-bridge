@@ -11,6 +11,9 @@
             <trans-unit id="tl_module.hofff_consent_bridge_tag.1">
                 <source>Please assign a data processing service which requires consent to display the frontend module.</source>
             </trans-unit>
+            <trans-unit id="tl_module.hofff_consent_bridge_tag_missing">
+                <source>You haven't assign a data processing service yet. Please check if it's required and assign one.</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

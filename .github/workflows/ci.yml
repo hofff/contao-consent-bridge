@@ -27,3 +27,4 @@ jobs:
         uses: docker://phpga/composer-require-checker-ga
         with:
           args: check --config-file ./.composer-require-checker.json
+

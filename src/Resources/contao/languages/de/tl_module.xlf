@@ -14,6 +14,10 @@
                 <source>Please assign a data processing service which requires consent to display the frontend module.</source>
                 <target>Bitte weisen Sie einen Datenverarbeitungsservice zu, für den die Einwillung erteilt werden muss, bevor das Frontendmodul ausgegeben wird.</target>
             </trans-unit>
+            <trans-unit id="tl_module.hofff_consent_bridge_tag_missing">
+                <source>You haven't assign a data processing service yet. Please check if it's required and assign one.</source>
+                <target>Es wurde kein Datenverarbeitungsservice konfiguriert. Bitte überprüfen Sie ob einer zugewiesen werden muss.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
