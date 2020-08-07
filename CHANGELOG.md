@@ -3,12 +3,16 @@
 
 ## [Unreleased]
 
-## [1.2.0]
+## [1.2.0] - (2020-08-07)
 
 ### Added
 
 - Add basic support for rocksolid custom elements
 - Add configuration option to adjust supported content elements and frontend modules
+
+### Fixed
+
+- Fix license information in the composer.json
 
 ## [1.1.1] - (2020-05-14)
 
