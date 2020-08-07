@@ -10,10 +10,15 @@ use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Config\ConfigInterface;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Hofff\Contao\Consent\Bridge\HofffContaoConsentBridgeBundle;
+use MadeYourDay\RockSolidCustomElements\RockSolidCustomElementsBundle;
 
 final class Plugin implements BundlePluginInterface
 {
-    /** @return ConfigInterface[] */
+    /**
+     * @return ConfigInterface[]
+     *
+     * @psalm-suppress UndefinedClass
+     */
     public function getBundles(ParserInterface $parser) : array
     {
         return [
@@ -21,7 +26,7 @@ final class Plugin implements BundlePluginInterface
                 ->setLoadAfter(
                     [
                         ContaoCoreBundle::class,
-                        \MadeYourDay\RockSolidCustomElements\RockSolidCustomElementsBundle::class
+                        RockSolidCustomElementsBundle::class,
                     ]
                 ),
         ];

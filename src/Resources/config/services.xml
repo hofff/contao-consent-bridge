@@ -20,6 +20,12 @@
             <argument type="service" id="Hofff\Contao\Consent\Bridge\Bridge" />
         </service>
 
+        <service id="Hofff\Contao\Consent\Bridge\Plugin\ConfigurationBasedPlugin">
+            <argument>%hofff_contao_consent_bridge.content_elements%</argument>
+            <argument>%hofff_contao_consent_bridge.frontend_modules%</argument>
+            <tag name="hofff_contao_consent_bridge.plugin" priority="-128" />
+        </service>
+
         <service id="Hofff\Contao\Consent\Bridge\Render\TemplateHelper" public="true">
             <argument type="service" id="Hofff\Contao\Consent\Bridge\ConsentToolManager" />
         </service>
