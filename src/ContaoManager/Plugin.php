@@ -16,8 +16,14 @@ final class Plugin implements BundlePluginInterface
     /** @return ConfigInterface[] */
     public function getBundles(ParserInterface $parser) : array
     {
-        return [BundleConfig::create(HofffContaoConsentBridgeBundle::class)
-                ->setLoadAfter([ContaoCoreBundle::class]),
+        return [
+            BundleConfig::create(HofffContaoConsentBridgeBundle::class)
+                ->setLoadAfter(
+                    [
+                        ContaoCoreBundle::class,
+                        \MadeYourDay\RockSolidCustomElements\RockSolidCustomElementsBundle::class
+                    ]
+                ),
         ];
     }
 }

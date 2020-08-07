@@ -6,6 +6,7 @@ namespace Hofff\Contao\Consent\Bridge\EventListener\Dca;
 
 use Contao\BackendUser;
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
+use Contao\CoreBundle\Exception\PaletteNotFoundException;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\DataContainer;
 use Contao\Input;
@@ -62,7 +63,11 @@ final class ContentDcaListener
             ->addField('hofff_consent_bridge_tag', 'hofff_consent_bridge_legend', PaletteManipulator::POSITION_APPEND);
 
         foreach ($this->bridge->supportedContentElements() as $element) {
-            $paletteManipulator->applyToPalette($element, 'tl_content');
+            try {
+                $paletteManipulator->applyToPalette($element, 'tl_content');
+            } catch (PaletteNotFoundException $exception) {
+                // Do nothing. Required for RSCE support which does not always append their palettes.
+            }
         }
     }
 
