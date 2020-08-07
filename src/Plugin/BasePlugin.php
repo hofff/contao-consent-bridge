@@ -6,6 +6,7 @@ namespace Hofff\Contao\Consent\Bridge\Plugin;
 
 use Hofff\Contao\Consent\Bridge\Plugin;
 
+/** @deprecated Will be removed in version 2.0 */
 abstract class BasePlugin implements Plugin
 {
     /** @inheritDoc */
