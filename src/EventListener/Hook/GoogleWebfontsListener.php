@@ -28,16 +28,16 @@ final class GoogleWebfontsListener extends ConsentListener
             return;
         }
 
-        // Delete web fonts settings. Detach model to prevent accidentally overwrites.
-        $layoutModel->detach();
-        $layoutModel->webfonts = '';
-
         $attributes = new Attributes(
             [
-                'rel'  => 'stylehseet',
+                'rel'  => 'stylesheet',
                 'href' => 'https://fonts.googleapis.com/css?family=' . str_replace('|', '%7C', $layoutModel->webfonts),
             ]
         );
+
+        // Delete web fonts settings. Detach model to prevent accidentally overwrites.
+        $layoutModel->detach();
+        $layoutModel->webfonts = '';
 
         if (! isset($GLOBALS['TL_HEAD']) || ! is_array($GLOBALS['TL_HEAD'])) {
             $GLOBALS['TL_HEAD'] = [];
