@@ -16,12 +16,8 @@ final class ConfigurationBasedPluginSpec extends ObjectBehavior
             'mode'                => 'auto',
             'placeholderTemplate' => 'rsce_custom_placeholder',
         ],
-        'fancy_slider' => [
-            'mode' => 'auto',
-        ],
-        'my_element' => [
-            'mode' => 'custom',
-        ],
+        'fancy_slider' => ['mode' => 'auto'],
+        'my_element' => ['mode' => 'custom'],
     ];
 
     public function let() : void

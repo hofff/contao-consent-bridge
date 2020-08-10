@@ -32,7 +32,7 @@ final class PluginSpec extends ObjectBehavior
         $this->getBundles($parser)[0]->shouldImplement(ConfigInterface::class);
         $this->getBundles($parser)[0]->getName()->shouldReturn(HofffContaoConsentBridgeBundle::class);
         $this->getBundles($parser)[0]->getLoadAfter()->shouldReturn(
-            [ContaoCoreBundle::class, RockSolidCustomElementsBundle::class,]
+            [ContaoCoreBundle::class, RockSolidCustomElementsBundle::class]
         );
     }
 }
