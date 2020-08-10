@@ -48,20 +48,21 @@ you can register a plugin which provides extra information. You need to tag it a
 
 namespace Your\Bundle;
 
-use Your\Bundle\ConsentId\DataProcessingServiceId;
+use Hofff\Contao\Consent\Bridge\Bridge;
+use Hofff\Contao\Consent\Bridge\Bridge\Plugin;
+use Hofff\Contao\Consent\Bridge\Render\RenderInformation;
 
-class Plugin implements \Hofff\Contao\Consent\Bridge\Plugin
+class MyPlugin implements \Hofff\Contao\Consent\Bridge\Plugin
 {
-    public function providedConsentIds() : array
+    public function load(Bridge $bridge): void
     {
-        return [DataProcessingServiceId::class];
-    }
-    public function supportedContentElements() : array
-    {
-        return ['your_content_element_type_a', 'your_content_element_type_b'];
-    }
-    public function supportedFrontendModules() : array{
-        return ['your_frontend_module_a', 'your_frontend_module_b'];
+        $bridge->supportFrontendModule('custom_1', RenderInformation::autoRenderWithoutPlaceholder());
+        $bridge->supportFrontendModule('custom_2', RenderInformation::autoRenderWithPlaceholder('custom_placeholder_template'));
+        $bridge->supportFrontendModule('custom_3', RenderInformation::customRender());
+
+        $bridge->supportContentElement('custom_1', RenderInformation::autoRenderWithoutPlaceholder());
+        $bridge->supportContentElement('custom_2', RenderInformation::autoRenderWithPlaceholder('custom_placeholder_template'));
+        $bridge->supportContentElement('custom_3', RenderInformation::customRender());
     }
 }
 ```
