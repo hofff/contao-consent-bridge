@@ -12,17 +12,14 @@ use function expect;
 final class ConfigurationBasedPluginSpec extends ObjectBehavior
 {
     private const CONFIG = [
-        [
-            'type'                => 'rsce_custom',
+        'rsce_custom' => [
             'mode'                => 'auto',
             'placeholderTemplate' => 'rsce_custom_placeholder',
         ],
-        [
-            'type' => 'fancy_slider',
+        'fancy_slider' => [
             'mode' => 'auto',
         ],
-        [
-            'type' => 'my_element',
+        'my_element' => [
             'mode' => 'custom',
         ],
     ];

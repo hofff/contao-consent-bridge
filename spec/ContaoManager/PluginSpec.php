@@ -10,6 +10,7 @@ use Contao\ManagerPlugin\Bundle\Config\ConfigInterface;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Hofff\Contao\Consent\Bridge\ContaoManager\Plugin;
 use Hofff\Contao\Consent\Bridge\HofffContaoConsentBridgeBundle;
+use MadeYourDay\RockSolidCustomElements\RockSolidCustomElementsBundle;
 use PhpSpec\ObjectBehavior;
 
 final class PluginSpec extends ObjectBehavior
@@ -30,6 +31,8 @@ final class PluginSpec extends ObjectBehavior
 
         $this->getBundles($parser)[0]->shouldImplement(ConfigInterface::class);
         $this->getBundles($parser)[0]->getName()->shouldReturn(HofffContaoConsentBridgeBundle::class);
-        $this->getBundles($parser)[0]->getLoadAfter()->shouldReturn([ContaoCoreBundle::class]);
+        $this->getBundles($parser)[0]->getLoadAfter()->shouldReturn(
+            [ContaoCoreBundle::class, RockSolidCustomElementsBundle::class,]
+        );
     }
 }
