@@ -13,6 +13,7 @@ use Netzmacht\Html\Attributes;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 final class ActiveConsentToolSpec extends ObjectBehavior
 {
     public function let(ConsentTool $consentTool, ConsentIdParser $parser) : void

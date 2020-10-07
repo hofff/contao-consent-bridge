@@ -12,6 +12,7 @@ use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Netzmacht\Html\Attributes;
 
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 final class ActiveConsentTool implements ConsentTool
 {
     /** @var ConsentTool */
@@ -55,6 +56,7 @@ final class ActiveConsentTool implements ConsentTool
         return $this->consentTool->requiresConsent($consentId);
     }
 
+    /** @SuppressWarnings(PHPMD.LongVariable) */
     public function determineConsentIdByName(string $serviceOrTemplateName) : ?ConsentId
     {
         return $this->consentTool->determineConsentIdByName($serviceOrTemplateName);

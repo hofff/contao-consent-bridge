@@ -141,7 +141,6 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
 
     public function it_does_not_inject_consent_tool_if_non_given(
         ConsentToolManager $consentToolManager,
-        ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
         Template $template
     ) : void {

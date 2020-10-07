@@ -18,6 +18,7 @@ final class Plugin implements BundlePluginInterface
      * @return ConfigInterface[]
      *
      * @psalm-suppress UndefinedClass
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getBundles(ParserInterface $parser) : array
     {

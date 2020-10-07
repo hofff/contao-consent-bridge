@@ -1,0 +1,49 @@
+name: Continues Integration
+
+on: [push]
+
+env:
+  PHPCQ_DIRECTORY: ./phpcq-runner
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+        env:
+          COMPOSER_ROOT_VERSION: dev-master
+
+      ### BEGIN TODO REMOVE WHEN phpcq COMPOSER PLUGIN IS READY
+      - name: Cache vendor directory of phpcq tool runner
+        uses: actions/cache@v1
+        env:
+          cache-name: phpcq-vendor
+        with:
+          path: ${{ env.PHPCQ_DIRECTORY }}/vendor
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+
+      - name: Install phpcq tool runner
+        uses: actions/checkout@v2
+        with:
+          repository: 'phpcq/phpcq'
+          ref: dev-2.0
+          path: ${{ env.PHPCQ_DIRECTORY }}
+
+      - name: Install phpcq tool runner dependencies
+        run: composer install
+        working-directory: ${{ env.PHPCQ_DIRECTORY }}
+
+      ### END TODO REMOVE WHEN phpcq COMPOSER PLUGIN IS READY
+
+      - name: Install phpcq toolchain
+        run: $GITHUB_WORKSPACE/${{ env.PHPCQ_DIRECTORY }}/phpcq install -v
+
+      - name: Run tests
+        run: $GITHUB_WORKSPACE/${{ env.PHPCQ_DIRECTORY }}/phpcq run -v
+

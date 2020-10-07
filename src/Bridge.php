@@ -9,6 +9,7 @@ use Hofff\Contao\Consent\Bridge\Exception\UnsupportedFrontendModule;
 use Hofff\Contao\Consent\Bridge\Render\RenderInformation;
 use function array_keys;
 
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 final class Bridge
 {
     /** @var array<string, ConsentTool> */

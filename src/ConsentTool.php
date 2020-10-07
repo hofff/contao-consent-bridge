@@ -52,6 +52,8 @@ interface ConsentTool
      *
      * This method can be used to map a template name to a consent id. Also "google_webfonts" is passed to this
      * method to determine a given consent id.
+     *
+     * @SuppressWarnings(PHPMD.LongVariable)
      */
     public function determineConsentIdByName(string $serviceOrTemplateName) : ?ConsentId;
 

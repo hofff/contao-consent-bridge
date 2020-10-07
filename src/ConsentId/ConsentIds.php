@@ -37,6 +37,7 @@ final class ConsentIds implements Countable, IteratorAggregate, JsonSerializable
         return self::fromArray($consentIds);
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedPrivateMethod) - False positive - Method is used in fromArray() */
     private function add(ConsentId $consentId) : void
     {
         $this->consentIds[] = $consentId;

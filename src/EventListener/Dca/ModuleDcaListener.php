@@ -52,7 +52,7 @@ final class ModuleDcaListener
         $this->translator         = $translator;
     }
 
-    public function initializePalettes(DataContainer $dataContainer) : void
+    public function initializePalettes() : void
     {
         if (count($this->consentToolManager->consentTools()) === 0) {
             return;
@@ -71,6 +71,7 @@ final class ModuleDcaListener
         }
     }
 
+    /** @SuppressWarnings(PHPMD.Superglobals) */
     public function showConsentInfo(DataContainer $dataContainer) : void
     {
         if ($_POST || Input::get('act') !== 'edit') {

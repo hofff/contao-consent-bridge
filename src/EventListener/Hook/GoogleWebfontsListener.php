@@ -12,6 +12,10 @@ use function str_replace;
 
 final class GoogleWebfontsListener extends ConsentListener
 {
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
     public function onGeneratePage(PageModel $pageModel, LayoutModel $layoutModel) : void
     {
         if ($layoutModel->webfonts === '') {
