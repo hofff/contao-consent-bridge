@@ -1,4 +1,4 @@
-name: Continues Integration
+name: PHP Code Quality Diagnostics
 
 on: [push]
 
