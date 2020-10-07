@@ -6,6 +6,7 @@ namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
 use Contao\FrontendTemplate;
 use Contao\Template;
+use Hofff\Contao\Consent\Bridge\Render\ActiveConsentTool;
 
 final class ParseFrontendTemplateListener extends ConsentListener
 {
@@ -24,7 +25,7 @@ final class ParseFrontendTemplateListener extends ConsentListener
             return;
         }
 
-        $template->activeConsentTool = $consentTool;
+        $template->activeConsentTool = new ActiveConsentTool($consentTool, $this->consentIdParser);
     }
 
     public function onParseFrontendTemplate(string $buffer, string $templateName) : string

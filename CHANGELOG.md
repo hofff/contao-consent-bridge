@@ -3,6 +3,10 @@
 
 ## [Unreleased]
 
+### Added
+
+ - Allow to parse a consent id from the active consent tool
+
 ## [1.2.0] - (2020-08-07)
 
 ### Added

@@ -21,7 +21,7 @@ abstract class ConsentListener
     private $scopeMatcher;
 
     /** @var ConsentIdParser */
-    private $consentIdParser;
+    protected $consentIdParser;
 
     public function __construct(
         ConsentToolManager $consentToolManager,

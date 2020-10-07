@@ -11,6 +11,7 @@ use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Hofff\Contao\Consent\Bridge\EventListener\Hook\ParseFrontendTemplateListener;
+use Hofff\Contao\Consent\Bridge\Render\ActiveConsentTool;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -88,7 +89,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
 
         $this->onParseTemplate($template);
 
-        expect($template->activeConsentTool)->shouldReturn($consentTool);
+        expect($template->activeConsentTool)->shouldBeAnInstanceOf(ActiveConsentTool::class);
     }
 
     public function it_does_not_inject_active_consent_tool_for_non_frontend_templates(
