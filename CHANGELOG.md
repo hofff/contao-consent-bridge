@@ -6,6 +6,10 @@
 ### Added
 
  - Allow to parse a consent id from the active consent tool
+ 
+### Deprecated
+
+ - Deprecate the `TemplateHelper` as it does not work within Contao templates
 
 ## [1.2.0] - (2020-08-07)
 

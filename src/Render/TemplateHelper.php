@@ -13,6 +13,7 @@ use function assert;
 use function ob_end_flush;
 use function ob_start;
 
+/** @deprecated Implementation don't work in Contao template context - will be removed in version 2.0 */
 final class TemplateHelper
 {
     /** @var ConsentToolManager */
