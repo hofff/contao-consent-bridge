@@ -91,6 +91,10 @@ final class ContentDcaListener
             return;
         }
 
+        /**
+         * @psalm-suppress DeprecatedMethod
+         * TODO: Change when requiring doctrine/dbal ^2.11
+         */
         if (! $this->bridge->supportsContentElement((string) $statement->fetchColumn())) {
             return;
         }

@@ -18,7 +18,7 @@ abstract class ServiceConsentId implements ConsentId
     /** @var string */
     private $service;
 
-    public function __construct(string $serviceName)
+    final public function __construct(string $serviceName)
     {
         $this->service = $serviceName;
     }

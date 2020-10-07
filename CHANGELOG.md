@@ -3,9 +3,15 @@
 
 ## [Unreleased]
 
+## [1.3.0] - (2020-10-07)
+
 ### Added
 
  - Allow to parse a consent id from the active consent tool
+ 
+### Breaking
+
+ - Make `ServiceConsentId::__construct` final to prevent breaking of `fromSerialize()` 
  
 ### Deprecated
 
@@ -35,6 +41,7 @@
 - Add info messages if no consent tag is assign for supported frontend modules and content elements
 
 
+[1.2.0]: https://github.com/hofff/contao-consent-bridge/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/hofff/contao-consent-bridge/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/hofff/contao-consent-bridge/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/hofff/contao-consent-bridge/compare/1.0.0...1.1.0

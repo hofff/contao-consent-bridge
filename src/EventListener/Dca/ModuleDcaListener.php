@@ -91,6 +91,10 @@ final class ModuleDcaListener
             return;
         }
 
+        /**
+         * @psalm-suppress DeprecatedMethod
+         * TODO: Change when requiring doctrine/dbal ^2.11
+         */
         if (! $this->bridge->supportsFrontendModule((string) $statement->fetchColumn())) {
             return;
         }
