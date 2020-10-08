@@ -1,5 +1,5 @@
-Generic Bridge for consent tools
---------------------------------
+Bridge between consent tools and third party extensions for Contao
+------------------------------------------------------------------
 
 This extension provides a bridge for integrating consent tools into Contao.
 

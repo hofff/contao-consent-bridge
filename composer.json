@@ -1,7 +1,7 @@
 {
   "name": "hofff/contao-consent-bridge",
   "type": "contao-bundle",
-  "description": "Consent manager for Contao",
+  "description": "Bridge between consent tools and third party extensions for Contao",
   "keywords": [
     "GDPDR",
     "Cookies",
