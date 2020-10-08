@@ -18,7 +18,7 @@ abstract class ServiceConsentId implements ConsentId
     /** @var string */
     private $service;
 
-    final public function __construct(string $serviceName)
+    public function __construct(string $serviceName)
     {
         $this->service = $serviceName;
     }
@@ -36,6 +36,7 @@ abstract class ServiceConsentId implements ConsentId
 
     public static function fromSerialized(string $string) : ConsentId
     {
+        /** @psalm-suppress UnsafeInstantiation */
         return new static(self::extractServiceName($string));
     }
 

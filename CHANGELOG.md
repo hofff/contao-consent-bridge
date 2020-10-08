@@ -3,6 +3,12 @@
 
 ## [Unreleased]
 
+## [1.3.1] - (2020-10-08)
+
+### Fixed
+
+- Remove final from `ServiceConsentId::__construct` to avoid breaking changes
+
 ## [1.3.0] - (2020-10-07)
 
 ### Added
@@ -41,7 +47,8 @@
 - Add info messages if no consent tag is assign for supported frontend modules and content elements
 
 
-[1.2.0]: https://github.com/hofff/contao-consent-bridge/compare/1.2.0...1.3.0
+[1.3.1]: https://github.com/hofff/contao-consent-bridge/compare/1.3.0...1.3.1
+[1.3.0]: https://github.com/hofff/contao-consent-bridge/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/hofff/contao-consent-bridge/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/hofff/contao-consent-bridge/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/hofff/contao-consent-bridge/compare/1.0.0...1.1.0
