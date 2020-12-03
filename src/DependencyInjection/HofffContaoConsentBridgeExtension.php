@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hofff\Contao\Consent\Bridge\DependencyInjection;
 
+use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\Plugin;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -32,6 +33,10 @@ class HofffContaoConsentBridgeExtension extends Extension
         $container
             ->registerForAutoconfiguration(Plugin::class)
             ->addTag('hofff_contao_consent_bridge.plugin')
+        ;
+        $container
+            ->registerForAutoconfiguration(ConsentTool::class)
+            ->addTag('hofff_contao_consent_bridge.consent_tool')
         ;
     }
 }
