@@ -39,20 +39,20 @@ final class ConfigurationBasedPlugin implements Plugin
         $this->frontendModules = $frontendModules;
     }
 
-    public function load(Bridge $bridge) : void
+    public function load(Bridge $bridge): void
     {
         $this->registerContentElements($bridge);
         $this->registerFrontendModules($bridge);
     }
 
-    private function registerContentElements(Bridge $bridge) : void
+    private function registerContentElements(Bridge $bridge): void
     {
         foreach ($this->contentElements as $type => $config) {
             $bridge->supportContentElement($type, $this->createRenderInformation($config));
         }
     }
 
-    private function registerFrontendModules(Bridge $bridge) : void
+    private function registerFrontendModules(Bridge $bridge): void
     {
         foreach ($this->frontendModules as $type => $config) {
             $bridge->supportFrontendModule($type, $this->createRenderInformation($config));
@@ -60,7 +60,7 @@ final class ConfigurationBasedPlugin implements Plugin
     }
 
     /** @psalm-param TComponentConfig $config */
-    private function createRenderInformation(array $config) : RenderInformation
+    private function createRenderInformation(array $config): RenderInformation
     {
         switch ($config['mode']) {
             case 'auto':
@@ -69,8 +69,10 @@ final class ConfigurationBasedPlugin implements Plugin
                 }
 
                 return RenderInformation::autoRenderWithoutPlaceholder();
+
             case 'custom':
                 return RenderInformation::customRender();
+
             default:
                 throw new RuntimeException('Unsupported render information mode: ' . $config['mode']);
         }

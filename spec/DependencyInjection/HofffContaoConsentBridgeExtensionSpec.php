@@ -9,7 +9,7 @@ use PhpSpec\ObjectBehavior;
 
 final class HofffContaoConsentBridgeExtensionSpec extends ObjectBehavior
 {
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(HofffContaoConsentBridgeExtension::class);
     }

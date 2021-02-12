@@ -15,6 +15,7 @@ use Hofff\Contao\Consent\Bridge\Render\ActiveConsentTool;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+
 use function expect;
 
 final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
@@ -23,11 +24,11 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         RequestScopeMatcher $scopeMatcher,
         ConsentToolManager $consentToolManager,
         ConsentIdParser $consentIdParser
-    ) : void {
+    ): void {
         $this->beConstructedWith($consentToolManager, $scopeMatcher, $consentIdParser);
     }
 
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(ParseFrontendTemplateListener::class);
     }
@@ -37,7 +38,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         ConsentTool $consentTool,
         ConsentId $consentId,
         RequestScopeMatcher $scopeMatcher
-    ) : void {
+    ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $consentTool->name()->willReturn('example');
@@ -60,7 +61,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher
-    ) : void {
+    ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $consentTool->name()->willReturn('example');
@@ -82,7 +83,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
         FrontendTemplate $template
-    ) : void {
+    ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
@@ -97,7 +98,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
         Template $template
-    ) : void {
+    ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
@@ -112,7 +113,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
         FrontendTemplate $template
-    ) : void {
+    ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(false);
 
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
@@ -127,7 +128,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
         FrontendTemplate $template
-    ) : void {
+    ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
@@ -143,7 +144,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         RequestScopeMatcher $scopeMatcher,
         Template $template
-    ) : void {
+    ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $consentToolManager->activeConsentTool()->willReturn(null);

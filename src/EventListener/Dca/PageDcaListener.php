@@ -7,6 +7,7 @@ namespace Hofff\Contao\Consent\Bridge\EventListener\Dca;
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\CoreBundle\Exception\PaletteNotFoundException;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
+
 use function count;
 
 final class PageDcaListener
@@ -19,11 +20,15 @@ final class PageDcaListener
         $this->consentToolManager = $consentToolManager;
     }
 
-    public function onLoadDataContainer(string $name) : void
+    public function onLoadDataContainer(string $name): void
     {
-        if ($name !== 'tl_page') {
+        static $processed = false;
+
+        if ($processed || $name !== 'tl_page') {
             return;
         }
+
+        $processed = true;
 
         if (count($this->consentToolManager->consentTools()) === 0) {
             return;
@@ -51,7 +56,7 @@ final class PageDcaListener
     }
 
     /** @return string[] */
-    public function consentToolOptions() : array
+    public function consentToolOptions(): array
     {
         $options = [];
 

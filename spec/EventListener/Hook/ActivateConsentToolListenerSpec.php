@@ -19,14 +19,14 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
         RepositoryManager $repositoryManager,
         Repository $pageRepository,
         ConsentToolManager $consentToolManager
-    ) : void {
+    ): void {
         $repositoryManager->getRepository(PageModel::class)
             ->willReturn($pageRepository);
 
         $this->beConstructedWith($consentToolManager, $repositoryManager);
     }
 
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(ActivateConsentToolListener::class);
     }
@@ -37,7 +37,7 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
         PageModel $rootPageModel,
         PageModel $pageModel,
         LayoutModel $layoutModel
-    ) : void {
+    ): void {
         $pageModel
             ->getWrappedObject()
             ->rootId = 1;
@@ -65,7 +65,7 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
         PageModel $rootPageModel,
         PageModel $pageModel,
         LayoutModel $layoutModel
-    ) : void {
+    ): void {
         $pageModel
             ->getWrappedObject()
             ->rootId = 1;

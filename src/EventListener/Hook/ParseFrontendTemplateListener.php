@@ -10,7 +10,7 @@ use Hofff\Contao\Consent\Bridge\Render\ActiveConsentTool;
 
 final class ParseFrontendTemplateListener extends ConsentListener
 {
-    public function onParseTemplate(Template $template) : void
+    public function onParseTemplate(Template $template): void
     {
         if (! $template instanceof FrontendTemplate) {
             return;
@@ -28,7 +28,7 @@ final class ParseFrontendTemplateListener extends ConsentListener
         $template->activeConsentTool = new ActiveConsentTool($consentTool, $this->consentIdParser);
     }
 
-    public function onParseFrontendTemplate(string $buffer, string $templateName) : string
+    public function onParseFrontendTemplate(string $buffer, string $templateName): string
     {
         return $this->renderForTemplate($buffer, $templateName);
     }

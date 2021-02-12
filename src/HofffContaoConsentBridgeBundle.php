@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class HofffContaoConsentBridgeBundle extends Bundle
 {
-    public function build(ContainerBuilder $container) : void
+    public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new RegisterConsentToolPass());
     }

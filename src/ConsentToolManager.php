@@ -11,21 +11,21 @@ use Hofff\Contao\Consent\Bridge\Exception\InvalidArgumentException;
 interface ConsentToolManager
 {
     /** @return ConsentTool[] */
-    public function consentTools() : array;
+    public function consentTools(): array;
 
-    public function has(string $name) : bool;
+    public function has(string $name): bool;
 
     /**
      * @throws InvalidArgumentException When no tool is found.
      */
-    public function get(string $name) : ConsentTool;
+    public function get(string $name): ConsentTool;
 
     public function activate(
         string $name,
         PageModel $rootPageModel,
         ?PageModel $pageModel = null,
         ?LayoutModel $layoutModel = null
-    ) : bool;
+    ): bool;
 
-    public function activeConsentTool() : ?ConsentTool;
+    public function activeConsentTool(): ?ConsentTool;
 }

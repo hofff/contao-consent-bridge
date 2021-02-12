@@ -22,11 +22,11 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
         RequestScopeMatcher $scopeMatcher,
         ConsentToolManager $consentToolManager,
         ConsentIdParser $consentIdParser
-    ) : void {
+    ): void {
         $this->beConstructedWith($consentToolManager, $scopeMatcher, $consentIdParser);
     }
 
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(GoogleWebfontsListener::class);
     }
@@ -38,7 +38,7 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
         RequestScopeMatcher $scopeMatcher,
         PageModel $pageModel,
         LayoutModel $layoutModel
-    ) : void {
+    ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $consentTool->determineConsentIdByName('google_webfonts')
@@ -60,7 +60,7 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
         RequestScopeMatcher $scopeMatcher,
         PageModel $pageModel,
         LayoutModel $layoutModel
-    ) : void {
+    ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $consentTool->determineConsentIdByName('google_webfonts')

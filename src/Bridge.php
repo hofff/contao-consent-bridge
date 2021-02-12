@@ -7,6 +7,7 @@ namespace Hofff\Contao\Consent\Bridge;
 use Hofff\Contao\Consent\Bridge\Exception\UnsupportedContentElement;
 use Hofff\Contao\Consent\Bridge\Exception\UnsupportedFrontendModule;
 use Hofff\Contao\Consent\Bridge\Render\RenderInformation;
+
 use function array_keys;
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
@@ -35,7 +36,7 @@ final class Bridge
         }
     }
 
-    public function registerConsentTool(ConsentTool $consentTool) : self
+    public function registerConsentTool(ConsentTool $consentTool): self
     {
         $this->consentTools[$consentTool->name()] = $consentTool;
 
@@ -45,7 +46,7 @@ final class Bridge
     /**
      * @psalm-param class-string<ConsentId> $consentIdClasses
      */
-    public function registerConsentId(string ...$consentIdClasses) : self
+    public function registerConsentId(string ...$consentIdClasses): self
     {
         foreach ($consentIdClasses as $consentIdClass) {
             $this->consentIds[] = $consentIdClass;
@@ -54,14 +55,14 @@ final class Bridge
         return $this;
     }
 
-    public function supportContentElement(string $type, RenderInformation $renderInformation) : self
+    public function supportContentElement(string $type, RenderInformation $renderInformation): self
     {
         $this->elements[$type] = $renderInformation;
 
         return $this;
     }
 
-    public function supportFrontendModule(string $type, RenderInformation $renderInformation) : self
+    public function supportFrontendModule(string $type, RenderInformation $renderInformation): self
     {
         $this->modules[$type] = $renderInformation;
 
@@ -71,7 +72,7 @@ final class Bridge
     /**
      * @return array<string, ConsentTool>
      */
-    public function consentTools() : array
+    public function consentTools(): array
     {
         return $this->consentTools;
     }
@@ -81,7 +82,7 @@ final class Bridge
      *
      * @psalm-return list<class-string<ConsentId>>
      */
-    public function providedConsentIds() : array
+    public function providedConsentIds(): array
     {
         return $this->consentIds;
     }
@@ -91,7 +92,7 @@ final class Bridge
      *
      * @psalm-return list<string>
      */
-    public function supportedContentElements() : array
+    public function supportedContentElements(): array
     {
         return array_keys($this->elements);
     }
@@ -101,17 +102,17 @@ final class Bridge
      *
      * @psalm-return list<string>
      */
-    public function supportedFrontendModules() : array
+    public function supportedFrontendModules(): array
     {
         return array_keys($this->modules);
     }
 
-    public function supportsContentElement(string $type) : bool
+    public function supportsContentElement(string $type): bool
     {
         return isset($this->elements[$type]);
     }
 
-    public function contentElementRenderInformation(string $type) : RenderInformation
+    public function contentElementRenderInformation(string $type): RenderInformation
     {
         if (! isset($this->elements[$type])) {
             throw UnsupportedContentElement::ofType($type);
@@ -120,12 +121,12 @@ final class Bridge
         return $this->elements[$type];
     }
 
-    public function supportsFrontendModule(string $type) : bool
+    public function supportsFrontendModule(string $type): bool
     {
         return isset($this->modules[$type]);
     }
 
-    public function frontendModuleRenderInformation(string $type) : RenderInformation
+    public function frontendModuleRenderInformation(string $type): RenderInformation
     {
         if (! isset($this->modules[$type])) {
             throw UnsupportedFrontendModule::ofType($type);

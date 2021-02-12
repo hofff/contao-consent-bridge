@@ -14,12 +14,12 @@ use Prophecy\Argument;
 
 final class TemplateHelperSpec extends ObjectBehavior
 {
-    public function let(ConsentToolManager $consentToolManager) : void
+    public function let(ConsentToolManager $consentToolManager): void
     {
         $this->beConstructedWith($consentToolManager);
     }
 
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(TemplateHelper::class);
     }
@@ -29,7 +29,7 @@ final class TemplateHelperSpec extends ObjectBehavior
         ConsentTool $consentTool,
         ConsentId $consentId,
         ConsentId $consentIdB
-    ) : void {
+    ): void {
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
 
         $consentTool->requiresConsent($consentId)
@@ -50,7 +50,7 @@ final class TemplateHelperSpec extends ObjectBehavior
     public function it_does_not_require_consent_if_no_active_consent_tool_exists(
         ConsentToolManager $consentToolManager,
         ConsentId $consentId
-    ) : void {
+    ): void {
         $consentToolManager->activeConsentTool()->willReturn(null);
 
         $this->requiresConsent($consentId)
@@ -61,7 +61,7 @@ final class TemplateHelperSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         ConsentId $consentId
-    ) : void {
+    ): void {
         $consentToolManager->activeConsentTool()
             ->shouldBeCalled()
             ->willReturn($consentTool);
@@ -82,7 +82,7 @@ final class TemplateHelperSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         ConsentId $consentId
-    ) : void {
+    ): void {
         $consentToolManager->activeConsentTool()
             ->shouldBeCalled()
             ->willReturn($consentTool);
@@ -103,7 +103,7 @@ final class TemplateHelperSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         ConsentId $consentId
-    ) : void {
+    ): void {
         $consentToolManager->activeConsentTool()
             ->shouldBeCalled()
             ->willReturn(null);
@@ -121,7 +121,7 @@ final class TemplateHelperSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         ConsentId $consentId
-    ) : void {
+    ): void {
         $consentToolManager->activeConsentTool()
             ->shouldBeCalled()
             ->willReturn($consentTool);
@@ -140,7 +140,7 @@ final class TemplateHelperSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         ConsentId $consentId
-    ) : void {
+    ): void {
         $consentToolManager->activeConsentTool()
             ->shouldBeCalled()
             ->willReturn($consentTool);

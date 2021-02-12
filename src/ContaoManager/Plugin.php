@@ -20,7 +20,7 @@ final class Plugin implements BundlePluginInterface
      * @psalm-suppress UndefinedClass
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function getBundles(ParserInterface $parser) : array
+    public function getBundles(ParserInterface $parser): array
     {
         return [
             BundleConfig::create(HofffContaoConsentBridgeBundle::class)

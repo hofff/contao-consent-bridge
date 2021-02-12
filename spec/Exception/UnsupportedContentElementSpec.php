@@ -10,22 +10,22 @@ use PhpSpec\ObjectBehavior;
 
 final class UnsupportedContentElementSpec extends ObjectBehavior
 {
-    public function let() : void
+    public function let(): void
     {
         $this->beConstructedThrough('ofType', ['foo']);
     }
 
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(UnsupportedContentElement::class);
     }
 
-    public function it_is_an_invalid_exception() : void
+    public function it_is_an_invalid_exception(): void
     {
         $this->shouldImplement(InvalidArgumentException::class);
     }
 
-    public function it_constructs_through_of_type() : void
+    public function it_constructs_through_of_type(): void
     {
         $this->type()->shouldReturn('foo');
         $this->getMessage()->shouldMatch('/"foo"/');

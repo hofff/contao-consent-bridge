@@ -7,6 +7,7 @@ namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 use Contao\LayoutModel;
 use Contao\PageModel;
 use Netzmacht\Html\Attributes;
+
 use function is_array;
 use function str_replace;
 
@@ -16,7 +17,7 @@ final class GoogleWebfontsListener extends ConsentListener
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    public function onGeneratePage(PageModel $pageModel, LayoutModel $layoutModel) : void
+    public function onGeneratePage(PageModel $pageModel, LayoutModel $layoutModel): void
     {
         if ($layoutModel->webfonts === '') {
             return;

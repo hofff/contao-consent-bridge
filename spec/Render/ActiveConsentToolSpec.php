@@ -16,23 +16,23 @@ use Prophecy\Argument;
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 final class ActiveConsentToolSpec extends ObjectBehavior
 {
-    public function let(ConsentTool $consentTool, ConsentIdParser $parser) : void
+    public function let(ConsentTool $consentTool, ConsentIdParser $parser): void
     {
         $this->beConstructedWith($consentTool, $parser);
     }
 
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(ActiveConsentTool::class);
     }
 
-    public function it_gets_name_from_consent_tool(ConsentTool $consentTool) : void
+    public function it_gets_name_from_consent_tool(ConsentTool $consentTool): void
     {
         $consentTool->name()->shouldBeCalled()->willReturn('foo');
         $this->name()->shouldReturn('foo');
     }
 
-    public function it_delegates_activate_to_consent_tool(ConsentTool $consentTool, PageModel $rootPageModel) : void
+    public function it_delegates_activate_to_consent_tool(ConsentTool $consentTool, PageModel $rootPageModel): void
     {
         $consentTool->activate(Argument::cetera())->willReturn(true);
         $consentTool->activate($rootPageModel, null, null)->shouldBeCalled();
@@ -40,13 +40,13 @@ final class ActiveConsentToolSpec extends ObjectBehavior
         $this->activate($rootPageModel);
     }
 
-    public function it_delegates_consent_id_options_to_consent_tool(ConsentTool $consentTool) : void
+    public function it_delegates_consent_id_options_to_consent_tool(ConsentTool $consentTool): void
     {
         $consentTool->consentIdOptions(null)->shouldBeCalled()->willReturn([]);
         $this->consentIdOptions();
     }
 
-    public function it_delegates_requires_consent_to_consent_tool(ConsentTool $consentTool, ConsentId $consentId) : void
+    public function it_delegates_requires_consent_to_consent_tool(ConsentTool $consentTool, ConsentId $consentId): void
     {
         $consentTool->requiresConsent($consentId)->shouldBeCalled()->willReturn(true);
         $this->requiresConsent($consentId)->shouldReturn(true);
@@ -55,7 +55,7 @@ final class ActiveConsentToolSpec extends ObjectBehavior
     public function it_determine_consent_id_from_template_through_consent_tool(
         ConsentTool $consentTool,
         ConsentId $consentId
-    ) : void {
+    ): void {
         $consentTool->determineConsentIdByName(Argument::type('string'))
             ->shouldBeCalled()
             ->willReturn($consentId);
@@ -63,14 +63,14 @@ final class ActiveConsentToolSpec extends ObjectBehavior
         $this->determineConsentIdByName('foo_bar')->shouldReturn($consentId);
     }
 
-    public function it_delegates_render_content_to_consent_tool(ConsentTool $consentTool, ConsentId $consentId) : void
+    public function it_delegates_render_content_to_consent_tool(ConsentTool $consentTool, ConsentId $consentId): void
     {
         $consentTool->renderContent('foo', $consentId, null, null)->shouldBeCalled()->willReturn('bar');
 
         $this->renderContent('foo', $consentId)->shouldReturn('bar');
     }
 
-    public function it_delegates_render_raw_to_consent_tool(ConsentTool $consentTool, ConsentId $consentId) : void
+    public function it_delegates_render_raw_to_consent_tool(ConsentTool $consentTool, ConsentId $consentId): void
     {
         $consentTool->renderRaw('foo', $consentId, null)->shouldBeCalled()->willReturn('bar');
 
@@ -80,7 +80,7 @@ final class ActiveConsentToolSpec extends ObjectBehavior
     public function it_delegates_render_placeholder_to_consent_tool(
         ConsentTool $consentTool,
         ConsentId $consentId
-    ) : void {
+    ): void {
         $consentTool->renderPlaceholder('foo', $consentId)->shouldBeCalled()->willReturn('bar');
 
         $this->renderPlaceholder('foo', $consentId)->shouldReturn('bar');
@@ -90,7 +90,7 @@ final class ActiveConsentToolSpec extends ObjectBehavior
         ConsentTool $consentTool,
         ConsentId $consentId,
         Attributes $attributes
-    ) : void {
+    ): void {
         $consentTool->renderScript($attributes, $consentId)->shouldBeCalled()->willReturn('bar');
 
         $this->renderScript($attributes, $consentId)->shouldReturn('bar');
@@ -100,7 +100,7 @@ final class ActiveConsentToolSpec extends ObjectBehavior
         ConsentTool $consentTool,
         ConsentId $consentId,
         Attributes $attributes
-    ) : void {
+    ): void {
         $consentTool->renderStyle($attributes, $consentId)->shouldBeCalled()->willReturn('bar');
 
         $this->renderStyle($attributes, $consentId)->shouldReturn('bar');
@@ -109,7 +109,7 @@ final class ActiveConsentToolSpec extends ObjectBehavior
     public function it_delegates_parse_consent_id_to_consent_id_parser(
         ConsentIdParser $parser,
         ConsentId $consentId
-    ) : void {
+    ): void {
         $parser->parse('foo:bar')->shouldBeCalled()->willReturn($consentId);
 
         $this->parseConsentId('foo:bar')->shouldReturn($consentId);

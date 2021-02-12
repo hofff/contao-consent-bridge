@@ -15,17 +15,17 @@ use PhpSpec\ObjectBehavior;
 
 final class PluginSpec extends ObjectBehavior
 {
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(Plugin::class);
     }
 
-    public function it_is_a_bundle_plugin() : void
+    public function it_is_a_bundle_plugin(): void
     {
         $this->shouldImplement(BundlePluginInterface::class);
     }
 
-    public function it_registers_bridge_bundle(ParserInterface $parser) : void
+    public function it_registers_bridge_bundle(ParserInterface $parser): void
     {
         $this->getBundles($parser)->shouldHaveCount(1);
 

@@ -13,7 +13,7 @@ final class RegisterConsentToolPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    public function process(ContainerBuilder $container) : void
+    public function process(ContainerBuilder $container): void
     {
         if (! $container->hasDefinition(Bridge::class)) {
             return;

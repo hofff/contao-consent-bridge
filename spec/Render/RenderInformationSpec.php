@@ -9,12 +9,12 @@ use PhpSpec\ObjectBehavior;
 
 final class RenderInformationSpec extends ObjectBehavior
 {
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(RenderInformation::class);
     }
 
-    public function it_describes_custom_render() : void
+    public function it_describes_custom_render(): void
     {
         $this->beConstructedThrough('customRender');
 
@@ -24,7 +24,7 @@ final class RenderInformationSpec extends ObjectBehavior
         $this->supportsPlaceholder()->shouldReturn(false);
     }
 
-    public function it_describes_auto_render_without_placeholder() : void
+    public function it_describes_auto_render_without_placeholder(): void
     {
         $this->beConstructedThrough('autoRenderWithoutPlaceholder');
 
@@ -34,7 +34,7 @@ final class RenderInformationSpec extends ObjectBehavior
         $this->supportsPlaceholder()->shouldReturn(false);
     }
 
-    public function it_describes_auto_render_with_placeholder() : void
+    public function it_describes_auto_render_with_placeholder(): void
     {
         $this->beConstructedThrough('autoRenderWithPlaceholder', ['custom_tpl']);
 
