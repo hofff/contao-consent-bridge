@@ -12,6 +12,7 @@
         <ignoreFiles>
             <directory name="vendor" />
             <directory name="src/Resources/contao/dca"/>
+            <file name="src/DependencyInjection/Configuration.php"/>
         </ignoreFiles>
     </projectFiles>
 
