@@ -21,9 +21,13 @@ final class PageDcaListener
 
     public function onLoadDataContainer(string $name) : void
     {
-        if ($name !== 'tl_page') {
+        static $processed = false;
+
+        if ($processed || $name !== 'tl_page') {
             return;
         }
+
+        $processed = true;
 
         if (count($this->consentToolManager->consentTools()) === 0) {
             return;
