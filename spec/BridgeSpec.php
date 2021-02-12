@@ -16,17 +16,17 @@ use PhpSpec\ObjectBehavior;
 
 final class BridgeSpec extends ObjectBehavior
 {
-    public function let(Plugin $pluginA, Plugin $pluginB) : void
+    public function let(Plugin $pluginA, Plugin $pluginB): void
     {
         $this->beConstructedWith([$pluginA, $pluginB]);
     }
 
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(Bridge::class);
     }
 
-    public function it_loads_plugins(Plugin $pluginA, Plugin $pluginB) : void
+    public function it_loads_plugins(Plugin $pluginA, Plugin $pluginB): void
     {
         $pluginA->load($this)->shouldBeCalled();
         $pluginB->load($this)->shouldBeCalled();
@@ -36,7 +36,7 @@ final class BridgeSpec extends ObjectBehavior
         );
     }
 
-    public function it_registers_consent_tools(ConsentTool $consentToolA, ConsentTool $consentToolB) : void
+    public function it_registers_consent_tools(ConsentTool $consentToolA, ConsentTool $consentToolB): void
     {
         $consentToolA->name()->willReturn('a');
         $consentToolB->name()->willReturn('b');
@@ -52,13 +52,13 @@ final class BridgeSpec extends ObjectBehavior
         );
     }
 
-    public function it_registers_consent_ids() : void
+    public function it_registers_consent_ids(): void
     {
         $this->registerConsentId(ConsentId::class, AnalyticsConsentId::class);
         $this->providedConsentIds()->shouldReturn([ConsentId::class, AnalyticsConsentId::class]);
     }
 
-    public function it_registers_content_elements() : void
+    public function it_registers_content_elements(): void
     {
         $renderInformationA = RenderInformation::autoRenderWithoutPlaceholder();
         $renderInformationB = RenderInformation::customRender();
@@ -77,7 +77,7 @@ final class BridgeSpec extends ObjectBehavior
         $this->shouldThrow(UnsupportedContentElement::class)->during('contentElementRenderInformation', ['c']);
     }
 
-    public function it_registers_frontend_modules() : void
+    public function it_registers_frontend_modules(): void
     {
         $renderInformationA = RenderInformation::autoRenderWithoutPlaceholder();
         $renderInformationB = RenderInformation::customRender();

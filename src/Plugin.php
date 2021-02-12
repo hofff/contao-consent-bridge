@@ -6,5 +6,5 @@ namespace Hofff\Contao\Consent\Bridge;
 
 interface Plugin
 {
-    public function load(Bridge $bridge) : void;
+    public function load(Bridge $bridge): void;
 }

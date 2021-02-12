@@ -27,7 +27,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         ConsentIdParser $consentIdParser,
         ConsentTool $consentTool
-    ) : void {
+    ): void {
         $this->bridge = new Bridge([]);
 
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
@@ -35,7 +35,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         $this->beConstructedWith($consentToolManager, $scopeMatcher, $consentIdParser, $this->bridge);
     }
 
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(RenderComponentsListener::class);
     }
@@ -46,7 +46,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         ConsentId $consentId,
         RequestScopeMatcher $scopeMatcher,
         ContentModel $model
-    ) : void {
+    ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $model->getWrappedObject()->type                     = 'foo';
@@ -71,7 +71,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         ContentModel $model,
         ConsentIdParser $consentIdParser,
         ConsentId $consentId
-    ) : void {
+    ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $model->getWrappedObject()->type                     = 'foo';
@@ -96,7 +96,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         ModuleModel $model,
         ConsentIdParser $consentIdParser,
         ConsentId $consentId
-    ) : void {
+    ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $model->getWrappedObject()->type                     = 'foo';
@@ -121,7 +121,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         ModuleModel $model,
         ConsentIdParser $consentIdParser,
         ConsentId $consentId
-    ) : void {
+    ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
         $model->getWrappedObject()->type                     = 'foo';

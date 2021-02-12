@@ -14,7 +14,7 @@ final class Configuration implements ConfigurationInterface
      * @psalm-suppress PossiblyUndefinedMethod
      * @psalm-suppress DeprecatedMethod
      */
-    public function getConfigTreeBuilder() : TreeBuilder
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder();
         $rootNode    = $treeBuilder->root('hofff_contao_consent_bridge');

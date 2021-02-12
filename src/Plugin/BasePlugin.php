@@ -10,19 +10,19 @@ use Hofff\Contao\Consent\Bridge\Plugin;
 abstract class BasePlugin implements Plugin
 {
     /** @inheritDoc */
-    public function providedConsentIds() : array
+    public function providedConsentIds(): array
     {
         return [];
     }
 
     /** @inheritDoc */
-    public function supportedContentElements() : array
+    public function supportedContentElements(): array
     {
         return [];
     }
 
     /** @inheritDoc */
-    public function supportedFrontendModules() : array
+    public function supportedFrontendModules(): array
     {
         return [];
     }

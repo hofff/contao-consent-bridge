@@ -14,6 +14,7 @@ use Doctrine\DBAL\Connection;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Symfony\Component\Translation\TranslatorInterface;
+
 use function count;
 
 final class ModuleDcaListener
@@ -52,7 +53,7 @@ final class ModuleDcaListener
         $this->translator         = $translator;
     }
 
-    public function initializePalettes() : void
+    public function initializePalettes(): void
     {
         if (count($this->consentToolManager->consentTools()) === 0) {
             return;
@@ -72,7 +73,7 @@ final class ModuleDcaListener
     }
 
     /** @SuppressWarnings(PHPMD.Superglobals) */
-    public function showConsentInfo(DataContainer $dataContainer) : void
+    public function showConsentInfo(DataContainer $dataContainer): void
     {
         if ($_POST || Input::get('act') !== 'edit') {
             return;

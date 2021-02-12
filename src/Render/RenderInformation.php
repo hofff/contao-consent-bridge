@@ -28,37 +28,37 @@ final class RenderInformation
         $this->placeholderTemplate = $placeholderTemplate;
     }
 
-    public static function customRender() : self
+    public static function customRender(): self
     {
         return new self(self::MODE_CUSTOM);
     }
 
-    public static function autoRenderWithoutPlaceholder() : self
+    public static function autoRenderWithoutPlaceholder(): self
     {
         return new self(self::MODE_AUTO);
     }
 
-    public static function autoRenderWithPlaceholder(string $placeholderTemplate) : self
+    public static function autoRenderWithPlaceholder(string $placeholderTemplate): self
     {
         return new self(self::MODE_AUTO, $placeholderTemplate);
     }
 
-    public function isAutoRenderMode() : bool
+    public function isAutoRenderMode(): bool
     {
         return $this->mode === self::MODE_AUTO;
     }
 
-    public function isCustomRenderMode() : bool
+    public function isCustomRenderMode(): bool
     {
         return $this->mode === self::MODE_CUSTOM;
     }
 
-    public function supportsPlaceholder() : bool
+    public function supportsPlaceholder(): bool
     {
         return $this->placeholderTemplate !== null;
     }
 
-    public function placeholderTemplate() : ?string
+    public function placeholderTemplate(): ?string
     {
         return $this->placeholderTemplate;
     }

@@ -27,7 +27,7 @@ final class ActiveConsentTool implements ConsentTool
         $this->consentIdParser = $consentIdParser;
     }
 
-    public function name() : string
+    public function name(): string
     {
         return $this->consentTool->name();
     }
@@ -36,28 +36,28 @@ final class ActiveConsentTool implements ConsentTool
         PageModel $rootPageModel,
         ?PageModel $pageModel = null,
         ?LayoutModel $layoutModel = null
-    ) : bool {
+    ): bool {
         return $this->consentTool->activate($rootPageModel, $pageModel, $layoutModel);
     }
 
-    public function parseConsentId(string $consentId) : ConsentId
+    public function parseConsentId(string $consentId): ConsentId
     {
         return $this->consentIdParser->parse($consentId);
     }
 
     /** {@inheritDoc} */
-    public function consentIdOptions($context = null) : array
+    public function consentIdOptions($context = null): array
     {
         return $this->consentTool->consentIdOptions($context);
     }
 
-    public function requiresConsent(ConsentId $consentId) : bool
+    public function requiresConsent(ConsentId $consentId): bool
     {
         return $this->consentTool->requiresConsent($consentId);
     }
 
     /** @SuppressWarnings(PHPMD.LongVariable) */
-    public function determineConsentIdByName(string $serviceOrTemplateName) : ?ConsentId
+    public function determineConsentIdByName(string $serviceOrTemplateName): ?ConsentId
     {
         return $this->consentTool->determineConsentIdByName($serviceOrTemplateName);
     }
@@ -67,26 +67,26 @@ final class ActiveConsentTool implements ConsentTool
         ConsentId $consentId,
         ?Model $model = null,
         ?string $placeholderTemplate = null
-    ) : string {
+    ): string {
         return $this->consentTool->renderContent($buffer, $consentId, $model, $placeholderTemplate);
     }
 
-    public function renderRaw(string $buffer, ConsentId $consentId, ?Model $model = null) : string
+    public function renderRaw(string $buffer, ConsentId $consentId, ?Model $model = null): string
     {
         return $this->consentTool->renderRaw($buffer, $consentId, $model);
     }
 
-    public function renderPlaceholder(string $buffer, ConsentId $consentId) : string
+    public function renderPlaceholder(string $buffer, ConsentId $consentId): string
     {
         return $this->consentTool->renderPlaceholder($buffer, $consentId);
     }
 
-    public function renderScript(Attributes $attributes, ConsentId $consentId) : string
+    public function renderScript(Attributes $attributes, ConsentId $consentId): string
     {
         return $this->consentTool->renderScript($attributes, $consentId);
     }
 
-    public function renderStyle(Attributes $attributes, ConsentId $consentId) : string
+    public function renderStyle(Attributes $attributes, ConsentId $consentId): string
     {
         return $this->consentTool->renderStyle($attributes, $consentId);
     }

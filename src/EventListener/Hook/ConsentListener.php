@@ -33,7 +33,7 @@ abstract class ConsentListener
         $this->consentIdParser    = $consentIdParser;
     }
 
-    protected function consentTool() : ?ConsentTool
+    protected function consentTool(): ?ConsentTool
     {
         if (! $this->scopeMatcher->isFrontendRequest()) {
             return null;
@@ -47,7 +47,7 @@ abstract class ConsentListener
         string $consentIdAsString,
         RenderInformation $renderInformation,
         ?Model $model = null
-    ) : string {
+    ): string {
         if (! $renderInformation->isAutoRenderMode()) {
             return $buffer;
         }
@@ -70,7 +70,7 @@ abstract class ConsentListener
         return $consentTool->renderContent($buffer, $consentId, $model, $renderInformation->placeholderTemplate());
     }
 
-    protected function renderForTemplate(string $buffer, string $templateName) : string
+    protected function renderForTemplate(string $buffer, string $templateName): string
     {
         $consentTool = $this->consentTool();
         if ($consentTool === null) {

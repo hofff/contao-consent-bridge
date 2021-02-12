@@ -15,7 +15,7 @@ interface ConsentTool
     /**
      * Get the name of the consent tool.
      */
-    public function name() : string;
+    public function name(): string;
 
     /**
      * Activate the consent tool.
@@ -29,7 +29,7 @@ interface ConsentTool
         PageModel $rootPageModel,
         ?PageModel $pageModel = null,
         ?LayoutModel $layoutModel = null
-    ) : bool;
+    ): bool;
 
     /**
      * Get consent id options by name and consent ids.
@@ -40,12 +40,12 @@ interface ConsentTool
      *
      * @return ConsentId[]|array<string|int, ConsentId>
      */
-    public function consentIdOptions($context = null) : array;
+    public function consentIdOptions($context = null): array;
 
     /**
      * Check if a given consent requires consent.
      */
-    public function requiresConsent(ConsentId $consentId) : bool;
+    public function requiresConsent(ConsentId $consentId): bool;
 
     /**
      * For some features a generic name is used and needs to be translated to a ConsentId
@@ -55,7 +55,7 @@ interface ConsentTool
      *
      * @SuppressWarnings(PHPMD.LongVariable)
      */
-    public function determineConsentIdByName(string $serviceOrTemplateName) : ?ConsentId;
+    public function determineConsentIdByName(string $serviceOrTemplateName): ?ConsentId;
 
     /**
      * Render content so that consent tool requirements for given consent id is applied.
@@ -67,14 +67,14 @@ interface ConsentTool
         ConsentId $consentId,
         ?Model $model = null,
         ?string $placeholderTemplate = null
-    ) : string;
+    ): string;
 
     /**
      * Apply consent for given html output.
      *
      * Do not add placeholder content here as it might be header code or hidden javascript.
      */
-    public function renderRaw(string $buffer, ConsentId $consentId, ?Model $model = null) : string;
+    public function renderRaw(string $buffer, ConsentId $consentId, ?Model $model = null): string;
 
     /**
      * Render a specific placeholder.
@@ -82,15 +82,15 @@ interface ConsentTool
      * This method is designed to wrap content which is used as placeholder with the markup required by the consent
      * tool.
      */
-    public function renderPlaceholder(string $buffer, ConsentId $consentId) : string;
+    public function renderPlaceholder(string $buffer, ConsentId $consentId): string;
 
     /**
      * Create a script tag with given attributes which applies restrictions for the consent id.
      */
-    public function renderScript(Attributes $attributes, ConsentId $consentId) : string;
+    public function renderScript(Attributes $attributes, ConsentId $consentId): string;
 
     /**
      * Create a style tag with given attributes which applies restrictions for the consent id.
      */
-    public function renderStyle(Attributes $attributes, ConsentId $consentId) : string;
+    public function renderStyle(Attributes $attributes, ConsentId $consentId): string;
 }

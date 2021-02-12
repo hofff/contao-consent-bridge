@@ -23,9 +23,10 @@ final class ActivateConsentToolListener
         $this->repositoryManager  = $repositoryManager;
     }
 
-    public function onGetPageLayout(PageModel $pageModel, LayoutModel $layoutModel) : void
+    public function onGetPageLayout(PageModel $pageModel, LayoutModel $layoutModel): void
     {
-        $repository    = $this->repositoryManager->getRepository(PageModel::class);
+        $repository = $this->repositoryManager->getRepository(PageModel::class);
+        /** @psalm-suppress RedundantCastGivenDocblockType */
         $rootPageModel = $repository->find((int) $pageModel->rootId);
 
         if (! $rootPageModel instanceof PageModel) {

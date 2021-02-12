@@ -28,7 +28,7 @@ final class RenderComponentsListener extends ConsentListener
         $this->bridge = $bridge;
     }
 
-    public function onGetContentElement(ContentModel $contentModel, string $buffer) : string
+    public function onGetContentElement(ContentModel $contentModel, string $buffer): string
     {
         $consentTool = $this->consentTool();
         if ($consentTool === null) {
@@ -61,7 +61,7 @@ final class RenderComponentsListener extends ConsentListener
         );
     }
 
-    public function onGetFrontendModule(ModuleModel $moduleModel, string $buffer) : string
+    public function onGetFrontendModule(ModuleModel $moduleModel, string $buffer): string
     {
         $consentTool = $this->consentTool();
         if ($consentTool === null) {

@@ -9,6 +9,7 @@ use Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Hofff\Contao\Consent\Bridge\Exception\RuntimeException;
+
 use function assert;
 use function ob_end_flush;
 use function ob_start;
@@ -27,7 +28,7 @@ final class TemplateHelper
         $this->consentToolManager = $consentToolManager;
     }
 
-    public function requiresConsent(ConsentId $consentId) : bool
+    public function requiresConsent(ConsentId $consentId): bool
     {
         $consentTool = $this->consentToolManager->activeConsentTool();
         if ($consentTool === null) {
@@ -37,7 +38,7 @@ final class TemplateHelper
         return $consentTool->requiresConsent($consentId);
     }
 
-    public function contentBlock(ConsentId $consentId, ?Model $model = null) : void
+    public function contentBlock(ConsentId $consentId, ?Model $model = null): void
     {
         if (! $this->requiresConsent($consentId)) {
             return;
@@ -53,7 +54,7 @@ final class TemplateHelper
         );
     }
 
-    public function placeholderBlock(ConsentId $consentId) : void
+    public function placeholderBlock(ConsentId $consentId): void
     {
         if (! $this->requiresConsent($consentId)) {
             return;
@@ -69,7 +70,7 @@ final class TemplateHelper
         );
     }
 
-    public function endBlock() : void
+    public function endBlock(): void
     {
         if (! $this->block) {
             throw new RuntimeException('Block rendering not started');
@@ -78,7 +79,7 @@ final class TemplateHelper
         ob_end_flush();
     }
 
-    private function block(callable $callback) : void
+    private function block(callable $callback): void
     {
         if ($this->block) {
             throw new RuntimeException('Block rendering already started');

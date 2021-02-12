@@ -12,5 +12,5 @@ interface ConsentIdParser
     /**
      * @throws InvalidArgumentException When an invalid consent id is given.
      */
-    public function parse(string $string) : ConsentId;
+    public function parse(string $string): ConsentId;
 }

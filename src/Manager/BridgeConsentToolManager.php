@@ -10,6 +10,7 @@ use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use InvalidArgumentException;
+
 use function sprintf;
 
 final class BridgeConsentToolManager implements ConsentToolManager
@@ -26,17 +27,17 @@ final class BridgeConsentToolManager implements ConsentToolManager
     }
 
     /** @return ConsentTool[] */
-    public function consentTools() : array
+    public function consentTools(): array
     {
         return $this->bridge->consentTools();
     }
 
-    public function has(string $name) : bool
+    public function has(string $name): bool
     {
         return isset($this->consentTools()[$name]);
     }
 
-    public function get(string $name) : ConsentTool
+    public function get(string $name): ConsentTool
     {
         if (! $this->has($name)) {
             throw new InvalidArgumentException(sprintf('Consent tool "%s" is not known', $name));
@@ -50,7 +51,7 @@ final class BridgeConsentToolManager implements ConsentToolManager
         PageModel $rootPageModel,
         ?PageModel $pageModel = null,
         ?LayoutModel $layoutModel = null
-    ) : bool {
+    ): bool {
         $consentTool = $this->get($name);
 
         if ($consentTool->activate($rootPageModel, $pageModel, $layoutModel)) {
@@ -62,7 +63,7 @@ final class BridgeConsentToolManager implements ConsentToolManager
         return false;
     }
 
-    public function activeConsentTool() : ?ConsentTool
+    public function activeConsentTool(): ?ConsentTool
     {
         return $this->activeConsentTool;
     }

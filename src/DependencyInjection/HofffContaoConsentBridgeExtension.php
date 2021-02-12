@@ -16,7 +16,7 @@ class HofffContaoConsentBridgeExtension extends Extension
     /**
      * @param mixed[] $configs
      */
-    public function load(array $configs, ContainerBuilder $container) : void
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new XmlFileLoader(
             $container,
@@ -29,14 +29,12 @@ class HofffContaoConsentBridgeExtension extends Extension
         $config = $this->processConfiguration(new Configuration(), $configs);
         $container->setParameter('hofff_contao_consent_bridge.content_elements', $config['content_elements']);
         $container->setParameter('hofff_contao_consent_bridge.frontend_modules', $config['frontend_modules']);
-        
+
         $container
             ->registerForAutoconfiguration(Plugin::class)
-            ->addTag('hofff_contao_consent_bridge.plugin')
-        ;
+            ->addTag('hofff_contao_consent_bridge.plugin');
         $container
             ->registerForAutoconfiguration(ConsentTool::class)
-            ->addTag('hofff_contao_consent_bridge.consent_tool')
-        ;
+            ->addTag('hofff_contao_consent_bridge.consent_tool');
     }
 }

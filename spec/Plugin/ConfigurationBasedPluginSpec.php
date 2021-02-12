@@ -7,6 +7,7 @@ namespace spec\Hofff\Contao\Consent\Bridge\Plugin;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\Plugin\ConfigurationBasedPlugin;
 use PhpSpec\ObjectBehavior;
+
 use function expect;
 
 final class ConfigurationBasedPluginSpec extends ObjectBehavior
@@ -20,17 +21,17 @@ final class ConfigurationBasedPluginSpec extends ObjectBehavior
         'my_element' => ['mode' => 'custom'],
     ];
 
-    public function let() : void
+    public function let(): void
     {
         $this->beConstructedWith(self::CONFIG, self::CONFIG);
     }
 
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(ConfigurationBasedPlugin::class);
     }
 
-    public function it_registers_content_elements() : void
+    public function it_registers_content_elements(): void
     {
         $bridge = new Bridge([$this->getWrappedObject()]);
 
@@ -53,7 +54,7 @@ final class ConfigurationBasedPluginSpec extends ObjectBehavior
         expect($renderInformation->placeholderTemplate())->shouldReturn(null);
     }
 
-    public function it_registers_frontend_modules() : void
+    public function it_registers_frontend_modules(): void
     {
         $bridge = new Bridge([$this->getWrappedObject()]);
 
