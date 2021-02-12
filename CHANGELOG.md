@@ -3,6 +3,24 @@
 
 ## [Unreleased]
 
+## [1.4.0] - (2021-02-12)
+
+### Added
+
+ - Support auto configuration for plugins and consent tools ([#3](https://github.com/hofff/contao-consent-bridge/pull/3) by [@richardhj](https://github.com/richardhj))
+ - Allow PHP 8.0
+ - Allow symfony 5 components where possible
+
+### Changed
+
+ - Updated coding standard an tool change
+
+### Fixed
+
+ - Prevent that fields are added multiple times in the page data container
+
+###
+
 ## [1.3.1] - (2020-10-08)
 
 ### Fixed
@@ -47,6 +65,7 @@
 - Add info messages if no consent tag is assign for supported frontend modules and content elements
 
 
+[1.4.0]: https://github.com/hofff/contao-consent-bridge/compare/1.3.1...1.4.0
 [1.3.1]: https://github.com/hofff/contao-consent-bridge/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/hofff/contao-consent-bridge/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/hofff/contao-consent-bridge/compare/1.1.1...1.2.0
