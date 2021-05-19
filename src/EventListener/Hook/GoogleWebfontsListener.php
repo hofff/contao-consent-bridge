@@ -19,7 +19,7 @@ final class GoogleWebfontsListener extends ConsentListener
      */
     public function onGeneratePage(PageModel $pageModel, LayoutModel $layoutModel): void
     {
-        if ($layoutModel->webfonts === '') {
+        if (! is_string($layoutModel->webfonts) || $layoutModel->webfonts === '') {
             return;
         }
 
@@ -30,6 +30,10 @@ final class GoogleWebfontsListener extends ConsentListener
 
         $consentId = $consentTool->determineConsentIdByName('google_webfonts');
         if ($consentId === null) {
+            return;
+        }
+
+        if (! $consentTool->requiresConsent($consentId)) {
             return;
         }
 

@@ -3,6 +3,12 @@
 
 ## [Unreleased]
 
+## [1.4.1] - (2021-05-19)
+
+### Fixed
+
+ - Fix issue with empty google web fonts, especially with Contao 4.11
+
 ## [1.4.0] - (2021-02-12)
 
 ### Added
