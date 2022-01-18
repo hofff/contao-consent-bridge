@@ -9,8 +9,8 @@ output.
 Requirements
 ------------
 
- - Contao `^4.4`
- - PHP `7.1`
+ - Contao `^4.9`
+ - PHP `^7.1 || ^8.0`
 
 
 Installation
