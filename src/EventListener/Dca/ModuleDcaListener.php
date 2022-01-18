@@ -86,17 +86,13 @@ final class ModuleDcaListener
 
         $sql       = 'SELECT type FROM tl_module WHERE id=? AND hofff_consent_bridge_tag IS NULL';
         $statement = $this->connection->prepare($sql);
-        $statement->execute([$dataContainer->id]);
+        $result    = $statement->executeQuery([$dataContainer->id]);
 
-        if ($statement->rowCount() === 0) {
+        if ($result->rowCount() === 0) {
             return;
         }
 
-        /**
-         * @psalm-suppress DeprecatedMethod
-         * TODO: Change when requiring doctrine/dbal ^2.11
-         */
-        if (! $this->bridge->supportsFrontendModule((string) $statement->fetchColumn())) {
+        if (! $this->bridge->supportsFrontendModule((string) $result->fetchOne())) {
             return;
         }
 

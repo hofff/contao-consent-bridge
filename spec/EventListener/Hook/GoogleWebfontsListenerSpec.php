@@ -41,12 +41,18 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
+        $layoutModel->webfonts = 'foo';
+
         $consentTool->determineConsentIdByName('google_webfonts')
             ->willReturn($consentId);
 
         $consentTool->renderStyle(Argument::type(Attributes::class), $consentId)
             ->shouldBeCalled()
             ->willReturn('wrapped');
+
+        $consentTool->requiresConsent($consentId)
+            ->shouldBeCalled()
+            ->willReturn(true);
 
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
 

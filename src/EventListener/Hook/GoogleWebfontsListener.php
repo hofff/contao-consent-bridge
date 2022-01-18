@@ -9,6 +9,7 @@ use Contao\PageModel;
 use Netzmacht\Html\Attributes;
 
 use function is_array;
+use function is_string;
 use function str_replace;
 
 final class GoogleWebfontsListener extends ConsentListener

@@ -29,7 +29,6 @@ final class ConfigurationBasedPlugin implements Plugin
     /**
      * @param mixed[] $contentElements
      * @param mixed[] $frontendModules
-     *
      * @psalm-param array<string,TComponentConfig> $contentElements
      * @psalm-param array<string,TComponentConfig> $frontendModules
      */

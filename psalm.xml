@@ -35,4 +35,9 @@
             </errorLevel>
         </DeprecatedClass>
     </issueHandlers>
+
+    <universalObjectCrates>
+        <!-- allow magic property access -->
+        <class name="Contao\LayoutModel"/>
+    </universalObjectCrates>
 </psalm>

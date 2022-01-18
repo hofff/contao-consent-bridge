@@ -79,7 +79,6 @@ final class Bridge
 
     /**
      * @return string[]
-     *
      * @psalm-return list<class-string<ConsentId>>
      */
     public function providedConsentIds(): array
@@ -89,7 +88,6 @@ final class Bridge
 
     /**
      * @return string[]
-     *
      * @psalm-return list<string>
      */
     public function supportedContentElements(): array
@@ -99,7 +97,6 @@ final class Bridge
 
     /**
      * @return string[]
-     *
      * @psalm-return list<string>
      */
     public function supportedFrontendModules(): array

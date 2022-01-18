@@ -3,6 +3,14 @@
 
 ## [Unreleased]
 
+## [1.4.2] - (2022-01-18)
+
+### Changed
+
+- Dump dependency of Contao to `^4.9`
+- Dump symfony dependencies
+- Allow `doctrine/dbal ^3.1`
+
 ## [1.4.1] - (2021-05-19)
 
 ### Fixed
@@ -25,13 +33,11 @@
 
  - Prevent that fields are added multiple times in the page data container
 
-###
-
 ## [1.3.1] - (2020-10-08)
 
 ### Fixed
 
-- Remove final from `ServiceConsentId::__construct` to avoid breaking changes
+ - Remove final from `ServiceConsentId::__construct` to avoid breaking changes
 
 ## [1.3.0] - (2020-10-07)
 

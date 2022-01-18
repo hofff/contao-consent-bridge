@@ -7,8 +7,6 @@ namespace Hofff\Contao\Consent\Bridge\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-use function method_exists;
-
 final class Configuration implements ConfigurationInterface
 {
     /**
@@ -19,14 +17,7 @@ final class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('hofff_contao_consent_bridge');
-
-        // BC for Symfony 3.4
-        if (method_exists($treeBuilder, 'root')) {
-            $rootNode = $treeBuilder->root('hofff_contao_consent_bridge');
-        } else {
-            $rootNode = $treeBuilder->getRootNode();
-        }
-
+        $rootNode    = $treeBuilder->getRootNode();
         $rootNode
             ->children()
                 ->arrayNode('content_elements')
