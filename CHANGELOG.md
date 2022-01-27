@@ -3,13 +3,19 @@
 
 ## [Unreleased]
 
+## [1.4.3] - (2022-01-27)
+
+### Fixed
+
+ - Fix compatibility with symfony/translation v5
+
 ## [1.4.2] - (2022-01-18)
 
 ### Changed
 
-- Dump dependency of Contao to `^4.9`
-- Dump symfony dependencies
-- Allow `doctrine/dbal ^3.1`
+ - Dump dependency of Contao to `^4.9`
+ - Dump symfony dependencies
+ - Allow `doctrine/dbal ^3.1`
 
 ## [1.4.1] - (2021-05-19)
 

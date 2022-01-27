@@ -29,11 +29,6 @@
                 <referencedProperty name="Contao\FrontendTemplate::$activeConsentTool"/>
             </errorLevel>
         </UndefinedMagicPropertyAssignment>
-        <DeprecatedClass>
-            <errorLevel type="suppress">
-                <referencedClass name="Symfony\Component\Translation\TranslatorInterface"/>
-            </errorLevel>
-        </DeprecatedClass>
     </issueHandlers>
 
     <universalObjectCrates>

@@ -13,7 +13,7 @@ use Contao\Input;
 use Doctrine\DBAL\Connection;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function count;
 
