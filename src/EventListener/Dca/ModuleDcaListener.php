@@ -6,10 +6,11 @@ namespace Hofff\Contao\Consent\Bridge\EventListener\Dca;
 
 use Contao\BackendUser;
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
-use Contao\CoreBundle\Exception\PaletteNotFoundException;
+use Contao\CoreBundle\DataContainer\PaletteNotFoundException;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\DataContainer;
 use Contao\Input;
+use Contao\Message;
 use Doctrine\DBAL\Connection;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
@@ -19,38 +20,15 @@ use function count;
 
 final class ModuleDcaListener
 {
-    /** @var Bridge */
-    private $bridge;
-
-    /** @var ConsentToolManager  */
-    private $consentToolManager;
-
-    /** @var Connection */
-    private $connection;
-
-    /** @var BackendUser */
-    private $backendUser;
-
-    /** @var Adapter */
-    private $messageAdapter;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
+    /** @param Adapter<Message> $messageAdapter */
     public function __construct(
-        Bridge $bridge,
-        ConsentToolManager $consentToolManager,
-        Connection $connection,
-        TranslatorInterface $translator,
-        BackendUser $backendUser,
-        Adapter $messageAdapter
+        private readonly Bridge $bridge,
+        private readonly ConsentToolManager $consentToolManager,
+        private readonly Connection $connection,
+        private readonly TranslatorInterface $translator,
+        private readonly BackendUser $backendUser,
+        private readonly Adapter $messageAdapter,
     ) {
-        $this->bridge             = $bridge;
-        $this->consentToolManager = $consentToolManager;
-        $this->connection         = $connection;
-        $this->backendUser        = $backendUser;
-        $this->messageAdapter     = $messageAdapter;
-        $this->translator         = $translator;
     }
 
     public function initializePalettes(): void
@@ -66,7 +44,7 @@ final class ModuleDcaListener
         foreach ($this->bridge->supportedFrontendModules() as $module) {
             try {
                 $paletteManipulator->applyToPalette($module, 'tl_module');
-            } catch (PaletteNotFoundException $exception) {
+            } catch (PaletteNotFoundException) {
                 // Do nothing. Required for RSCE support which does not always append their palettes.
             }
         }
@@ -99,7 +77,7 @@ final class ModuleDcaListener
         /** @psalm-suppress InternalMethod */
         $this->messageAdapter->__call(
             'addInfo',
-            [$this->translator->trans('tl_content.hofff_consent_bridge_tag_missing', [], 'contao_tl_content')]
+            [$this->translator->trans('tl_content.hofff_consent_bridge_tag_missing', [], 'contao_tl_content')],
         );
     }
 }

@@ -14,19 +14,19 @@ use function array_keys;
 final class Bridge
 {
     /** @var array<string, ConsentTool> */
-    private $consentTools = [];
+    private array $consentTools = [];
 
     /**
      * @psalm-var list<class-string<ConsentId>>
      * @var string[]
      */
-    private $consentIds = [];
+    private array $consentIds = [];
 
     /** @var array<string, RenderInformation> */
-    private $elements = [];
+    private array $elements = [];
 
     /** @var array<string, RenderInformation> */
-    private $modules = [];
+    private array $modules = [];
 
     /** @param Plugin[] $plugins */
     public function __construct(iterable $plugins)
@@ -43,9 +43,7 @@ final class Bridge
         return $this;
     }
 
-    /**
-     * @psalm-param class-string<ConsentId> $consentIdClasses
-     */
+    /** @psalm-param class-string<ConsentId> $consentIdClasses */
     public function registerConsentId(string ...$consentIdClasses): self
     {
         foreach ($consentIdClasses as $consentIdClass) {
@@ -69,9 +67,7 @@ final class Bridge
         return $this;
     }
 
-    /**
-     * @return array<string, ConsentTool>
-     */
+    /** @return array<string, ConsentTool> */
     public function consentTools(): array
     {
         return $this->consentTools;

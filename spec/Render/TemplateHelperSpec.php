@@ -28,7 +28,7 @@ final class TemplateHelperSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         ConsentId $consentId,
-        ConsentId $consentIdB
+        ConsentId $consentIdB,
     ): void {
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
 
@@ -49,7 +49,7 @@ final class TemplateHelperSpec extends ObjectBehavior
 
     public function it_does_not_require_consent_if_no_active_consent_tool_exists(
         ConsentToolManager $consentToolManager,
-        ConsentId $consentId
+        ConsentId $consentId,
     ): void {
         $consentToolManager->activeConsentTool()->willReturn(null);
 
@@ -60,7 +60,7 @@ final class TemplateHelperSpec extends ObjectBehavior
     public function it_renders_content_block(
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
-        ConsentId $consentId
+        ConsentId $consentId,
     ): void {
         $consentToolManager->activeConsentTool()
             ->shouldBeCalled()
@@ -81,7 +81,7 @@ final class TemplateHelperSpec extends ObjectBehavior
     public function it_renders_placeholder_block(
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
-        ConsentId $consentId
+        ConsentId $consentId,
     ): void {
         $consentToolManager->activeConsentTool()
             ->shouldBeCalled()
@@ -102,7 +102,7 @@ final class TemplateHelperSpec extends ObjectBehavior
     public function it_does_not_buffer_for_non_active_consent_tool(
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
-        ConsentId $consentId
+        ConsentId $consentId,
     ): void {
         $consentToolManager->activeConsentTool()
             ->shouldBeCalled()
@@ -120,7 +120,7 @@ final class TemplateHelperSpec extends ObjectBehavior
     public function it_does_not_buffer_if_consent_not_required(
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
-        ConsentId $consentId
+        ConsentId $consentId,
     ): void {
         $consentToolManager->activeConsentTool()
             ->shouldBeCalled()
@@ -139,7 +139,7 @@ final class TemplateHelperSpec extends ObjectBehavior
     public function it_does_not_allow_start_multiple_blocks(
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
-        ConsentId $consentId
+        ConsentId $consentId,
     ): void {
         $consentToolManager->activeConsentTool()
             ->shouldBeCalled()

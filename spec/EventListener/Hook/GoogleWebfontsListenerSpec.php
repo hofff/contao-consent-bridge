@@ -21,7 +21,7 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
     public function let(
         RequestScopeMatcher $scopeMatcher,
         ConsentToolManager $consentToolManager,
-        ConsentIdParser $consentIdParser
+        ConsentIdParser $consentIdParser,
     ): void {
         $this->beConstructedWith($consentToolManager, $scopeMatcher, $consentIdParser);
     }
@@ -37,7 +37,7 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
         ConsentId $consentId,
         RequestScopeMatcher $scopeMatcher,
         PageModel $pageModel,
-        LayoutModel $layoutModel
+        LayoutModel $layoutModel,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
@@ -65,7 +65,7 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
         ConsentId $consentId,
         RequestScopeMatcher $scopeMatcher,
         PageModel $pageModel,
-        LayoutModel $layoutModel
+        LayoutModel $layoutModel,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 

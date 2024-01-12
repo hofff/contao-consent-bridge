@@ -10,22 +10,11 @@ final class RenderInformation
 
     public const MODE_AUTO = 'auto';
 
-    /**
-     * @psalm-var self::MODE_CUSTOM | self::MODE_AUTO
-     * @var string
-     */
-    private $mode;
-
-    /** @var string|null */
-    private $placeholderTemplate;
-
-    /**
-     * @psalm-param self::MODE_CUSTOM | self::MODE_AUTO $mode
-     */
-    private function __construct(string $mode, ?string $placeholderTemplate = null)
-    {
-        $this->mode                = $mode;
-        $this->placeholderTemplate = $placeholderTemplate;
+    /** @psalm-param self::MODE_CUSTOM | self::MODE_AUTO $mode */
+    private function __construct(
+        private readonly string $mode,
+        private readonly string|null $placeholderTemplate = null,
+    ) {
     }
 
     public static function customRender(): self
@@ -58,7 +47,7 @@ final class RenderInformation
         return $this->placeholderTemplate !== null;
     }
 
-    public function placeholderTemplate(): ?string
+    public function placeholderTemplate(): string|null
     {
         return $this->placeholderTemplate;
     }

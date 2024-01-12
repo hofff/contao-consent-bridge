@@ -19,14 +19,13 @@ use Prophecy\Argument;
 
 final class RenderComponentsListenerSpec extends ObjectBehavior
 {
-    /** @var Bridge */
-    private $bridge;
+    private Bridge $bridge;
 
     public function let(
         RequestScopeMatcher $scopeMatcher,
         ConsentToolManager $consentToolManager,
         ConsentIdParser $consentIdParser,
-        ConsentTool $consentTool
+        ConsentTool $consentTool,
     ): void {
         $this->bridge = new Bridge([]);
 
@@ -45,7 +44,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         ConsentTool $consentTool,
         ConsentId $consentId,
         RequestScopeMatcher $scopeMatcher,
-        ContentModel $model
+        ContentModel $model,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
@@ -70,7 +69,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         RequestScopeMatcher $scopeMatcher,
         ContentModel $model,
         ConsentIdParser $consentIdParser,
-        ConsentId $consentId
+        ConsentId $consentId,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
@@ -95,7 +94,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         RequestScopeMatcher $scopeMatcher,
         ModuleModel $model,
         ConsentIdParser $consentIdParser,
-        ConsentId $consentId
+        ConsentId $consentId,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
@@ -120,7 +119,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         RequestScopeMatcher $scopeMatcher,
         ModuleModel $model,
         ConsentIdParser $consentIdParser,
-        ConsentId $consentId
+        ConsentId $consentId,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 

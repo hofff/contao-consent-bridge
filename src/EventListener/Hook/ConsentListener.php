@@ -14,26 +14,14 @@ use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 
 abstract class ConsentListener
 {
-    /** @var ConsentToolManager */
-    private $consentToolManager;
-
-    /** @var RequestScopeMatcher */
-    private $scopeMatcher;
-
-    /** @var ConsentIdParser */
-    protected $consentIdParser;
-
     public function __construct(
-        ConsentToolManager $consentToolManager,
-        RequestScopeMatcher $scopeMatcher,
-        ConsentIdParser $consentIdParser
+        private readonly ConsentToolManager $consentToolManager,
+        private readonly RequestScopeMatcher $scopeMatcher,
+        protected ConsentIdParser $consentIdParser,
     ) {
-        $this->consentToolManager = $consentToolManager;
-        $this->scopeMatcher       = $scopeMatcher;
-        $this->consentIdParser    = $consentIdParser;
     }
 
-    protected function consentTool(): ?ConsentTool
+    protected function consentTool(): ConsentTool|null
     {
         if (! $this->scopeMatcher->isFrontendRequest()) {
             return null;
@@ -46,7 +34,7 @@ abstract class ConsentListener
         string $buffer,
         string $consentIdAsString,
         RenderInformation $renderInformation,
-        ?Model $model = null
+        Model|null $model = null,
     ): string {
         if (! $renderInformation->isAutoRenderMode()) {
             return $buffer;
@@ -59,7 +47,7 @@ abstract class ConsentListener
 
         try {
             $consentId = $this->consentIdParser->parse($consentIdAsString);
-        } catch (InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException) {
             return $buffer;
         }
 

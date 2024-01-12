@@ -14,18 +14,13 @@ use function assert;
 use function ob_end_flush;
 use function ob_start;
 
-/** @deprecated Implementation don't work in Contao template context - will be removed in version 2.0 */
+/** @deprecated Implementation doesn't work in Contao template context - will be removed in version 2.0 */
 final class TemplateHelper
 {
-    /** @var ConsentToolManager */
-    private $consentToolManager;
+    private bool $block = false;
 
-    /** @var bool */
-    private $block = false;
-
-    public function __construct(ConsentToolManager $consentToolManager)
+    public function __construct(private readonly ConsentToolManager $consentToolManager)
     {
-        $this->consentToolManager = $consentToolManager;
     }
 
     public function requiresConsent(ConsentId $consentId): bool
@@ -38,7 +33,7 @@ final class TemplateHelper
         return $consentTool->requiresConsent($consentId);
     }
 
-    public function contentBlock(ConsentId $consentId, ?Model $model = null): void
+    public function contentBlock(ConsentId $consentId, Model|null $model = null): void
     {
         if (! $this->requiresConsent($consentId)) {
             return;
@@ -48,9 +43,9 @@ final class TemplateHelper
         assert($consentTool instanceof ConsentTool);
 
         $this->block(
-            static function (string $buffer) use ($consentId, $consentTool, $model) {
+            static function (string $buffer) use ($consentId, $consentTool, $model): string {
                 return $consentTool->renderRaw($buffer, $consentId, $model);
-            }
+            },
         );
     }
 
@@ -64,9 +59,9 @@ final class TemplateHelper
         assert($consentTool instanceof ConsentTool);
 
         $this->block(
-            static function (string $buffer) use ($consentId, $consentTool) {
+            static function (string $buffer) use ($consentId, $consentTool): string {
                 return $consentTool->renderPlaceholder($buffer, $consentId);
-            }
+            },
         );
     }
 

@@ -15,16 +15,10 @@ use Netzmacht\Html\Attributes;
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 final class ActiveConsentTool implements ConsentTool
 {
-    /** @var ConsentTool */
-    private $consentTool;
-
-    /** @var ConsentIdParser */
-    private $consentIdParser;
-
-    public function __construct(ConsentTool $consentTool, ConsentIdParser $consentIdParser)
-    {
-        $this->consentTool     = $consentTool;
-        $this->consentIdParser = $consentIdParser;
+    public function __construct(
+        private readonly ConsentTool $consentTool,
+        private readonly ConsentIdParser $consentIdParser,
+    ) {
     }
 
     public function name(): string
@@ -34,8 +28,8 @@ final class ActiveConsentTool implements ConsentTool
 
     public function activate(
         PageModel $rootPageModel,
-        ?PageModel $pageModel = null,
-        ?LayoutModel $layoutModel = null
+        PageModel|null $pageModel = null,
+        LayoutModel|null $layoutModel = null,
     ): bool {
         return $this->consentTool->activate($rootPageModel, $pageModel, $layoutModel);
     }
@@ -57,7 +51,7 @@ final class ActiveConsentTool implements ConsentTool
     }
 
     /** @SuppressWarnings(PHPMD.LongVariable) */
-    public function determineConsentIdByName(string $serviceOrTemplateName): ?ConsentId
+    public function determineConsentIdByName(string $serviceOrTemplateName): ConsentId|null
     {
         return $this->consentTool->determineConsentIdByName($serviceOrTemplateName);
     }
@@ -65,13 +59,13 @@ final class ActiveConsentTool implements ConsentTool
     public function renderContent(
         string $buffer,
         ConsentId $consentId,
-        ?Model $model = null,
-        ?string $placeholderTemplate = null
+        Model|null $model = null,
+        string|null $placeholderTemplate = null,
     ): string {
         return $this->consentTool->renderContent($buffer, $consentId, $model, $placeholderTemplate);
     }
 
-    public function renderRaw(string $buffer, ConsentId $consentId, ?Model $model = null): string
+    public function renderRaw(string $buffer, ConsentId $consentId, Model|null $model = null): string
     {
         return $this->consentTool->renderRaw($buffer, $consentId, $model);
     }

@@ -18,7 +18,7 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
     public function let(
         RepositoryManager $repositoryManager,
         Repository $pageRepository,
-        ConsentToolManager $consentToolManager
+        ConsentToolManager $consentToolManager,
     ): void {
         $repositoryManager->getRepository(PageModel::class)
             ->willReturn($pageRepository);
@@ -36,7 +36,7 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
         Repository $pageRepository,
         PageModel $rootPageModel,
         PageModel $pageModel,
-        LayoutModel $layoutModel
+        LayoutModel $layoutModel,
     ): void {
         $pageModel
             ->getWrappedObject()
@@ -64,7 +64,7 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
         Repository $pageRepository,
         PageModel $rootPageModel,
         PageModel $pageModel,
-        LayoutModel $layoutModel
+        LayoutModel $layoutModel,
     ): void {
         $pageModel
             ->getWrappedObject()

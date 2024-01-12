@@ -12,12 +12,8 @@ use function sprintf;
 
 final class BridgeConfiguredConsentIdParser implements ConsentIdParser
 {
-    /** @var Bridge */
-    private $bridge;
-
-    public function __construct(Bridge $bridge)
+    public function __construct(private readonly Bridge $bridge)
     {
-        $this->bridge = $bridge;
     }
 
     public function parse(string $string): ConsentId

@@ -32,7 +32,7 @@ final class BridgeSpec extends ObjectBehavior
         $pluginB->load($this)->shouldBeCalled();
 
         $this->getWrappedObject()->__construct(
-            [$pluginA->getWrappedObject(), $pluginB->getWrappedObject()]
+            [$pluginA->getWrappedObject(), $pluginB->getWrappedObject()],
         );
     }
 
@@ -48,7 +48,7 @@ final class BridgeSpec extends ObjectBehavior
             [
                 'a' => $consentToolA,
                 'b' => $consentToolB,
-            ]
+            ],
         );
     }
 

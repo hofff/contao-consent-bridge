@@ -42,7 +42,7 @@ final class GoogleWebfontsListener extends ConsentListener
             [
                 'rel'  => 'stylesheet',
                 'href' => 'https://fonts.googleapis.com/css?family=' . str_replace('|', '%7C', $layoutModel->webfonts),
-            ]
+            ],
         );
 
         // Delete web fonts settings. Detach model to prevent accidentally overwrites.
