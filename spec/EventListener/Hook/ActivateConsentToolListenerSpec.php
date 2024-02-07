@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace spec\Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
 use Contao\LayoutModel;
+use Contao\Model;
+use Contao\ModuleModel;
 use Contao\PageModel;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Hofff\Contao\Consent\Bridge\EventListener\Hook\ActivateConsentToolListener;
@@ -12,6 +14,7 @@ use Netzmacht\Contao\Toolkit\Data\Model\Repository;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use ReflectionClass;
 
 final class ActivateConsentToolListenerSpec extends ObjectBehavior
 {
@@ -31,20 +34,19 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
         $this->shouldHaveType(ActivateConsentToolListener::class);
     }
 
-    public function it_activates_consent_tool(
-        ConsentToolManager $consentToolManager,
-        Repository $pageRepository,
-        PageModel $rootPageModel,
-        PageModel $pageModel,
-        LayoutModel $layoutModel,
-    ): void {
-        $pageModel
-            ->getWrappedObject()
-            ->rootId = 1;
+    public function it_activates_consent_tool(ConsentToolManager $consentToolManager, Repository $pageRepository): void
+    {
+        $modelReflection = (new ReflectionClass(Model::class));
+        if ($modelReflection->hasProperty('arrColumnCastTypes')) {
+            $modelReflection->getProperty('arrColumnCastTypes')->setValue(['arrColumnCastTypes' => []]);
+        }
 
-        $rootPageModel
-            ->getWrappedObject()
-            ->hofff_consent_bridge_consent_tool = 'example';
+        $layoutModel   = (new ReflectionClass(LayoutModel::class))->newInstanceWithoutConstructor();
+        $pageModel     = (new ReflectionClass(PageModel::class))->newInstanceWithoutConstructor();
+        $rootPageModel = (new ReflectionClass(PageModel::class))->newInstanceWithoutConstructor();
+
+        $pageModel->rootId                                = 1;
+        $rootPageModel->hofff_consent_bridge_consent_tool = 'example';
 
         $pageRepository->find(1)
             ->shouldBeCalled()
@@ -62,17 +64,18 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
     public function it_does_not_activate_unknown_consent_tool(
         ConsentToolManager $consentToolManager,
         Repository $pageRepository,
-        PageModel $rootPageModel,
-        PageModel $pageModel,
-        LayoutModel $layoutModel,
     ): void {
-        $pageModel
-            ->getWrappedObject()
-            ->rootId = 1;
+        $modelReflection = (new ReflectionClass(Model::class));
+        if ($modelReflection->hasProperty('arrColumnCastTypes')) {
+            $modelReflection->getProperty('arrColumnCastTypes')->setValue(['arrColumnCastTypes' => []]);
+        }
 
-        $rootPageModel
-            ->getWrappedObject()
-            ->hofff_consent_bridge_consent_tool = 'example';
+        $layoutModel   = (new ReflectionClass(LayoutModel::class))->newInstanceWithoutConstructor();
+        $pageModel     = (new ReflectionClass(PageModel::class))->newInstanceWithoutConstructor();
+        $rootPageModel = (new ReflectionClass(PageModel::class))->newInstanceWithoutConstructor();
+
+        $pageModel->rootId                                = 1;
+        $rootPageModel->hofff_consent_bridge_consent_tool = 'example';
 
         $pageRepository->find(1)
             ->shouldBeCalled()

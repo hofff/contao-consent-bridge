@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace spec\Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
 use Contao\ContentModel;
+use Contao\LayoutModel;
+use Contao\Model;
 use Contao\ModuleModel;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentId;
@@ -16,6 +18,7 @@ use Hofff\Contao\Consent\Bridge\Render\RenderInformation;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use ReflectionClass;
 
 final class RenderComponentsListenerSpec extends ObjectBehavior
 {
@@ -44,12 +47,18 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
         ConsentTool $consentTool,
         ConsentId $consentId,
         RequestScopeMatcher $scopeMatcher,
-        ContentModel $model,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $model->getWrappedObject()->type                     = 'foo';
-        $model->getWrappedObject()->hofff_consent_bridge_tag = 'consent_id';
+        $modelReflection = (new ReflectionClass(Model::class));
+        if ($modelReflection->hasProperty('arrColumnCastTypes')) {
+            $modelReflection->getProperty('arrColumnCastTypes')->setValue(['arrColumnCastTypes' => []]);
+        }
+
+        $model = (new ReflectionClass(ContentModel::class))->newInstanceWithoutConstructor();
+
+        $model->type                     = 'foo';
+        $model->hofff_consent_bridge_tag = 'consent_id';
 
         $consentTool->renderContent(Argument::type('string'), Argument::type(ConsentId::class), $model, null)
             ->shouldBeCalled()
@@ -67,14 +76,20 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     public function it_bypass_unsupported_content_element(
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
-        ContentModel $model,
         ConsentIdParser $consentIdParser,
         ConsentId $consentId,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $model->getWrappedObject()->type                     = 'foo';
-        $model->getWrappedObject()->hofff_consent_bridge_tag = 'consent_id';
+        $modelReflection = (new ReflectionClass(Model::class));
+        if ($modelReflection->hasProperty('arrColumnCastTypes')) {
+            $modelReflection->getProperty('arrColumnCastTypes')->setValue(['arrColumnCastTypes' => []]);
+        }
+
+        $model = (new ReflectionClass(ContentModel::class))->newInstanceWithoutConstructor();
+
+        $model->type                     = 'foo';
+        $model->hofff_consent_bridge_tag = 'consent_id';
 
         $consentIdParser->parse(Argument::type('string'))->willReturn($consentId);
 
@@ -92,14 +107,20 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     public function it_renders_supported_frontend_module(
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
-        ModuleModel $model,
         ConsentIdParser $consentIdParser,
         ConsentId $consentId,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $model->getWrappedObject()->type                     = 'foo';
-        $model->getWrappedObject()->hofff_consent_bridge_tag = 'consent_id';
+        $modelReflection = (new ReflectionClass(Model::class));
+        if ($modelReflection->hasProperty('arrColumnCastTypes')) {
+            $modelReflection->getProperty('arrColumnCastTypes')->setValue(['arrColumnCastTypes' => []]);
+        }
+
+        $model = (new ReflectionClass(ModuleModel::class))->newInstanceWithoutConstructor();
+
+        $model->type                     = 'foo';
+        $model->hofff_consent_bridge_tag = 'consent_id';
 
         $consentIdParser->parse(Argument::type('string'))->willReturn($consentId);
 
@@ -117,14 +138,20 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     public function it_bypass_unsupported_frontend_module(
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
-        ModuleModel $model,
         ConsentIdParser $consentIdParser,
         ConsentId $consentId,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $model->getWrappedObject()->type                     = 'foo';
-        $model->getWrappedObject()->hofff_consent_bridge_tag = 'consent_id';
+        $modelReflection = (new ReflectionClass(Model::class));
+        if ($modelReflection->hasProperty('arrColumnCastTypes')) {
+            $modelReflection->getProperty('arrColumnCastTypes')->setValue(['arrColumnCastTypes' => []]);
+        }
+
+        $model = (new ReflectionClass(ModuleModel::class))->newInstanceWithoutConstructor();
+
+        $model->type                     = 'foo';
+        $model->hofff_consent_bridge_tag = 'consent_id';
 
         $consentIdParser->parse(Argument::type('string'))->willReturn($consentId);
 
