@@ -27,7 +27,10 @@ final class HofffContaoConsentBridgeBundleSpec extends ObjectBehavior
 
     public function it_registers_compiler_passes(ContainerBuilder $builder): void
     {
-        $builder->addCompilerPass(Argument::type(RegisterConsentToolPass::class))->shouldBeCalled();
+        $builder
+            ->addCompilerPass(Argument::type(RegisterConsentToolPass::class))
+            ->willReturn($builder->getWrappedObject())
+            ->shouldBeCalled();
 
         $this->build($builder);
     }

@@ -9,33 +9,17 @@ use Hofff\Contao\Consent\Bridge\Exception\RuntimeException;
 use Hofff\Contao\Consent\Bridge\Plugin;
 use Hofff\Contao\Consent\Bridge\Render\RenderInformation;
 
-/**
- * @psalm-type TComponentConfig = array{type: string, mode: 'auto'|'custom', placeholderTemplate?: string}
- */
+/** @psalm-type TComponentConfig = array{type: string, mode: 'auto'|'custom', placeholderTemplate?: string} */
 final class ConfigurationBasedPlugin implements Plugin
 {
-    /**
-     * @var mixed[]
-     * @psalm-var array<string,TComponentConfig>
-     */
-    private $frontendModules;
-
-    /**
-     * @var mixed[]
-     * @psalm-var array<string,TComponentConfig>
-     */
-    private $contentElements;
-
     /**
      * @param mixed[] $contentElements
      * @param mixed[] $frontendModules
      * @psalm-param array<string,TComponentConfig> $contentElements
      * @psalm-param array<string,TComponentConfig> $frontendModules
      */
-    public function __construct(array $contentElements, array $frontendModules)
+    public function __construct(private readonly array $contentElements, private readonly array $frontendModules)
     {
-        $this->contentElements = $contentElements;
-        $this->frontendModules = $frontendModules;
     }
 
     public function load(Bridge $bridge): void

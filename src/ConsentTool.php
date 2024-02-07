@@ -27,8 +27,8 @@ interface ConsentTool
      */
     public function activate(
         PageModel $rootPageModel,
-        ?PageModel $pageModel = null,
-        ?LayoutModel $layoutModel = null
+        PageModel|null $pageModel = null,
+        LayoutModel|null $layoutModel = null,
     ): bool;
 
     /**
@@ -55,7 +55,7 @@ interface ConsentTool
      *
      * @SuppressWarnings(PHPMD.LongVariable)
      */
-    public function determineConsentIdByName(string $serviceOrTemplateName): ?ConsentId;
+    public function determineConsentIdByName(string $serviceOrTemplateName): ConsentId|null;
 
     /**
      * Render content so that consent tool requirements for given consent id is applied.
@@ -65,8 +65,8 @@ interface ConsentTool
     public function renderContent(
         string $buffer,
         ConsentId $consentId,
-        ?Model $model = null,
-        ?string $placeholderTemplate = null
+        Model|null $model = null,
+        string|null $placeholderTemplate = null,
     ): string;
 
     /**
@@ -74,7 +74,7 @@ interface ConsentTool
      *
      * Do not add placeholder content here as it might be header code or hidden javascript.
      */
-    public function renderRaw(string $buffer, ConsentId $consentId, ?Model $model = null): string;
+    public function renderRaw(string $buffer, ConsentId $consentId, Model|null $model = null): string;
 
     /**
      * Render a specific placeholder.

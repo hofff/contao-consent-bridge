@@ -13,16 +13,12 @@ use function is_numeric;
 
 final class ConsentIdOptions
 {
-    /** @var ConsentToolManager */
-    private $consentToolManager;
-
-    public function __construct(ConsentToolManager $consentToolManager)
+    public function __construct(private readonly ConsentToolManager $consentToolManager)
     {
-        $this->consentToolManager = $consentToolManager;
     }
 
     /** @return array<string, string>|array<string, array<string, string>> */
-    public function __invoke(?DataContainer $dataContainer = null): array
+    public function __invoke(DataContainer|null $dataContainer = null): array
     {
         /** @var array<string, array<string, string>> $options */
         $options = [];

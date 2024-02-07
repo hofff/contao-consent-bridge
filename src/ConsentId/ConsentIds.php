@@ -16,10 +16,11 @@ use function array_values;
 use function count;
 use function implode;
 
+/** @implements IteratorAggregate<array-key,ConsentId> */
 final class ConsentIds implements Countable, IteratorAggregate, JsonSerializable
 {
     /** @var ConsentId[] */
-    private $consentIds = [];
+    private array $consentIds = [];
 
     /** @param ConsentId[] $consentIds */
     public static function fromArray(array $consentIds): self
@@ -44,9 +45,7 @@ final class ConsentIds implements Countable, IteratorAggregate, JsonSerializable
         $this->consentIds[] = $consentId;
     }
 
-    /**
-     * @return ConsentId[]
-     */
+    /** @return ConsentId[] */
     public function toArray(): array
     {
         return $this->consentIds;
@@ -86,8 +85,8 @@ final class ConsentIds implements Countable, IteratorAggregate, JsonSerializable
                 static function (ConsentId $consentId): string {
                     return $consentId->toString();
                 },
-                $this->consentIds
-            )
+                $this->consentIds,
+            ),
         );
     }
 
@@ -98,7 +97,7 @@ final class ConsentIds implements Countable, IteratorAggregate, JsonSerializable
             static function (ConsentId $consentId): string {
                 return $consentId->toString();
             },
-            $this->consentIds
+            $this->consentIds,
         );
     }
 

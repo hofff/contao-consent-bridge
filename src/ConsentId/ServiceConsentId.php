@@ -16,19 +16,15 @@ abstract class ServiceConsentId implements ConsentId
     /** @var string */
     protected static $category;
 
-    /** @var string */
-    private $service;
-
-    public function __construct(string $serviceName)
+    public function __construct(private readonly string $service)
     {
-        $this->service = $serviceName;
     }
 
     public static function supports(string $string): bool
     {
         try {
             self::extractServiceName($string);
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             return false;
         }
 
@@ -71,7 +67,7 @@ abstract class ServiceConsentId implements ConsentId
 
         if (count($parts) !== 2 || $parts[0] !== static::$category) {
             throw new InvalidArgumentException(
-                sprintf('Given string "%s" is not a valid service consent tag', $string)
+                sprintf('Given string "%s" is not a valid service consent tag', $string),
             );
         }
 

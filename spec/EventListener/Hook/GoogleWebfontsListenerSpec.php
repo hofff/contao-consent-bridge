@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace spec\Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
 use Contao\LayoutModel;
+use Contao\Model;
 use Contao\PageModel;
 use Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
@@ -15,13 +16,14 @@ use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 use Netzmacht\Html\Attributes;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use ReflectionClass;
 
 final class GoogleWebfontsListenerSpec extends ObjectBehavior
 {
     public function let(
         RequestScopeMatcher $scopeMatcher,
         ConsentToolManager $consentToolManager,
-        ConsentIdParser $consentIdParser
+        ConsentIdParser $consentIdParser,
     ): void {
         $this->beConstructedWith($consentToolManager, $scopeMatcher, $consentIdParser);
     }
@@ -37,10 +39,15 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
         ConsentId $consentId,
         RequestScopeMatcher $scopeMatcher,
         PageModel $pageModel,
-        LayoutModel $layoutModel
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
+        $modelReflection = (new ReflectionClass(Model::class));
+        if ($modelReflection->hasProperty('arrColumnCastTypes')) {
+            $modelReflection->getProperty('arrColumnCastTypes')->setValue(['arrColumnCastTypes' => []]);
+        }
+
+        $layoutModel           = (new ReflectionClass(LayoutModel::class))->newInstanceWithoutConstructor();
         $layoutModel->webfonts = 'foo';
 
         $consentTool->determineConsentIdByName('google_webfonts')
@@ -65,7 +72,7 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
         ConsentId $consentId,
         RequestScopeMatcher $scopeMatcher,
         PageModel $pageModel,
-        LayoutModel $layoutModel
+        LayoutModel $layoutModel,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 

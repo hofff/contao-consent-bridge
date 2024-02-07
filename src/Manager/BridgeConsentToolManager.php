@@ -15,15 +15,10 @@ use function sprintf;
 
 final class BridgeConsentToolManager implements ConsentToolManager
 {
-    /** @var Bridge */
-    private $bridge;
+    private ConsentTool|null $activeConsentTool = null;
 
-    /** @var ConsentTool|null */
-    private $activeConsentTool;
-
-    public function __construct(Bridge $bridge)
+    public function __construct(private readonly Bridge $bridge)
     {
-        $this->bridge = $bridge;
     }
 
     /** @return ConsentTool[] */
@@ -49,8 +44,8 @@ final class BridgeConsentToolManager implements ConsentToolManager
     public function activate(
         string $name,
         PageModel $rootPageModel,
-        ?PageModel $pageModel = null,
-        ?LayoutModel $layoutModel = null
+        PageModel|null $pageModel = null,
+        LayoutModel|null $layoutModel = null,
     ): bool {
         $consentTool = $this->get($name);
 
@@ -63,7 +58,7 @@ final class BridgeConsentToolManager implements ConsentToolManager
         return false;
     }
 
-    public function activeConsentTool(): ?ConsentTool
+    public function activeConsentTool(): ConsentTool|null
     {
         return $this->activeConsentTool;
     }

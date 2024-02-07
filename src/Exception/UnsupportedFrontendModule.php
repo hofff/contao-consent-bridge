@@ -10,17 +10,16 @@ use function sprintf;
 
 final class UnsupportedFrontendModule extends InvalidArgumentException
 {
-    /** @var string */
-    private $type;
-
-    public function __construct(string $type, string $message = '', int $code = 0, ?Throwable $previous = null)
-    {
+    public function __construct(
+        private readonly string $type,
+        string $message = '',
+        int $code = 0,
+        Throwable|null $previous = null,
+    ) {
         parent::__construct($message, $code, $previous);
-
-        $this->type = $type;
     }
 
-    public static function ofType(string $type, int $code = 0, ?Throwable $previous = null): self
+    public static function ofType(string $type, int $code = 0, Throwable|null $previous = null): self
     {
         return new self($type, sprintf('Content element of type "%s" is not supported', $type), $code, $previous);
     }

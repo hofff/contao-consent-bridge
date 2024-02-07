@@ -13,19 +13,13 @@ use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 
 final class RenderComponentsListener extends ConsentListener
 {
-    /** @var Bridge */
-    private $bridge;
-
-    /** @param string[] $elements */
     public function __construct(
         ConsentToolManager $consentToolManager,
         RequestScopeMatcher $scopeMatcher,
         ConsentIdParser $consentIdParser,
-        Bridge $bridge
+        private readonly Bridge $bridge,
     ) {
         parent::__construct($consentToolManager, $scopeMatcher, $consentIdParser);
-
-        $this->bridge = $bridge;
     }
 
     public function onGetContentElement(ContentModel $contentModel, string $buffer): string
@@ -57,7 +51,7 @@ final class RenderComponentsListener extends ConsentListener
             (string) $contentModel->hofff_consent_bridge_tag,
             // phpcs:enable
             $renderInformation,
-            $contentModel
+            $contentModel,
         );
     }
 
@@ -80,7 +74,7 @@ final class RenderComponentsListener extends ConsentListener
             (string) $moduleModel->hofff_consent_bridge_tag,
             // phpcs:enable
             $renderInformation,
-            $moduleModel
+            $moduleModel,
         );
     }
 }

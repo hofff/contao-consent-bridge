@@ -23,7 +23,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
     public function let(
         RequestScopeMatcher $scopeMatcher,
         ConsentToolManager $consentToolManager,
-        ConsentIdParser $consentIdParser
+        ConsentIdParser $consentIdParser,
     ): void {
         $this->beConstructedWith($consentToolManager, $scopeMatcher, $consentIdParser);
     }
@@ -37,7 +37,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         ConsentId $consentId,
-        RequestScopeMatcher $scopeMatcher
+        RequestScopeMatcher $scopeMatcher,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
@@ -60,7 +60,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
     public function it_bypass_unsupported_template(
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
-        RequestScopeMatcher $scopeMatcher
+        RequestScopeMatcher $scopeMatcher,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
@@ -82,7 +82,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
-        FrontendTemplate $template
+        FrontendTemplate $template,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
@@ -97,7 +97,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
-        Template $template
+        Template $template,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
@@ -112,7 +112,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
-        FrontendTemplate $template
+        FrontendTemplate $template,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(false);
 
@@ -127,7 +127,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         ConsentTool $consentTool,
         RequestScopeMatcher $scopeMatcher,
-        FrontendTemplate $template
+        FrontendTemplate $template,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
@@ -143,7 +143,7 @@ final class ParseFrontendTemplateListenerSpec extends ObjectBehavior
     public function it_does_not_inject_consent_tool_if_non_given(
         ConsentToolManager $consentToolManager,
         RequestScopeMatcher $scopeMatcher,
-        Template $template
+        Template $template,
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 

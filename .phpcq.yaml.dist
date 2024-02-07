@@ -1,6 +1,6 @@
 phpcq:
   repositories:
-    - ./.phpcq/local/repository.json
+    - ./vendor/netzmacht/phpspec-phpcq-plugin/repository.json
     - https://phpcq.github.io/repository/repository.json
   directories:
     - src
@@ -51,6 +51,8 @@ phpcq:
     - C00543248C87FB13
     # phpmd
     - 0F9684B8B16B7AB0
+    - 9093F8B32E4815AA
+    - 5E6DDE998AB73B8E
 
 tasks:
   fix:
@@ -79,6 +81,7 @@ tasks:
        - src/EventListener/Dca/ContentDcaListener.php
        - src/EventListener/Dca/ModuleDcaListener.php
        - spec/EventListener/Hook/RenderComponentsListenerSpec.php
+       - spec/EventListener/Hook/ActivateConsentToolListenerSpec.php
 
   phpmd:
     config:
@@ -107,7 +110,13 @@ tasks:
       <<: *phpcs-config
       fix: true
 
+  composer-normalize:
+    config: &composer-normalize-config
+      ignore_output:
+        - '#> pre-command-run: Contao\\ManagerPlugin\\Composer\\ArtifactsPlugin->preCommandRun#'
+
   composer-normalize-fix:
     plugin: composer-normalize
     config:
+      <<: *composer-normalize-config
       dry_run: false

@@ -10,13 +10,13 @@ use Iterator;
 use function count;
 use function iterator_count;
 
+/** @implements Iterator<int,ConsentId> */
 final class ConsentIdIterator implements Iterator
 {
     /** @var ConsentId[] */
-    private $consentIds;
+    private array $consentIds;
 
-    /** @var int */
-    private $position;
+    private int $position;
 
     public function __construct(ConsentIds $consentIds)
     {
