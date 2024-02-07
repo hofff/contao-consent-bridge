@@ -27,12 +27,12 @@
     "ext-pdo": "*",
     "contao-community-alliance/meta-palettes": "^2.0",
     "contao/core-bundle": "^4.13 || ^5.0",
-    "doctrine/dbal": "^2.11 || ^3.0",
+    "doctrine/dbal": "^3.4",
     "netzmacht/contao-toolkit": "^3.9 || ^4.0",
     "netzmacht/html": "^2.0 || ^3.0",
-    "symfony/config": "^4.4 || ^5.4 || ^6.0",
-    "symfony/dependency-injection": "^4.4 || ^5.4 || ^6.0",
-    "symfony/http-kernel": "^4.4 || ^5.4 || ^6.0",
+    "symfony/config": "^5.4 || ^6.4",
+    "symfony/dependency-injection": "^5.4 || ^6.4",
+    "symfony/http-kernel": "^5.4 || ^6.4",
     "symfony/translation-contracts": "^1.1 || ^2.0 || ^3.0"
   },
   "require-dev": {
@@ -64,8 +64,8 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-develop": "1.5.x-dev",
-      "dev-master": "1.4.x-dev"
+      "dev-develop": "1.6.x-dev",
+      "dev-master": "1.5.x-dev"
     },
     "contao-manager-plugin": "Hofff\\Contao\\Consent\\Bridge\\ContaoManager\\Plugin"
   }

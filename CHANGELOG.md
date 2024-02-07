@@ -3,6 +3,14 @@
 
 ## [Unreleased]
 
+## [1.5.0] - (2024-02-07)
+
+### Changed
+
+ - Dump dependency of Contao to `^4.13 || ^5.2`
+ - Dump symfony dependencies to `^5.4 || ^6.4`
+ - Require at least PHP 8.1
+
 ## [1.4.3] - (2022-01-27)
 
 ### Fixed
