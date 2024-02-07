@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace spec\Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
 use Contao\ContentModel;
-use Contao\LayoutModel;
 use Contao\Model;
 use Contao\ModuleModel;
 use Hofff\Contao\Consent\Bridge\Bridge;

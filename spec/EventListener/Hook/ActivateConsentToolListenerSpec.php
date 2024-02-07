@@ -6,7 +6,6 @@ namespace spec\Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
 use Contao\LayoutModel;
 use Contao\Model;
-use Contao\ModuleModel;
 use Contao\PageModel;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Hofff\Contao\Consent\Bridge\EventListener\Hook\ActivateConsentToolListener;

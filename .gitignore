@@ -6,5 +6,4 @@ composer.lock
 .phpcs-cache
 
 # PHPCQ related
-/.phpcq/*
-!/.phpcq/local
+/.phpcq

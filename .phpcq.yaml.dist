@@ -1,6 +1,6 @@
 phpcq:
   repositories:
-    - ./.phpcq/local/repository.json
+    - ./vendor/netzmacht/phpspec-phpcq-plugin/repository.json
     - https://phpcq.github.io/repository/repository.json
   directories:
     - src
@@ -81,6 +81,7 @@ tasks:
        - src/EventListener/Dca/ContentDcaListener.php
        - src/EventListener/Dca/ModuleDcaListener.php
        - spec/EventListener/Hook/RenderComponentsListenerSpec.php
+       - spec/EventListener/Hook/ActivateConsentToolListenerSpec.php
 
   phpmd:
     config:

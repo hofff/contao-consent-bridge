@@ -39,12 +39,18 @@
     "contao/manager-plugin": "^2.1",
     "doctrine/coding-standard": "^12.0",
     "friends-of-phpspec/phpspec-expect": "^4.0",
+    "netzmacht/phpspec-phpcq-plugin": "@dev",
     "phpcq/runner-bootstrap": "^1.0@dev",
     "phpspec/phpspec": "^7.4"
   },
   "autoload": {
     "psr-4": {
       "Hofff\\Contao\\Consent\\Bridge\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "spec\\Hofff\\Contao\\Consent\\Bridge\\": "spec/"
     }
   },
   "config": {
