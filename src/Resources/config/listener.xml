@@ -5,7 +5,7 @@
         https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <defaults autowire="false" autoconfigure="false" public="false"/>
+        <defaults autowire="false" autoconfigure="true" public="false"/>
 
         <!-- Hook listeners -->
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Hook\ActivateConsentToolListener" public="true">
@@ -50,6 +50,7 @@
             <argument type="service" id="translator" />
             <argument type="service" id="netzmacht.contao_toolkit.contao.backend_user" />
             <argument type="service" id="netzmacht.contao_toolkit.contao.message_adapter" />
+            <argument type="service" id="netzmacht.contao_toolkit.contao.input_adapter" />
         </service>
 
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\ModuleDcaListener" public="true">
@@ -59,6 +60,7 @@
             <argument type="service" id="translator" />
             <argument type="service" id="netzmacht.contao_toolkit.contao.backend_user" />
             <argument type="service" id="netzmacht.contao_toolkit.contao.message_adapter" />
+            <argument type="service" id="netzmacht.contao_toolkit.contao.input_adapter" />
         </service>
 
         <service id="Hofff\Contao\Consent\Bridge\EventListener\Dca\PageDcaListener" public="true">

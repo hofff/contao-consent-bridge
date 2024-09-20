@@ -22,10 +22,10 @@ final class Bridge
      */
     private array $consentIds = [];
 
-    /** @var array<string, RenderInformation> */
+    /** @var array<string, non-empty-list<RenderInformation>> */
     private array $elements = [];
 
-    /** @var array<string, RenderInformation> */
+    /** @var array<string, non-empty-list<RenderInformation>> */
     private array $modules = [];
 
     /** @param Plugin[] $plugins */
@@ -55,14 +55,14 @@ final class Bridge
 
     public function supportContentElement(string $type, RenderInformation $renderInformation): self
     {
-        $this->elements[$type] = $renderInformation;
+        $this->elements[$type][] = $renderInformation;
 
         return $this;
     }
 
     public function supportFrontendModule(string $type, RenderInformation $renderInformation): self
     {
-        $this->modules[$type] = $renderInformation;
+        $this->modules[$type][] = $renderInformation;
 
         return $this;
     }
@@ -105,13 +105,21 @@ final class Bridge
         return isset($this->elements[$type]);
     }
 
-    public function contentElementRenderInformation(string $type): RenderInformation
-    {
+    public function contentElementRenderInformation(
+        string $type,
+        string|null $placeholderTemplate = null,
+    ): RenderInformation {
         if (! isset($this->elements[$type])) {
             throw UnsupportedContentElement::ofType($type);
         }
 
-        return $this->elements[$type];
+        return $this->determineBestMatchingRenderInformation($this->elements[$type], $placeholderTemplate);
+    }
+
+    /** @return list<string> */
+    public function contentElementPlaceholderTemplates(string $type): array
+    {
+        return $this->extractPlaceholderTemplates($this->elements[$type] ?? []);
     }
 
     public function supportsFrontendModule(string $type): bool
@@ -119,12 +127,57 @@ final class Bridge
         return isset($this->modules[$type]);
     }
 
-    public function frontendModuleRenderInformation(string $type): RenderInformation
-    {
+    public function frontendModuleRenderInformation(
+        string $type,
+        string|null $placeholderTemplate = null,
+    ): RenderInformation {
         if (! isset($this->modules[$type])) {
             throw UnsupportedFrontendModule::ofType($type);
         }
 
-        return $this->modules[$type];
+        return $this->determineBestMatchingRenderInformation($this->modules[$type], $placeholderTemplate);
+    }
+
+    /** @return list<string> */
+    public function frontendModulePlaceholderTemplates(string $type): array
+    {
+        return $this->extractPlaceholderTemplates($this->modules[$type] ?? []);
+    }
+
+    /** @param non-empty-list<RenderInformation> $collection */
+    private function determineBestMatchingRenderInformation(
+        array $collection,
+        string|null $placeholderTemplate = null,
+    ): RenderInformation {
+        foreach ($collection as $renderInformation) {
+            if ($renderInformation->placeholderTemplate() !== $placeholderTemplate) {
+                continue;
+            }
+
+            return $renderInformation;
+        }
+
+        return $collection[0];
+    }
+
+    /**
+     * @param list<RenderInformation> $collection
+     *
+     * @return list<string>
+     */
+    private function extractPlaceholderTemplates(array $collection): array
+    {
+        $templates = [];
+
+        foreach ($collection as $renderInformation) {
+            $template = $renderInformation->placeholderTemplate();
+            if ($template === null) {
+                continue;
+            }
+
+            $templates[] = $template;
+        }
+
+        return $templates;
     }
 }

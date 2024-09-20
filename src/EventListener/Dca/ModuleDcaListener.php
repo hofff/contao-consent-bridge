@@ -7,6 +7,7 @@ namespace Hofff\Contao\Consent\Bridge\EventListener\Dca;
 use Contao\BackendUser;
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\CoreBundle\DataContainer\PaletteNotFoundException;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\DataContainer;
 use Contao\Input;
@@ -17,10 +18,14 @@ use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function count;
+use function is_string;
 
 final class ModuleDcaListener
 {
-    /** @param Adapter<Message> $messageAdapter */
+    /**
+     * @param Adapter<Message> $messageAdapter
+     * @param Adapter<Input>   $inputAdapter
+     */
     public function __construct(
         private readonly Bridge $bridge,
         private readonly ConsentToolManager $consentToolManager,
@@ -28,18 +33,40 @@ final class ModuleDcaListener
         private readonly TranslatorInterface $translator,
         private readonly BackendUser $backendUser,
         private readonly Adapter $messageAdapter,
+        private readonly Adapter $inputAdapter,
     ) {
     }
 
-    public function initializePalettes(): void
+    public function initializePalettes(DataContainer $dataContainer): void
     {
         if (count($this->consentToolManager->consentTools()) === 0) {
             return;
         }
 
+        $fields = ['hofff_consent_bridge_tag'];
+
+        if ($this->inputAdapter->get('act') === 'edit') {
+            $result = $this->connection->executeQuery(
+                'SELECT type FROM tl_module WHERE id=:id LIMIT 0,1',
+                ['id' => $dataContainer->id],
+            );
+
+            /** @psalm-var string|false $type */
+            $type = $result->fetchOne();
+
+            if (is_string($type)) {
+                $placeholderTemplates = $this->bridge->frontendModulePlaceholderTemplates($type);
+                if (count($placeholderTemplates) > 0) {
+                    $fields[] = 'hofff_consent_bridge_placeholder_template';
+                }
+            }
+        } else {
+            $fields[] = 'hofff_consent_bridge_placeholder_template';
+        }
+
         $paletteManipulator = PaletteManipulator::create()
             ->addLegend('hofff_consent_bridge_legend', 'expert_legend')
-            ->addField('hofff_consent_bridge_tag', 'hofff_consent_bridge_legend', PaletteManipulator::POSITION_APPEND);
+            ->addField($fields, 'hofff_consent_bridge_legend', PaletteManipulator::POSITION_APPEND);
 
         foreach ($this->bridge->supportedFrontendModules() as $module) {
             try {
@@ -79,5 +106,22 @@ final class ModuleDcaListener
             'addInfo',
             [$this->translator->trans('tl_content.hofff_consent_bridge_tag_missing', [], 'contao_tl_content')],
         );
+    }
+
+    /** @return list<string> */
+    #[AsCallback('tl_module', 'fields.hofff_consent_bridge_placeholder_template.options')]
+    public function placeholderTemplates(DataContainer $dataContainer): array
+    {
+        /**
+         * @psalm-var string|null $type
+         * @psalm-suppress UndefinedMagicPropertyFetch
+         * @psalm-suppress MixedPropertyFetch
+         */
+        $type = $dataContainer->activeRecord?->type;
+        if ($type === null) {
+            return [];
+        }
+
+        return $this->bridge->frontendModulePlaceholderTemplates($type);
     }
 }

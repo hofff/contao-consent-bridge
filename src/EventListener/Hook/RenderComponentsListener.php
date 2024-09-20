@@ -43,7 +43,11 @@ final class RenderComponentsListener extends ConsentListener
             return $buffer;
         }
 
-        $renderInformation = $this->bridge->contentElementRenderInformation($contentModel->type);
+        /** @psalm-suppress MixedArgument */
+        $renderInformation = $this->bridge->contentElementRenderInformation(
+            $contentModel->type,
+            $contentModel->hofff_consent_bridge_placeholder_template,
+        );
 
         return $this->renderContent(
             $buffer,
@@ -66,7 +70,11 @@ final class RenderComponentsListener extends ConsentListener
             return $buffer;
         }
 
-        $renderInformation = $this->bridge->frontendModuleRenderInformation($moduleModel->type);
+        /** @psalm-suppress MixedArgument */
+        $renderInformation = $this->bridge->frontendModuleRenderInformation(
+            $moduleModel->type,
+            $moduleModel->hofff_consent_bridge_placeholder_template,
+        );
 
         return $this->renderContent(
             $buffer,
