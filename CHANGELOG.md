@@ -3,6 +3,12 @@
 
 ## [Unreleased]
 
+## [1.6.0] - (2024-09-27)
+
+### Added
+
+ - Add support to select a placeholder template
+
 ## [1.5.0] - (2024-02-07)
 
 ### Changed

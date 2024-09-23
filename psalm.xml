@@ -21,7 +21,9 @@
             <errorLevel type="suppress">
                 <referencedProperty name="Contao\PageModel::$hofff_consent_bridge_consent_tool"/>
                 <referencedProperty name="Contao\ContentModel::$hofff_consent_bridge_tag"/>
+                <referencedProperty name="Contao\ContentModel::$hofff_consent_bridge_placeholder_template"/>
                 <referencedProperty name="Contao\ModuleModel::$hofff_consent_bridge_tag"/>
+                <referencedProperty name="Contao\ModuleModel::$hofff_consent_bridge_placeholder_template"/>
             </errorLevel>
         </UndefinedMagicPropertyFetch>
         <UndefinedMagicPropertyAssignment>
@@ -34,6 +36,11 @@
                 <referencedClass name="Contao\Template"/>
             </errorLevel>
         </DeprecatedClass>
+        <DeprecatedMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Contao\BackendUser::hasAccess"/>
+            </errorLevel>
+        </DeprecatedMethod>
     </issueHandlers>
 
     <universalObjectCrates>

@@ -9,7 +9,6 @@ $GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][] = [ContentDcaLis
 $GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][] = [ContentDcaListener::class, 'showConsentInfo'];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['hofff_consent_bridge_tag'] = [
-    'label'            => &$GLOBALS['TL_LANG']['tl_content']['hofff_consent_bridge_tag'],
     'exclude'          => true,
     'inputType'        => 'select',
     'options_callback' => [ConsentIdOptions::class, '__invoke'],
@@ -20,4 +19,16 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['hofff_consent_bridge_tag'] = [
         'multiple'           => false,
     ],
     'sql'              => ['type' => 'string', 'default' => null, 'notnull' => false],
+];
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['hofff_consent_bridge_placeholder_template'] = [
+    'exclude'          => true,
+    'inputType'        => 'select',
+    'eval'             => [
+        'tl_class'           => 'w50',
+        'includeBlankOption' => true,
+        'chosen'             => true,
+        'multiple'           => false,
+    ],
+    'sql'              => ['type' => 'string', 'length' => 255, 'default' => null, 'notnull' => false],
 ];

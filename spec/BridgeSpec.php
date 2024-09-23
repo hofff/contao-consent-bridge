@@ -95,4 +95,19 @@ final class BridgeSpec extends ObjectBehavior
 
         $this->shouldThrow(UnsupportedFrontendModule::class)->during('frontendModuleRenderInformation', ['c']);
     }
+
+    public function it_supports_multiple_render_information(): void
+    {
+        $this->supportContentElement('a', RenderInformation::autoRenderWithPlaceholder('tpl_a'));
+        $this->supportContentElement('a', RenderInformation::autoRenderWithPlaceholder('tpl_b'));
+
+        $this->contentElementRenderInformation('a')->placeholderTemplate()->shouldReturn('tpl_a');
+        $this->contentElementRenderInformation('a', 'tpl_b')->placeholderTemplate()->shouldReturn('tpl_b');
+
+        $this->supportFrontendModule('a', RenderInformation::autoRenderWithPlaceholder('tpl_a'));
+        $this->supportFrontendModule('a', RenderInformation::autoRenderWithPlaceholder('tpl_b'));
+
+        $this->frontendModuleRenderInformation('a')->placeholderTemplate()->shouldReturn('tpl_a');
+        $this->frontendModuleRenderInformation('a', 'tpl_b')->placeholderTemplate()->shouldReturn('tpl_b');
+    }
 }
