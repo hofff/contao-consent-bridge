@@ -6,6 +6,7 @@ namespace Hofff\Contao\Consent\Bridge\ConsentId;
 
 use Hofff\Contao\Consent\Bridge\ConsentId;
 use InvalidArgumentException;
+use Override;
 
 use function count;
 use function explode;
@@ -20,6 +21,7 @@ abstract class ServiceConsentId implements ConsentId
     {
     }
 
+    #[Override]
     public static function supports(string $string): bool
     {
         try {
@@ -31,12 +33,14 @@ abstract class ServiceConsentId implements ConsentId
         return true;
     }
 
+    #[Override]
     public static function fromSerialized(string $string): ConsentId
     {
         /** @psalm-suppress UnsafeInstantiation */
         return new static(self::extractServiceName($string));
     }
 
+    #[Override]
     public function equals(ConsentId $other): bool
     {
         if ($other instanceof static) {
@@ -46,11 +50,13 @@ abstract class ServiceConsentId implements ConsentId
         return false;
     }
 
+    #[Override]
     public function toString(): string
     {
         return static::$category . ':' . $this->service;
     }
 
+    #[Override]
     public function serialize(): string
     {
         return $this->toString();

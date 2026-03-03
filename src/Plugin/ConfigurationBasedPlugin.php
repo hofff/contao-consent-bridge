@@ -8,6 +8,7 @@ use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\Exception\RuntimeException;
 use Hofff\Contao\Consent\Bridge\Plugin;
 use Hofff\Contao\Consent\Bridge\Render\RenderInformation;
+use Override;
 
 /** @psalm-type TComponentConfig = array{type: string, mode: 'auto'|'custom', placeholderTemplate?: string} */
 final class ConfigurationBasedPlugin implements Plugin
@@ -22,6 +23,7 @@ final class ConfigurationBasedPlugin implements Plugin
     {
     }
 
+    #[Override]
     public function load(Bridge $bridge): void
     {
         $this->registerContentElements($bridge);

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hofff\Contao\Consent\Bridge\DependencyInjection\Compiler;
 
 use Hofff\Contao\Consent\Bridge\Bridge;
+use Override;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -13,6 +14,7 @@ final class RegisterConsentToolPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
+    #[Override]
     public function process(ContainerBuilder $container): void
     {
         if (! $container->hasDefinition(Bridge::class)) {

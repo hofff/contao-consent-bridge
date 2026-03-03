@@ -35,7 +35,7 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
 
     public function it_activates_consent_tool(ConsentToolManager $consentToolManager, Repository $pageRepository): void
     {
-        $modelReflection = (new ReflectionClass(Model::class));
+        $modelReflection = new ReflectionClass(Model::class);
         if ($modelReflection->hasProperty('arrColumnCastTypes')) {
             $modelReflection->getProperty('arrColumnCastTypes')->setValue(['arrColumnCastTypes' => []]);
         }
@@ -64,7 +64,7 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
         ConsentToolManager $consentToolManager,
         Repository $pageRepository,
     ): void {
-        $modelReflection = (new ReflectionClass(Model::class));
+        $modelReflection = new ReflectionClass(Model::class);
         if ($modelReflection->hasProperty('arrColumnCastTypes')) {
             $modelReflection->getProperty('arrColumnCastTypes')->setValue(['arrColumnCastTypes' => []]);
         }

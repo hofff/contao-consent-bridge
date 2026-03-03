@@ -6,14 +6,16 @@ namespace Hofff\Contao\Consent\Bridge\DependencyInjection;
 
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\Plugin;
+use Override;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-class HofffContaoConsentBridgeExtension extends Extension
+final class HofffContaoConsentBridgeExtension extends Extension
 {
     /** @param mixed[] $configs */
+    #[Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new XmlFileLoader(

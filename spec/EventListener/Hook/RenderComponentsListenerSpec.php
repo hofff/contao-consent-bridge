@@ -49,7 +49,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $modelReflection = (new ReflectionClass(Model::class));
+        $modelReflection = new ReflectionClass(Model::class);
         if ($modelReflection->hasProperty('arrColumnCastTypes')) {
             $modelReflection->getProperty('arrColumnCastTypes')->setValue(['arrColumnCastTypes' => []]);
         }
@@ -80,7 +80,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $modelReflection = (new ReflectionClass(Model::class));
+        $modelReflection = new ReflectionClass(Model::class);
         if ($modelReflection->hasProperty('arrColumnCastTypes')) {
             $modelReflection->getProperty('arrColumnCastTypes')->setValue(['arrColumnCastTypes' => []]);
         }
@@ -111,7 +111,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $modelReflection = (new ReflectionClass(Model::class));
+        $modelReflection = new ReflectionClass(Model::class);
         if ($modelReflection->hasProperty('arrColumnCastTypes')) {
             $modelReflection->getProperty('arrColumnCastTypes')->setValue(['arrColumnCastTypes' => []]);
         }
@@ -142,7 +142,7 @@ final class RenderComponentsListenerSpec extends ObjectBehavior
     ): void {
         $scopeMatcher->isFrontendRequest()->willReturn(true);
 
-        $modelReflection = (new ReflectionClass(Model::class));
+        $modelReflection = new ReflectionClass(Model::class);
         if ($modelReflection->hasProperty('arrColumnCastTypes')) {
             $modelReflection->getProperty('arrColumnCastTypes')->setValue(['arrColumnCastTypes' => []]);
         }

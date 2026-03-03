@@ -89,9 +89,8 @@ final class ModuleDcaListener
             return;
         }
 
-        $sql       = 'SELECT type FROM tl_module WHERE id=? AND hofff_consent_bridge_tag IS NULL';
-        $statement = $this->connection->prepare($sql);
-        $result    = $statement->executeQuery([$dataContainer->id]);
+        $sql    = 'SELECT type FROM tl_module WHERE id=? AND hofff_consent_bridge_tag IS NULL';
+        $result = $this->connection->executeQuery($sql, [$dataContainer->id]);
 
         if ($result->rowCount() === 0) {
             return;

@@ -11,6 +11,7 @@ use Contao\ManagerPlugin\Bundle\Config\ConfigInterface;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Hofff\Contao\Consent\Bridge\HofffContaoConsentBridgeBundle;
 use MadeYourDay\RockSolidCustomElements\RockSolidCustomElementsBundle;
+use Override;
 
 final class Plugin implements BundlePluginInterface
 {
@@ -20,6 +21,7 @@ final class Plugin implements BundlePluginInterface
      * @psalm-suppress UndefinedClass
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
+    #[Override]
     public function getBundles(ParserInterface $parser): array
     {
         return [

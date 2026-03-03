@@ -8,6 +8,7 @@ use Countable;
 use Hofff\Contao\Consent\Bridge\ConsentId;
 use IteratorAggregate;
 use JsonSerializable;
+use Override;
 
 use function array_map;
 use function array_merge;
@@ -51,11 +52,13 @@ final class ConsentIds implements Countable, IteratorAggregate, JsonSerializable
         return $this->consentIds;
     }
 
+    #[Override]
     public function getIterator(): ConsentIdIterator
     {
         return new ConsentIdIterator($this);
     }
 
+    #[Override]
     public function count(): int
     {
         return count($this->consentIds);
@@ -91,6 +94,7 @@ final class ConsentIds implements Countable, IteratorAggregate, JsonSerializable
     }
 
     /** @return string[] */
+    #[Override]
     public function jsonSerialize(): array
     {
         return array_map(

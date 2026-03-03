@@ -7,6 +7,7 @@ namespace Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentId;
 use Hofff\Contao\Consent\Bridge\Exception\InvalidArgumentException;
+use Override;
 
 use function sprintf;
 
@@ -16,6 +17,7 @@ final class BridgeConfiguredConsentIdParser implements ConsentIdParser
     {
     }
 
+    #[Override]
     public function parse(string $string): ConsentId
     {
         foreach ($this->bridge->providedConsentIds() as $class) {

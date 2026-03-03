@@ -6,6 +6,7 @@ namespace Hofff\Contao\Consent\Bridge\ConsentId;
 
 use Hofff\Contao\Consent\Bridge\ConsentId;
 use Iterator;
+use Override;
 
 use function count;
 use function iterator_count;
@@ -29,26 +30,31 @@ final class ConsentIdIterator implements Iterator
         return iterator_count($this);
     }
 
+    #[Override]
     public function rewind(): void
     {
         $this->position = 0;
     }
 
+    #[Override]
     public function valid(): bool
     {
         return $this->position < count($this->consentIds);
     }
 
+    #[Override]
     public function key(): int
     {
         return $this->position;
     }
 
+    #[Override]
     public function current(): ConsentId
     {
         return $this->consentIds[$this->position];
     }
 
+    #[Override]
     public function next(): void
     {
         $this->position++;

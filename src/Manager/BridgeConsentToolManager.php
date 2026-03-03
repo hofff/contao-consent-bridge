@@ -10,6 +10,7 @@ use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentTool;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use InvalidArgumentException;
+use Override;
 
 use function sprintf;
 
@@ -22,16 +23,19 @@ final class BridgeConsentToolManager implements ConsentToolManager
     }
 
     /** @return ConsentTool[] */
+    #[Override]
     public function consentTools(): array
     {
         return $this->bridge->consentTools();
     }
 
+    #[Override]
     public function has(string $name): bool
     {
         return isset($this->consentTools()[$name]);
     }
 
+    #[Override]
     public function get(string $name): ConsentTool
     {
         if (! $this->has($name)) {
@@ -41,6 +45,7 @@ final class BridgeConsentToolManager implements ConsentToolManager
         return $this->consentTools()[$name];
     }
 
+    #[Override]
     public function activate(
         string $name,
         PageModel $rootPageModel,
@@ -58,6 +63,7 @@ final class BridgeConsentToolManager implements ConsentToolManager
         return false;
     }
 
+    #[Override]
     public function activeConsentTool(): ConsentTool|null
     {
         return $this->activeConsentTool;
