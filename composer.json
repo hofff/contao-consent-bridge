@@ -26,13 +26,13 @@
     "ext-json": "*",
     "ext-pdo": "*",
     "contao-community-alliance/meta-palettes": "^2.0",
-    "contao/core-bundle": "^4.13 || ^5.0",
-    "doctrine/dbal": "^3.4",
+    "contao/core-bundle": "^4.13 || ^5.3",
+    "doctrine/dbal": "^3.9 || ^4.0",
     "netzmacht/contao-toolkit": "^3.9 || ^4.0",
     "netzmacht/html": "^2.0 || ^3.0",
-    "symfony/config": "^5.4 || ^6.4",
-    "symfony/dependency-injection": "^5.4 || ^6.4",
-    "symfony/http-kernel": "^5.4 || ^6.4",
+    "symfony/config": "^5.4 || ^6.4 || ^7.4",
+    "symfony/dependency-injection": "^5.4 || ^6.4 || ^7.4",
+    "symfony/http-kernel": "^5.4 || ^6.4 || ^7.4",
     "symfony/translation-contracts": "^1.1 || ^2.0 || ^3.0"
   },
   "require-dev": {
@@ -41,7 +41,7 @@
     "friends-of-phpspec/phpspec-expect": "^4.0",
     "netzmacht/phpspec-phpcq-plugin": "@dev",
     "phpcq/runner-bootstrap": "^1.0@dev",
-    "phpspec/phpspec": "^7.4"
+    "phpspec/phpspec": "^8.2"
   },
   "autoload": {
     "psr-4": {

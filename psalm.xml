@@ -2,6 +2,7 @@
 <psalm
     totallyTyped="true"
     errorLevel="1"
+    findUnusedCode="false"
     resolveFromConfigFile="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
