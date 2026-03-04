@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
 use Contao\ContentModel;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\ModuleModel;
 use Hofff\Contao\Consent\Bridge\Bridge;
 use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
@@ -22,6 +23,7 @@ final class RenderComponentsListener extends ConsentListener
         parent::__construct($consentToolManager, $scopeMatcher, $consentIdParser);
     }
 
+    #[AsHook('getContentElement')]
     public function onGetContentElement(ContentModel $contentModel, string $buffer): string
     {
         $consentTool = $this->consentTool();
@@ -59,6 +61,7 @@ final class RenderComponentsListener extends ConsentListener
         );
     }
 
+    #[AsHook('getFrontendModule')]
     public function onGetFrontendModule(ModuleModel $moduleModel, string $buffer): string
     {
         $consentTool = $this->consentTool();

@@ -6,6 +6,7 @@ namespace Hofff\Contao\Consent\Bridge\EventListener\Dca;
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\CoreBundle\DataContainer\PaletteNotFoundException;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 
 use function count;
@@ -20,6 +21,7 @@ final class PageDcaListener
         $this->consentToolManager = $consentToolManager;
     }
 
+    #[AsHook('loadDataContainer', priority: 255)]
     public function onLoadDataContainer(string $name): void
     {
         static $processed = false;

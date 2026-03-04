@@ -55,7 +55,7 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
         $consentToolManager->activate('example', $rootPageModel, $pageModel, $layoutModel)
             ->willReturn(true);
 
-        $this->onGetPageLayout($pageModel, $layoutModel);
+        $this->__invoke($pageModel, $layoutModel);
 
         $consentToolManager->activeConsentTool();
     }
@@ -85,7 +85,7 @@ final class ActivateConsentToolListenerSpec extends ObjectBehavior
             ->shouldNotBeCalled()
             ->willReturn(true);
 
-        $this->onGetPageLayout($pageModel, $layoutModel);
+        $this->__invoke($pageModel, $layoutModel);
 
         $consentToolManager->activeConsentTool();
     }

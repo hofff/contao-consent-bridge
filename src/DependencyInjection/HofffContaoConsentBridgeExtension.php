@@ -10,7 +10,7 @@ use Override;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 final class HofffContaoConsentBridgeExtension extends Extension
 {
@@ -18,13 +18,13 @@ final class HofffContaoConsentBridgeExtension extends Extension
     #[Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new XmlFileLoader(
+        $loader = new YamlFileLoader(
             $container,
             new FileLocator(__DIR__ . '/../Resources/config'),
         );
 
-        $loader->load('services.xml');
-        $loader->load('listener.xml');
+        $loader->load('services.yaml');
+        $loader->load('listener.yaml');
 
         /** @psalm-var array{content_elements:array<string,string>, frontend_modules:array<string,string>} $config */
         $config = $this->processConfiguration(new Configuration(), $configs);

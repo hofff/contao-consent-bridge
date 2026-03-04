@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\LayoutModel;
 use Contao\PageModel;
 use Netzmacht\Html\Attributes;
@@ -12,13 +13,14 @@ use function is_array;
 use function is_string;
 use function str_replace;
 
+#[AsHook('generatePage')]
 final class GoogleWebfontsListener extends ConsentListener
 {
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    public function onGeneratePage(PageModel $pageModel, LayoutModel $layoutModel): void
+    public function __invoke(PageModel $pageModel, LayoutModel $layoutModel): void
     {
         if (! is_string($layoutModel->webfonts) || $layoutModel->webfonts === '') {
             return;

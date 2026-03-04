@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Hofff\Contao\Consent\Bridge\EventListener\Hook;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\LayoutModel;
 use Contao\PageModel;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 
+#[AsHook('getPageLayout')]
 final class ActivateConsentToolListener
 {
     /** @var ConsentToolManager */
@@ -23,7 +25,7 @@ final class ActivateConsentToolListener
         $this->repositoryManager  = $repositoryManager;
     }
 
-    public function onGetPageLayout(PageModel $pageModel, LayoutModel $layoutModel): void
+    public function __invoke(PageModel $pageModel, LayoutModel $layoutModel): void
     {
         $repository = $this->repositoryManager->getRepository(PageModel::class);
         /** @psalm-suppress RedundantCastGivenDocblockType */

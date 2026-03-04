@@ -1,0 +1,32 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    Hofff\Contao\Consent\Bridge\ConsentToolManager:
+        class: Hofff\Contao\Consent\Bridge\Manager\BridgeConsentToolManager
+        public: true
+        arguments:
+            - '@Hofff\Contao\Consent\Bridge\Bridge'
+
+    Hofff\Contao\Consent\Bridge\Bridge:
+        arguments:
+            - !tagged_iterator hofff_contao_consent_bridge.plugin
+
+    Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser:
+        class: Hofff\Contao\Consent\Bridge\ConsentId\BridgeConfiguredConsentIdParser
+        arguments:
+            - '@Hofff\Contao\Consent\Bridge\Bridge'
+
+    Hofff\Contao\Consent\Bridge\Plugin\ConfigurationBasedPlugin:
+        arguments:
+            - '%hofff_contao_consent_bridge.content_elements%'
+            - '%hofff_contao_consent_bridge.frontend_modules%'
+        tags:
+            - { name: hofff_contao_consent_bridge.plugin, priority: -128 }
+
+    Hofff\Contao\Consent\Bridge\Render\TemplateHelper:
+        public: true
+        arguments:
+            - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'

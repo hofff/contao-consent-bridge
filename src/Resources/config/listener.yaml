@@ -1,0 +1,67 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: true
+        public: false
+
+    # Hook listeners - hooks are now registered via AsHook attributes in the classes
+    Hofff\Contao\Consent\Bridge\EventListener\Hook\ActivateConsentToolListener:
+        public: true
+        arguments:
+            - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'
+            - '@netzmacht.contao_toolkit.repository_manager'
+
+    Hofff\Contao\Consent\Bridge\EventListener\Hook\GoogleWebfontsListener:
+        public: true
+        arguments:
+            - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'
+            - '@netzmacht.contao_toolkit.routing.scope_matcher'
+            - '@Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser'
+
+    Hofff\Contao\Consent\Bridge\EventListener\Hook\ParseFrontendTemplateListener:
+        public: true
+        arguments:
+            - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'
+            - '@netzmacht.contao_toolkit.routing.scope_matcher'
+            - '@Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser'
+
+    Hofff\Contao\Consent\Bridge\EventListener\Hook\RenderComponentsListener:
+        public: true
+        arguments:
+            - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'
+            - '@netzmacht.contao_toolkit.routing.scope_matcher'
+            - '@Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser'
+            - '@Hofff\Contao\Consent\Bridge\Bridge'
+
+    # Data container listener
+    Hofff\Contao\Consent\Bridge\EventListener\Dca\ConsentIdOptions:
+        public: true
+        arguments:
+            - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'
+
+    Hofff\Contao\Consent\Bridge\EventListener\Dca\ContentDcaListener:
+        public: true
+        arguments:
+            - '@Hofff\Contao\Consent\Bridge\Bridge'
+            - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'
+            - '@database_connection'
+            - '@translator'
+            - '@netzmacht.contao_toolkit.contao.backend_user'
+            - '@netzmacht.contao_toolkit.contao.message_adapter'
+            - '@netzmacht.contao_toolkit.contao.input_adapter'
+
+    Hofff\Contao\Consent\Bridge\EventListener\Dca\ModuleDcaListener:
+        public: true
+        arguments:
+            - '@Hofff\Contao\Consent\Bridge\Bridge'
+            - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'
+            - '@database_connection'
+            - '@translator'
+            - '@netzmacht.contao_toolkit.contao.backend_user'
+            - '@netzmacht.contao_toolkit.contao.message_adapter'
+            - '@netzmacht.contao_toolkit.contao.input_adapter'
+
+    Hofff\Contao\Consent\Bridge\EventListener\Dca\PageDcaListener:
+        public: true
+        arguments:
+            - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'

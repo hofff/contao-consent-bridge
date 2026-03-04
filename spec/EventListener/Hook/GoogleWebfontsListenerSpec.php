@@ -63,7 +63,7 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
 
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
 
-        $this->onGeneratePage($pageModel, $layoutModel);
+        $this->__invoke($pageModel, $layoutModel);
     }
 
     public function it_bypass_unsupported_template(
@@ -85,6 +85,6 @@ final class GoogleWebfontsListenerSpec extends ObjectBehavior
 
         $consentToolManager->activeConsentTool()->willReturn($consentTool);
 
-        $this->onGeneratePage($pageModel, $layoutModel);
+        $this->__invoke($pageModel, $layoutModel);
     }
 }
