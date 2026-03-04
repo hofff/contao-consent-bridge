@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Doctrine\DBAL\Types\Types;
 use Hofff\Contao\Consent\Bridge\EventListener\Dca\PageDcaListener;
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['hofff_consent_bridge_consent_tool'] = [
@@ -17,7 +18,8 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['hofff_consent_bridge_consent_tool'] = [
         'tl_class'           => 'w50',
     ],
     'sql'              => [
-        'type'    => 'string',
+        'type'    => Types::STRING,
+        'length'  => 255,
         'notnull' => true,
         'default' => '',
     ],

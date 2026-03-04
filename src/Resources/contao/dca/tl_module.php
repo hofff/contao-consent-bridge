@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Doctrine\DBAL\Types\Types;
 use Hofff\Contao\Consent\Bridge\EventListener\Dca\ConsentIdOptions;
 use Hofff\Contao\Consent\Bridge\EventListener\Dca\ModuleDcaListener;
 
@@ -20,7 +21,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['hofff_consent_bridge_tag'] = [
         'chosen'             => true,
         'multiple'           => false,
     ],
-    'sql'              => ['type' => 'string', 'default' => null, 'notnull' => false],
+    'sql'              => ['type' => Types::STRING, 'length' => 255, 'default' => null, 'notnull' => false],
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['hofff_consent_bridge_placeholder_template'] = [
@@ -32,5 +33,5 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['hofff_consent_bridge_placeholder_temp
         'chosen'             => true,
         'multiple'           => false,
     ],
-    'sql'              => ['type' => 'string', 'length' => 255, 'default' => null, 'notnull' => false],
+    'sql'              => ['type' => Types::STRING, 'length' => 255, 'default' => null, 'notnull' => false],
 ];
