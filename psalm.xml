@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<psalm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://getpsalm.org/schema/config" totallyTyped="true" errorLevel="1" findUnusedCode="false" resolveFromConfigFile="true" xsi:schemaLocation="https://getpsalm.org/schema/config https://getpsalm.org/schema/config" findUnusedBaselineEntry="false" hideExternalErrors="true">
+<psalm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://getpsalm.org/schema/config" totallyTyped="true" errorLevel="1" findUnusedCode="false" resolveFromConfigFile="true" xsi:schemaLocation="https://getpsalm.org/schema/config https://getpsalm.org/schema/config" findUnusedBaselineEntry="false" hideExternalErrors="true" findUnusedIssueHandlerSuppression="false">
     <projectFiles>
         <directory name="src"/>
         <ignoreFiles>
@@ -34,6 +34,11 @@
                 <referencedMethod name="Contao\BackendUser::hasAccess"/>
             </errorLevel>
         </DeprecatedMethod>
+        <UndefinedClass>
+            <errorLevel type="suppress">
+                <referencedClass name="Contao\CoreBundle\Event\LayoutEvent"/>
+            </errorLevel>
+        </UndefinedClass>
     </issueHandlers>
 
     <universalObjectCrates>
