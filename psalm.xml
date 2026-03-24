@@ -34,11 +34,6 @@
                 <referencedMethod name="Contao\BackendUser::hasAccess"/>
             </errorLevel>
         </DeprecatedMethod>
-        <UndefinedClass>
-            <errorLevel type="suppress">
-                <referencedClass name="Contao\CoreBundle\Event\LayoutEvent"/>
-            </errorLevel>
-        </UndefinedClass>
     </issueHandlers>
 
     <universalObjectCrates>

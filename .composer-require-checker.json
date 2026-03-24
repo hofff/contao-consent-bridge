@@ -6,7 +6,6 @@
     "Contao\\ManagerPlugin\\Bundle\\BundlePluginInterface",
     "Contao\\ManagerPlugin\\Bundle\\Config\\BundleConfig",
     "Contao\\ManagerPlugin\\Bundle\\Parser\\ParserInterface",
-    "MadeYourDay\\RockSolidCustomElements\\RockSolidCustomElementsBundle",
-    "Contao\\CoreBundle\\Event\\LayoutEvent"
+    "MadeYourDay\\RockSolidCustomElements\\RockSolidCustomElementsBundle"
   ]
 }

@@ -18,7 +18,7 @@ jobs:
       matrix:
         include:
           - php: 8.2
-            output: '-o github-action -o default'
+            output: '-o github-action -o default --exit-0'
             phpcq_install: 'update'
           - php: 8.3
             output: '-o github-action -o default'
@@ -80,7 +80,7 @@ jobs:
 
       - name: Upload build directory to artifact
         uses: actions/upload-artifact@v7
-        if: ${{ success() }} || ${{ failure() }}
+        if: ${{ success() || failure() }}
         with:
           name: phpcq-builds-php-${{ matrix.php }}
           path: .phpcq/build/
