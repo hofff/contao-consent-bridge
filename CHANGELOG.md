@@ -3,6 +3,12 @@
 
 ## [Unreleased]
 
+## [1.8.0] - (2025-03-23)
+
+### Added
+
+ - Activates consent tools in twig layouts using the `LayoutEvent`
+
 ## [1.6.0] - (2024-09-27)
 
 ### Added

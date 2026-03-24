@@ -65,3 +65,8 @@ services:
         public: true
         arguments:
             - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'
+
+    Hofff\Contao\Consent\Bridge\EventListener\LayoutListener:
+        arguments:
+          - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'
+          - '@netzmacht.contao_toolkit.repository_manager'

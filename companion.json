@@ -1,0 +1,46 @@
+{
+  "receipts": [
+    "projects/contao-bundle/4.13-5.3"
+  ],
+  "config": {
+    "phpConstraint": "^8.2"
+  },
+  "tools": {
+    "composer": {
+      "namespace": "Hofff\\Contao\\Consent\\Bridge"
+    },
+    "phpcq": {
+      "plugins": {
+        "phpunit": false,
+        "phpspec": true,
+        "rector": false
+      },
+      "presets": {
+        "composer-require-checker": {
+          "tasks": {
+            "composer-require-checker": {
+              "config":{
+                "config_file": ".composer-require-checker.json"
+              }
+            }
+          }
+        },
+        "phpcpd": {
+          "config": {
+            "exclude": [
+              "src/EventListener/Dca/ContentDcaListener.php",
+              "src/EventListener/Dca/ModuleDcaListener.php",
+              "spec/EventListener/Hook/RenderComponentsListenerSpec.php",
+              "spec/EventListener/Hook/ActivateConsentToolListenerSpec.php"
+            ]
+          }
+        }
+      }
+    },
+    "psalm": {
+      "configuration": {
+        "errorLevel": "1"
+      }
+    }
+  }
+}

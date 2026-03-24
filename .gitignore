@@ -1,9 +1,11 @@
-/node_modules/
+# Companion
+/.env.companion
 
-/vendor/
+# Composer
+/composer.lock
+/vendor
 
-composer.lock
-.phpcs-cache
-
-# PHPCQ related
+# PHPCQ
 /.phpcq
+/.phpcq.yaml
+/.phpcs-cache
