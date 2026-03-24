@@ -19,6 +19,10 @@ final class LayoutListener
     ) {
     }
 
+    /**
+     * @psalm-suppress MixedAssignment
+     * @psalm-suppress MixedPropertyFetch
+     */
     public function __invoke(LayoutEvent $event): void
     {
         $pageModel  = $event->getPage();
