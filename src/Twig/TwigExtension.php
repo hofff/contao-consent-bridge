@@ -82,10 +82,13 @@ final class TwigExtension extends AbstractExtension
         array $context,
         string $html,
         string $consentId,
-        array $data = [],
         string|null $placeholderTemplate = null,
+        array|null $data = null,
     ): string {
         $consentTool = $this->getActiveConsentTool();
+        if ($consentTool === null) {
+            return $html;
+        }
 
         try {
             $consentId = $this->consentIdParser->parse($consentId);
@@ -93,7 +96,7 @@ final class TwigExtension extends AbstractExtension
             return $html;
         }
 
-        return $consentTool->renderContentForContext($html, $consentId, $data, $placeholderTemplate);
+        return $consentTool->renderContentForContext($html, $consentId, $data ?? $context, $placeholderTemplate);
     }
 
     /**
@@ -102,9 +105,12 @@ final class TwigExtension extends AbstractExtension
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function renderRaw(array $context, string $html, string $consentId, array $data = []): string
+    public function renderRaw(array $context, string $html, string $consentId, array|null $data = null): string
     {
         $consentTool = $this->getActiveConsentTool();
+        if ($consentTool === null) {
+            return $html;
+        }
 
         try {
             $consentId = $this->consentIdParser->parse($consentId);
@@ -112,12 +118,16 @@ final class TwigExtension extends AbstractExtension
             return $html;
         }
 
-        return $consentTool->renderRawForContext($html, $consentId, $data);
+        return $consentTool->renderRawForContext($html, $consentId, $data ?? $context);
     }
 
-    public function getActiveConsentTool(): WithGenericContextSupport
+    public function getActiveConsentTool(): WithGenericContextSupport|null
     {
         $consentTool = $this->consentToolManager->activeConsentTool();
+        if ($consentTool === null) {
+            return null;
+        }
+
         if (! $consentTool instanceof WithGenericContextSupport) {
             throw new RuntimeException('Consent tool does not support Twig.');
         }
