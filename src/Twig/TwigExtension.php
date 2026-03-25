@@ -7,9 +7,12 @@ namespace Hofff\Contao\Consent\Bridge\Twig;
 use Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser;
 use Hofff\Contao\Consent\Bridge\ConsentToolManager;
 use Hofff\Contao\Consent\Bridge\Exception\InvalidArgumentException;
+use Hofff\Contao\Consent\Bridge\Exception\RuntimeException;
+use Hofff\Contao\Consent\Bridge\WithGenericContextSupport;
 use Override;
 use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 use function is_array;
@@ -25,16 +28,27 @@ final class TwigExtension extends AbstractExtension
 
     /** {@inheritDoc} */
     #[Override]
-    public function getTokenParsers(): array
+    public function getFunctions(): array
     {
-        return [new ConsentTokenParser()];
+        return [new TwigFunction('hofff_consent_required', $this->isConsentRequired(...))];
     }
 
     /** {@inheritDoc} */
     #[Override]
-    public function getFunctions(): array
+    public function getFilters(): array
     {
-        return [new TwigFunction('hofff_consent_required', $this->isConsentRequired(...))];
+        return [
+            new TwigFilter(
+                'hofff_consent_content',
+                $this->renderContent(...),
+                ['needs_context' => true, 'is_safe' => ['html']],
+            ),
+            new TwigFilter(
+                'hofff_consent_raw',
+                $this->renderContent(...),
+                ['needs_context' => true, 'is_safe' => ['html']],
+            ),
+        ];
     }
 
     /** @param string|array{hofff_consent_bridge_tag?: string} $consentIdContext */
@@ -56,5 +70,58 @@ final class TwigExtension extends AbstractExtension
         }
 
         return $consentTool->requiresConsent($consentId);
+    }
+
+    /**
+     * @param array<string, mixed> $context
+     * @param array<string, mixed> $data
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    public function renderContent(
+        array $context,
+        string $html,
+        string $consentId,
+        array $data = [],
+        string|null $placeholderTemplate = null,
+    ): string {
+        $consentTool = $this->getActiveConsentTool();
+
+        try {
+            $consentId = $this->consentIdParser->parse($consentId);
+        } catch (InvalidArgumentException) {
+            return $html;
+        }
+
+        return $consentTool->renderContentForContext($html, $consentId, $data, $placeholderTemplate);
+    }
+
+    /**
+     * @param array<string, mixed> $context
+     * @param array<string, mixed> $data
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    public function renderRaw(array $context, string $html, string $consentId, array $data = []): string
+    {
+        $consentTool = $this->getActiveConsentTool();
+
+        try {
+            $consentId = $this->consentIdParser->parse($consentId);
+        } catch (InvalidArgumentException) {
+            return $html;
+        }
+
+        return $consentTool->renderRawForContext($html, $consentId, $data);
+    }
+
+    public function getActiveConsentTool(): WithGenericContextSupport
+    {
+        $consentTool = $this->consentToolManager->activeConsentTool();
+        if (! $consentTool instanceof WithGenericContextSupport) {
+            throw new RuntimeException('Consent tool does not support Twig.');
+        }
+
+        return $consentTool;
     }
 }
