@@ -67,10 +67,103 @@ class MyPlugin implements \Hofff\Contao\Consent\Bridge\Plugin
 }
 ```
 
-Then there will be a new legend where you can assign a consent id to your configuration and the rendering of the 
-html output will automatically adjusted depending the requirements of the consent tool.
+Then there will be a new legend where you can assign a consent id to your configuration, and the rendering of the 
+HTML output will automatically adjust depending on the requirements of the consent tool.
 
 ### As consent tool developer
 
-As consent tool developer you need to implement the interface `Hofff\Contao\Consent\Bridge\ConsentTool` and tag it 
-as `hofff_contao_consent_bridge.consent_tool` in the dependency injection container.s
+As consent tool developer you need to implement the interface `Hofff\Contao\Consent\Bridge\ConsentTool` and tag it
+as `hofff_contao_consent_bridge.consent_tool` in the dependency injection container. Use the
+`\Hofff\Contao\Consent\Bridge\WithGenericContextSupport` interface if the consent tools should support twig.
+
+### Twig integration
+
+The extension provides Twig filters and functions to use consent functionality directly in Twig templates.
+The consent tool must implement `\Hofff\Contao\Consent\Bridge\WithGenericContextSupport` to support Twig rendering.
+
+#### `hofff_consent_required` — Function
+
+Checks whether consent is required for a given consent ID. Returns `true` if the active consent tool requires
+consent, `false` otherwise (also when no consent tool is active or the ID is invalid).
+
+```twig
+{# Check by consent ID string #}
+{% if hofff_consent_required('my-consent-id') %}
+    {# Consent is required, render placeholder or alternative content #}
+{% endif %}
+
+{# Check using the Twig context (reads hofff_consent_bridge_tag automatically) #}
+{% if hofff_consent_required(_context) %}
+    {# Consent is required #}
+{% endif %}
+```
+
+#### `hofff_consent_content` — Filter
+
+Wraps HTML content according to the requirements of the active consent tool. If consent is required, the output
+is transformed by the consent tool (e.g. replaced with a placeholder). An optional custom placeholder template
+and additional data can be passed.
+
+If no consent tool is active or the consent ID is invalid, the original HTML is returned unchanged.
+
+```twig
+{# Basic usage #}
+{{ html_content|hofff_consent_content('my-consent-id') }}
+
+{# With a custom placeholder template #}
+{{ html_content|hofff_consent_content('my-consent-id', 'my_placeholder_template') }}
+
+{# With a custom placeholder template and additional data passed to the consent tool #}
+{{ html_content|hofff_consent_content('my-consent-id', 'my_placeholder_template', {title: 'My Title'}) }}
+```
+
+The filter can also be applied to larger blocks using the `{% apply %}` tag:
+
+```twig
+{% apply hofff_consent_content('my-consent-id') %}
+    <iframe src="https://example.com/embed" width="560" height="315"></iframe>
+{% endapply %}
+
+{# With a custom placeholder template #}
+{% apply hofff_consent_content('my-consent-id', 'my_placeholder_template') %}
+    <iframe src="https://example.com/embed" width="560" height="315"></iframe>
+{% endapply %}
+
+{# With additional data #}
+{% apply hofff_consent_content('my-consent-id', 'my_placeholder_template', {title: 'My Title'}) %}
+    <iframe src="https://example.com/embed" width="560" height="315"></iframe>
+{% endapply %}
+```
+
+#### `hofff_consent_raw` — Filter
+
+Applies consent requirements to raw HTML content (e.g. inline scripts or tracking code) without adding a visual
+placeholder. This is intended for hidden markup that should be managed by the consent tool but does not need
+a visible fallback.
+
+If no consent tool is active or the consent ID is invalid, the original HTML is returned unchanged.
+
+```twig
+{# Basic usage #}
+{{ raw_script|hofff_consent_raw('my-consent-id') }}
+
+{# With additional data passed to the consent tool #}
+{{ raw_script|hofff_consent_raw('my-consent-id', {key: 'value'}) }}
+```
+
+The filter can also be applied to blocks using the `{% apply %}` tag:
+
+```twig
+{% apply hofff_consent_raw('my-consent-id') %}
+    <script type="text/javascript">
+        // tracking code
+    </script>
+{% endapply %}
+
+{# With additional data #}
+{% apply hofff_consent_raw('my-consent-id', {key: 'value'}) %}
+    <script type="text/javascript">
+        // tracking code
+    </script>
+{% endapply %}
+```

@@ -30,3 +30,17 @@ services:
         public: true
         arguments:
             - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'
+
+    Hofff\Contao\Consent\Bridge\Twig\TwigExtension:
+      arguments:
+        - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'
+        - '@Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser'
+      tags:
+        - { name: twig.extension }
+
+    Hofff\Contao\Consent\Bridge\Twig\ConsentWrapRuntime:
+      arguments:
+        - '@Hofff\Contao\Consent\Bridge\ConsentToolManager'
+        - '@Hofff\Contao\Consent\Bridge\ConsentId\ConsentIdParser'
+      tags:
+        - { name: twig.runtime }

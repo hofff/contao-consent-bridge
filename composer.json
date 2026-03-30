@@ -34,7 +34,8 @@
     "symfony/dependency-injection": "^5.4 || ^6.4 || ^7.4",
     "symfony/event-dispatcher": "^5.4 || ^6.4 || ^7.4",
     "symfony/http-kernel": "^5.4 || ^6.4 || ^7.4",
-    "symfony/translation-contracts": "^1.0 || ^2.0 || ^3.0"
+    "symfony/translation-contracts": "^1.0 || ^2.0 || ^3.0",
+    "twig/twig": "^3.8"
   },
   "require-dev": {
     "contao/manager-plugin": "^2.1",
@@ -68,8 +69,8 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-develop": "1.9.x-dev",
-      "dev-master": "1.8.x-dev"
+      "dev-develop": "1.10.x-dev",
+      "dev-master": "1.9.x-dev"
     },
     "contao-manager-plugin": "Hofff\\Contao\\Consent\\Bridge\\ContaoManager\\Plugin"
   }

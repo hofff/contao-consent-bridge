@@ -3,6 +3,15 @@
 
 ## [Unreleased]
 
+## [1.9.0] - (2025-03-30)
+
+### Added
+
+ - Add additional interface `\Hofff\Contao\Consent\Bridge\WithGenericContextSupport` for consent tools, as the base for 
+ - a twig template support
+ - Add twig function `hofff_consent_required`
+ - Add twig filter `hofff_consent_content` and `hofff_consent_raw` to apply consent rendering in twig templates
+
 ## [1.8.0] - (2025-03-24)
 
 ### Added
