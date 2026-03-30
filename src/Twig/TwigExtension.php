@@ -45,7 +45,7 @@ final class TwigExtension extends AbstractExtension
             ),
             new TwigFilter(
                 'hofff_consent_raw',
-                $this->renderContent(...),
+                $this->renderRaw(...),
                 ['needs_context' => true, 'is_safe' => ['html']],
             ),
         ];
